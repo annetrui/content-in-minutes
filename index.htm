@@ -263,7 +263,7 @@ textarea.invalid { border-color: #e05050 !important; }
         <div class="arch-chip" data-arch="Heldin" data-key="mutig · entschlossen · inspirierend" data-emoji="🦸"><span class="arch-emoji">🦸</span><span class="arch-name">Heldin</span><span class="arch-key">mutig · entschlossen</span></div>
         <div class="arch-chip" data-arch="Creator" data-key="kreativ · visionär · originell" data-emoji="🎨"><span class="arch-emoji">🎨</span><span class="arch-name">Creator</span><span class="arch-key">kreativ · visionär</span></div>
         <div class="arch-chip" data-arch="Rebellin" data-key="provokant · ehrlich · disruptiv" data-emoji="🔥"><span class="arch-emoji">🔥</span><span class="arch-name">Rebellin</span><span class="arch-key">provokant · disruptiv</span></div>
-        <div class="arch-chip" data-arch="Königin" data-key="souverän · führungsstark · autoritär" data-emoji="👑"><span class="arch-emoji">👑</span><span class="arch-name">Königin</span><span class="arch-key">souverän · führungsstark</span></div>
+        <div class="arch-chip" data-arch="Königin" data-key="souverän · führungsstark · autoritär" data-emoji="👑"><span class="arch-emoji">👑</span><span class="arch-name">Königin</span><span class="arch-key">souverän · führend</span></div>
         <div class="arch-chip" data-arch="Beschützerin" data-key="fürsorglich · sicher · vertrauenswürdig" data-emoji="🌿"><span class="arch-emoji">🌿</span><span class="arch-name">Beschützerin</span><span class="arch-key">fürsorglich · sicher</span></div>
         <div class="arch-chip" data-arch="Entdeckerin" data-key="neugierig · frei · abenteuerlustig" data-emoji="🧭"><span class="arch-emoji">🧭</span><span class="arch-name">Entdeckerin</span><span class="arch-key">neugierig · frei</span></div>
         <div class="arch-chip" data-arch="Lover" data-key="warmherzig · verbindend · empathisch" data-emoji="💖"><span class="arch-emoji">💖</span><span class="arch-name">Lover</span><span class="arch-key">warmherzig · empathisch</span></div>
@@ -520,6 +520,27 @@ const hookDefs = {
   alle: `Schreibe je einen Hook für ALLE 10 Typen: 1. Kopf der Kundin 2. Ich-Geschichte 3. Neugier 4. Provokation 5. POV 6. Paradox 7. Emotionale Offenheit 8. Zahlen 9. Frage 10. Statement. Schreibe vor jeden Hook den Typ in Klammern.`
 };
 
+function stripMarkdown(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*\*(.+?)\*\*\*/g, '$1')
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/\*(.+?)\*/g, '$1')
+    .replace(/_{2}(.+?)_{2}/g, '$1')
+    .replace(/_(.+?)_/g, '$1');
+}
+
+function renderMarkdown(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/_{2}(.+?)_{2}/g, '<strong>$1</strong>')
+    .replace(/_(.+?)_/g, '<em>$1</em>')
+    .replace(/\n/g, '<br>');
+}
+
 async function generateHooks() {
   const topic = document.getElementById('topic').value.trim();
   if(!topic) { showToast('Gib zuerst ein Thema ein 💖'); return; }
@@ -545,11 +566,11 @@ async function generateHooks() {
     `Hook-Typ: ${hookDefs[hookType]}`,
     isAll ? `Generiere einen Hook pro Typ.` : `Generiere genau ${count} verschiedene Hooks.`,
     `WICHTIG — Ausgabeformat:`,
-    `HOOK: [Der Hook-Text]`,
-    `SUBLINE: [Optional — nur wenn sinnvoll]`,
+    `HOOK: [Der Hook-Text — KEIN Markdown, keine Sterne, keine Unterstriche]`,
+    `SUBLINE: [Optional — nur wenn sinnvoll, ebenfalls kein Markdown]`,
     `WARUM: [1-2 Sätze warum dieser Hook funktioniert]`,
     `---`,
-    `Regeln: Nur Deutsch. Kein Warm-up. Vollständige echte Sätze. Klingen wie ein echter Mensch.`,
+    `Regeln: Nur Deutsch. Kein Warm-up. Vollständige echte Sätze. Klingen wie ein echter Mensch. Kein Markdown.`,
     `Schreibe jetzt die Hooks:`
   ].filter(Boolean).join('\n');
 
@@ -559,9 +580,9 @@ async function generateHooks() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt, max_tokens: 1500 })
     });
-    const text = await response.text();
+    const textRaw = await response.text();
     let data;
-    try { data = JSON.parse(text); } catch(e) { throw new Error('Server-Fehler: ' + text.substring(0, 100)); }
+    try { data = JSON.parse(textRaw); } catch(e) { throw new Error('Server-Fehler: ' + textRaw.substring(0, 100)); }
     if(data.error) throw new Error(data.error);
     const raw = data.text || '';
     if(!raw) throw new Error('Keine Antwort erhalten');
@@ -573,9 +594,11 @@ async function generateHooks() {
       const hookMatch    = block.match(/HOOK:\s*([\s\S]*?)(?=SUBLINE:|WARUM:|$)/i);
       const sublineMatch = block.match(/SUBLINE:\s*([\s\S]*?)(?=WARUM:|$)/i);
       const warumMatch   = block.match(/WARUM:\s*([\s\S]*?)$/i);
-      const hookText    = hookMatch    ? hookMatch[1].trim()    : '';
-      const sublineText = sublineMatch ? sublineMatch[1].trim() : '';
-      const warumText   = warumMatch   ? warumMatch[1].trim()   : '';
+
+      const hookText    = hookMatch    ? stripMarkdown(hookMatch[1].trim())    : '';
+      const sublineText = sublineMatch ? stripMarkdown(sublineMatch[1].trim()) : '';
+      const warumText   = warumMatch   ? stripMarkdown(warumMatch[1].trim())   : '';
+
       if(!hookText) return;
 
       let label = typeLabel;
@@ -609,13 +632,6 @@ async function generateHooks() {
   }
   btn.disabled = false;
   btn.innerHTML = 'Neue Hooks generieren 🚀';
-}
-
-function renderMarkdown(text) {
-  return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/\n/g, '<br>');
 }
 
 function copyText(btn, text) {
@@ -708,22 +724,22 @@ async function generateCaption() {
     document.getElementById('captionKeywords').value.trim() ? `Keywords: ${document.getElementById('captionKeywords').value.trim()}` : '',
     `Länge: ${lengthMap[length]}`,
     `CTA am Ende: ${getSelectedCTA()}`,
-    `Struktur: Story → Erkenntnis → CTA. Vollständige Sätze, keine Bullet Points, sparsame Emojis.`,
+    `Kein Markdown, keine Sterne, keine Unterstriche. Vollständige Sätze, sparsame Emojis.`,
     `Schreibe jetzt nur die Caption:`
   ].filter(Boolean).join('\n');
 
   try {
-    const captionResponse = await fetch('/.netlify/functions/claude', {
+    const response = await fetch('/.netlify/functions/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt, max_tokens: 1000 })
     });
-    const captionText = await captionResponse.text();
+    const textRaw = await response.text();
     let data;
-    try { data = JSON.parse(captionText); } catch(e) { throw new Error('Server-Fehler: ' + captionText.substring(0, 100)); }
+    try { data = JSON.parse(textRaw); } catch(e) { throw new Error('Server-Fehler'); }
     if(data.error) throw new Error(data.error);
-    currentCaptionText = data.text || '';
-    document.getElementById('captionResultText').innerHTML = renderMarkdown(currentCaptionText);
+    currentCaptionText = stripMarkdown(data.text || '');
+    document.getElementById('captionResultText').textContent = currentCaptionText;
     const cc = currentCaptionText.length;
     const countEl = document.getElementById('captionCharCount');
     countEl.textContent = `${cc} / 2000 Zeichen`;
