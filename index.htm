@@ -590,9 +590,9 @@ async function generateHooks() {
       card.style.animationDelay = `${i * 0.08}s`;
       card.innerHTML = `
         <div class="result-type">${label}</div>
-        <div class="hook-main">${cleanHook}</div>
-        ${sublineText ? `<div class="hook-sub">↳ ${sublineText}</div>` : ''}
-        ${warumText ? `<div class="hook-why"><div class="hook-why-label">💡 Warum das funktioniert</div><div class="hook-why-text">${warumText}</div></div>` : ''}
+        <div class="hook-main">${renderMarkdown(cleanHook)}</div>
+        ${sublineText ? `<div class="hook-sub">↳ ${renderMarkdown(sublineText)}</div>` : ''}
+        ${warumText ? `<div class="hook-why"><div class="hook-why-label">💡 Warum das funktioniert</div><div class="hook-why-text">${renderMarkdown(warumText)}</div></div>` : ''}
         <div class="card-actions">
           <button class="copy-btn" onclick="copyText(this, window._hookStore[${hookIndex}].hook)">Hook kopieren</button>
           ${sublineText ? `<button class="copy-full-btn" onclick="copyText(this, window._hookStore[${hookIndex}].full)">Hook + Subline kopieren</button>` : ''}
@@ -607,6 +607,13 @@ async function generateHooks() {
   }
   btn.disabled = false;
   btn.innerHTML = 'Neue Hooks generieren 🚀';
+}
+
+function renderMarkdown(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/\n/g, '<br>');
 }
 
 function copyText(btn, text) {
@@ -712,7 +719,7 @@ async function generateCaption() {
     const data = await response.json();
     if(data.error) throw new Error(data.error);
     currentCaptionText = data.text || '';
-    document.getElementById('captionResultText').textContent = currentCaptionText;
+    document.getElementById('captionResultText').innerHTML = renderMarkdown(currentCaptionText);
     const cc = currentCaptionText.length;
     const countEl = document.getElementById('captionCharCount');
     countEl.textContent = `${cc} / 2000 Zeichen`;
