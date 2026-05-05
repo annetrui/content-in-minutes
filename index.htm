@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content in Minutes — by Anne Trui</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');</style>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #f1ece5; --blush: #e8ddd4; --pink: #c4608a;
+  --hot: #9e1a59; --black: #021042; --mid: #3a4878;
+  --border: #d9cfc6; --navy: #021042; --green: #2d7a4f;
+}
+body { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--black); min-height: 100vh; }
+
+#onboarding { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; background: var(--navy); }
+.onboarding-box { background: white; border-radius: 24px; padding: 48px 40px; max-width: 640px; width: 100%; box-shadow: 0 4px 40px rgba(0,0,0,0.08); }
+.ob-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 10px; }
+.ob-title { font-family: 'Playfair Display', serif; font-size: 30px; line-height: 1.2; margin-bottom: 8px; }
+.ob-title em { font-style: italic; color: var(--hot); }
+.ob-sub { font-size: 14px; color: var(--mid); margin-bottom: 32px; line-height: 1.6; }
+
+.saved-banner { background: #f0f9f4; border: 1.5px solid #a3d4b5; border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.saved-banner-icon { font-size: 22px; flex-shrink: 0; }
+.saved-banner-text strong { font-size: 13px; font-weight: 600; color: #2d6a4a; display: block; }
+.saved-banner-text span { font-size: 12px; color: #4a8a6a; }
+.saved-banner-btn { margin-left: auto; background: #2d7a4f; color: white; border: none; border-radius: 8px; padding: 8px 16px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.saved-banner-btn:hover { background: #1f5a39; }
+.divider-or { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--mid); font-size: 12px; }
+.divider-or::before, .divider-or::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.ob-step { margin-bottom: 26px; }
+.ob-step-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 6px; }
+.ob-step-title { font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 3px; }
+.ob-step-hint { font-size: 12px; color: var(--mid); margin-bottom: 10px; line-height: 1.5; }
+.optional-badge { display: inline-block; background: var(--cream); border: 1px solid var(--border); border-radius: 100px; padding: 2px 9px; font-size: 10px; color: var(--mid); font-weight: 500; margin-left: 8px; vertical-align: middle; }
+.examples-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.example-box { border-radius: 8px; padding: 10px 12px; font-size: 11px; line-height: 1.45; }
+.example-box.good { background: #f0f9f4; border: 1px solid #a3d4b5; color: #2d6a4a; }
+.example-box.bad  { background: #fff4f4; border: 1px solid #f5b8b8; color: #a03030; }
+.example-label { font-weight: 700; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; display: block; }
+.example-label.good-label { color: #2d6a4a; }
+.example-label.bad-label  { color: #a03030; }
+
+textarea, input[type="text"] { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--black); background: var(--cream); transition: border-color 0.2s; outline: none; }
+textarea:focus, input[type="text"]:focus { border-color: var(--hot); }
+textarea::placeholder, input[type="text"]::placeholder { color: #C0B0A0; }
+textarea { resize: vertical; min-height: 72px; }
+textarea.invalid { border-color: #e05050 !important; }
+
+.archetype-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.arch-chip { border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 8px; cursor: pointer; transition: all 0.18s; background: var(--cream); text-align: center; }
+.arch-chip:hover { border-color: var(--pink); background: #f7ecf2; }
+.arch-chip.selected { border-color: var(--hot); background: #f7ecf2; }
+.arch-emoji { font-size: 18px; display: block; margin-bottom: 3px; }
+.arch-name  { font-size: 11px; font-weight: 600; color: var(--black); display: block; }
+.arch-key   { font-size: 10px; color: var(--mid); display: block; margin-top: 2px; }
+
+.ob-btn { width: 100%; padding: 16px; background: var(--hot); color: white; border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 28px; }
+.ob-btn:hover { background: #7d1347; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(158,26,89,0.35); }
+
+#app { display: none; min-height: 100vh; }
+.app-header { background: var(--navy); border-bottom: 1px solid #0d1f5c; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.app-logo { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--cream); }
+.app-logo em { font-style: italic; color: #e07aaa; }
+.autosave-badge { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.5); }
+.autosave-dot { width: 7px; height: 7px; border-radius: 50%; background: #5a9e6a; animation: pulse-dot 2.5s ease-in-out infinite; }
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.header-actions { display: flex; align-items: center; gap: 12px; }
+.profile-pill { display: flex; align-items: center; gap: 6px; border-radius: 100px; padding: 7px 14px; cursor: pointer; transition: all 0.18s; font-size: 12px; font-weight: 500; font-family: 'DM Sans', sans-serif; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.2); color: var(--cream); }
+.profile-pill:hover { border-color: #e07aaa; color: #e07aaa; }
+
+.app-layout { display: grid; grid-template-columns: 290px 1fr; min-height: calc(100vh - 57px); }
+.sidebar { background: white; border-right: 1px solid var(--border); padding: 22px; overflow-y: auto; }
+.sidebar-section { margin-bottom: 18px; }
+.sidebar-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 7px; }
+.sidebar-value { font-size: 12px; color: var(--mid); line-height: 1.5; background: var(--cream); border-radius: 8px; padding: 9px 12px; border: 1px solid var(--border); }
+.sidebar-arch { display: flex; align-items: center; gap: 8px; background: #f7ecf2; border: 1.5px solid var(--hot); border-radius: 10px; padding: 10px 12px; }
+.sidebar-arch-emoji { font-size: 20px; }
+.sidebar-arch-name { font-size: 13px; font-weight: 600; color: var(--hot); }
+.sidebar-arch-key  { font-size: 11px; color: var(--mid); }
+.edit-link { font-size: 11px; color: var(--hot); cursor: pointer; text-decoration: underline; margin-top: 5px; display: inline-block; background: none; border: none; font-family: inherit; padding: 0; }
+.edit-link:hover { color: #7d1347; }
+.sidebar-divider { height: 1px; background: var(--border); margin: 14px 0; }
+.reset-link { font-size: 11px; color: #aaa; cursor: pointer; text-decoration: underline; background: none; border: none; font-family: inherit; padding: 0; }
+.reset-link:hover { color: #e05050; }
+
+.main-content { padding: 26px 26px 80px; overflow-y: auto; }
+.section-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 10px; }
+.card { background: white; border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
+.hook-types { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+.hook-chip { border: 1.5px solid var(--border); border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.18s; background: var(--cream); }
+.hook-chip:hover  { border-color: var(--pink); background: #f7ecf2; }
+.hook-chip.active { border-color: var(--hot); background: #f7ecf2; }
+.chip-name { font-size: 12px; font-weight: 600; color: var(--black); margin-bottom: 2px; }
+.chip-desc { font-size: 11px; color: var(--mid); line-height: 1.4; }
+
+.count-row { display: flex; align-items: center; gap: 12px; }
+.count-btn { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--cream); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--black); font-family: inherit; }
+.count-btn:hover { border-color: var(--hot); }
+.count-num { font-family: 'Playfair Display', serif; font-size: 22px; min-width: 28px; text-align: center; }
+
+.generate-btn { width: 100%; padding: 15px; background: var(--hot); color: white; border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.generate-btn:hover { background: #7d1347; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(158,26,89,0.35); }
+.generate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.result-card { background: white; border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; box-shadow: 0 2px 12px rgba(2,16,66,0.07); border-left: 3px solid var(--hot); animation: fadeUp 0.3s ease both; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.result-type { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 10px; }
+.hook-main { font-family: 'Playfair Display', serif; font-size: 17px; line-height: 1.5; color: var(--navy); margin-bottom: 6px; }
+.hook-sub  { font-size: 13px; color: var(--mid); font-style: italic; margin-bottom: 12px; line-height: 1.4; }
+.hook-why { background: var(--cream); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; }
+.hook-why-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 4px; }
+.hook-why-text  { font-size: 12px; color: var(--mid); line-height: 1.5; }
+.card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.copy-btn { background: var(--blush); border: none; border-radius: 8px; padding: 7px 14px; font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--mid); cursor: pointer; transition: all 0.15s; }
+.copy-btn:hover { background: var(--hot); color: white; }
+.copy-btn.copied { background: var(--green); color: white; }
+.copy-full-btn { background: var(--cream); border: 1.5px solid var(--border); border-radius: 8px; padding: 7px 14px; font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--mid); cursor: pointer; transition: all 0.15s; }
+.copy-full-btn:hover { border-color: var(--hot); color: var(--hot); }
+.error-box { background: #FFF0F0; border: 1.5px solid #FFCCCC; border-radius: 10px; padding: 14px 18px; color: #C0434A; font-size: 13px; }
+.toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(16px); background: var(--navy); color: white; padding: 11px 22px; border-radius: 100px; font-size: 13px; font-weight: 500; opacity: 0; transition: all 0.28s; z-index: 999; pointer-events: none; white-space: nowrap; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal-box { background: white; border-radius: 20px; padding: 36px 32px; max-width: 580px; width: 100%; max-height: 88vh; overflow-y: auto; box-shadow: 0 8px 60px rgba(0,0,0,0.15); position: relative; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 22px; color: var(--black); }
+.modal-close { position: absolute; top: 18px; right: 18px; background: var(--blush); border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: inherit; }
+
+#pw-overlay { position: fixed; inset: 0; z-index: 9999; background: #021042; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.pw-box { background: white; border-radius: 24px; padding: 48px 40px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 8px 48px rgba(0,0,0,0.3); }
+.pw-logo { font-family: 'Playfair Display', serif; font-size: 24px; color: #021042; margin-bottom: 6px; }
+.pw-logo em { font-style: italic; color: #9e1a59; }
+.pw-hint { font-size: 13px; color: #4a5578; margin-bottom: 32px; line-height: 1.5; }
+.pw-input { width: 100%; border: 1.5px solid #d9cfc6; border-radius: 10px; padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: #021042; background: #f1ece5; outline: none; text-align: center; letter-spacing: 4px; margin-bottom: 12px; box-sizing: border-box; transition: border-color 0.2s; }
+.pw-input:focus { border-color: #9e1a59; }
+.pw-input.shake { animation: pw-shake 0.35s ease; }
+@keyframes pw-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+.pw-btn { width: 100%; padding: 15px; background: #9e1a59; color: white; border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.pw-btn:hover { background: #7d1347; }
+.pw-error { font-size: 12px; color: #e05050; margin-top: 10px; min-height: 18px; }
+
+.caption-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; align-items: flex-end; justify-content: center; padding: 0; }
+.caption-modal-overlay.open { display: flex; }
+.caption-modal { background: white; border-radius: 20px 20px 0 0; padding: 28px 24px 40px; width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; box-shadow: 0 -8px 48px rgba(0,0,0,0.2); animation: slideUp 0.3s ease; }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.caption-modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
+.caption-modal-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 6px; }
+.caption-modal-hook { font-size: 13px; color: var(--mid); background: var(--cream); border-left: 3px solid var(--hot); border-radius: 0 8px 8px 0; padding: 10px 14px; margin-bottom: 20px; line-height: 1.5; font-style: italic; }
+.caption-field-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 8px; display: block; }
+.length-chips { display: flex; gap: 8px; margin-bottom: 18px; }
+.length-chip { flex: 1; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.15s; background: var(--cream); }
+.length-chip:hover { border-color: var(--pink); }
+.length-chip.active { border-color: var(--hot); background: #f7ecf2; }
+.length-chip-name { font-size: 13px; font-weight: 600; color: var(--navy); display: block; }
+.length-chip-chars { font-size: 10px; color: var(--mid); display: block; margin-top: 2px; }
+.caption-textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy); background: var(--cream); resize: vertical; min-height: 90px; outline: none; transition: border-color 0.2s; box-sizing: border-box; margin-bottom: 14px; }
+.caption-textarea:focus { border-color: var(--hot); }
+.caption-textarea::placeholder { color: #C0B0A0; }
+.generate-caption-btn { width: 100%; padding: 15px; background: var(--hot); color: white; border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
+.generate-caption-btn:hover { background: #7d1347; }
+.generate-caption-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.caption-result { margin-top: 20px; display: none; }
+.caption-result.visible { display: block; }
+.caption-result-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 10px; }
+.caption-result-text { background: var(--cream); border-radius: 10px; padding: 16px; font-size: 14px; color: var(--navy); line-height: 1.7; white-space: pre-wrap; border: 1px solid var(--border); margin-bottom: 12px; }
+.caption-char-count { font-size: 11px; color: var(--mid); margin-bottom: 10px; }
+.caption-char-count.over { color: #e05050; font-weight: 600; }
+.caption-copy-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.caption-copy-btn { background: var(--blush); border: none; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--mid); cursor: pointer; transition: all 0.15s; }
+.caption-copy-btn:hover { background: var(--hot); color: white; }
+.caption-copy-btn.copied { background: var(--green); color: white; }
+.cta-chip { border: 1.5px solid var(--border); border-radius: 100px; padding: 7px 14px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; background: var(--cream); color: var(--mid); white-space: nowrap; }
+.cta-chip:hover { border-color: var(--pink); color: var(--navy); }
+.cta-chip.active { border-color: var(--hot); background: #f7ecf2; color: var(--hot); font-weight: 600; }
+.btn-caption { background: var(--hot); color: white; border: none; border-radius: 8px; padding: 7px 14px; font-size: 12px; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.btn-caption:hover { background: #7d1347; }
+
+@media (max-width: 700px) {
+  .app-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main-content { padding: 16px 14px 60px; }
+  .archetype-grid { grid-template-columns: repeat(2, 1fr); }
+  .examples-row { grid-template-columns: 1fr; }
+  .onboarding-box { padding: 32px 20px; }
+  .autosave-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="pw-overlay">
+  <div class="pw-box">
+    <p class="pw-logo">Content in <em>Minutes</em></p>
+    <p class="pw-hint">Dein Content in 2 Minuten · Bitte gib dein Passwort ein.</p>
+    <input class="pw-input" id="pw-input" type="password" placeholder="••••••••••" autocomplete="off" onkeydown="if(event.key==='Enter') checkPW()">
+    <button class="pw-btn" onclick="checkPW()">Zugang öffnen</button>
+    <p class="pw-error" id="pw-error"></p>
+  </div>
+</div>
+
+<div id="onboarding">
+  <div class="onboarding-box">
+    <p class="ob-label">Content in Minutes · by Anne Trui</p>
+    <h1 class="ob-title">Content in <em>Minutes</em></h1>
+    <p class="ob-sub">Dein Content in 2 Minuten. Einmal Profil einrichten, Thema eingeben, fertige Hooks und Captions die sich anfühlen als hättest du sie selbst geschrieben.</p>
+
+    <div class="saved-banner" id="savedBanner" style="display:none;">
+      <span class="saved-banner-icon">✅</span>
+      <div class="saved-banner-text">
+        <strong>Dein Profil ist noch gespeichert!</strong>
+        <span id="savedBannerName">Direkt weitermachen — kein Ausfüllen nötig.</span>
+      </div>
+      <button class="saved-banner-btn" onclick="loadSavedAndStart()">Direkt loslegen →</button>
+    </div>
+    <div id="dividerOr" class="divider-or" style="display:none;">oder neu einrichten</div>
+
+    <div class="ob-step">
+      <p class="ob-step-label">Schritt 1 · Pflichtfeld</p>
+      <p class="ob-step-title">Wer bist du — und wem hilfst du wirklich?</p>
+      <p class="ob-step-hint">Je konkreter, desto besser deine Hooks.</p>
+      <div class="examples-row">
+        <div class="example-box good"><span class="example-label good-label">✓ So geht's</span>"Ich bin Business Coach und helfe selbstständigen Frauen ab 30, aus der Unsichtbarkeit zu kommen."</div>
+        <div class="example-box bad"><span class="example-label bad-label">✗ Zu vage</span>"Ich bin Coach und helfe Frauen."</div>
+      </div>
+      <textarea id="ob-identity" placeholder="Ich bin... und ich helfe..."></textarea>
+    </div>
+
+    <div class="ob-step">
+      <p class="ob-step-label">Schritt 2 · Pflichtfeld</p>
+      <p class="ob-step-title">Wer ist deine Wunschkundin — wirklich?</p>
+      <p class="ob-step-hint">Nicht die Demografie, sondern ihre echte Situation.</p>
+      <textarea id="ob-audience" placeholder="Meine Wunschkundin ist..."></textarea>
+    </div>
+
+    <div class="ob-step">
+      <p class="ob-step-label">Schritt 3 · Pflichtfeld</p>
+      <p class="ob-step-title">Was macht dich zur richtigen Person?</p>
+      <textarea id="ob-expertise" placeholder="z.B. '10 Jahre selbstständig, 100+ Kundinnen...'" style="min-height:90px;"></textarea>
+    </div>
+
+    <div class="ob-step">
+      <p class="ob-step-label">Schritt 4 · Pflichtfeld</p>
+      <p class="ob-step-title">Wie klingt deine Brand Voice?</p>
+      <textarea id="ob-voice" placeholder="z.B. 'Direkt, warm, ehrlich. Kein Bullshit, viel Herz.'"></textarea>
+    </div>
+
+    <div class="ob-step">
+      <p class="ob-step-label">Schritt 5 <span class="optional-badge">Optional</span></p>
+      <p class="ob-step-title">Deine Wörter</p>
+      <textarea id="ob-words" placeholder="z.B. 'Ich sage gerne: hell yes, let's go. Ich sage NIE: authentisch, sichtbar.'" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="ob-step">
+      <p class="ob-step-label">Schritt 6 <span class="optional-badge">Optional</span></p>
+      <p class="ob-step-title">Welcher Archetyp bist du?</p>
+      <div class="archetype-grid" id="ob-arch-grid">
+        <div class="arch-chip" data-arch="Heldin" data-key="mutig · entschlossen · inspirierend" data-emoji="🦸"><span class="arch-emoji">🦸</span><span class="arch-name">Heldin</span><span class="arch-key">mutig · entschlossen</span></div>
+        <div class="arch-chip" data-arch="Creator" data-key="kreativ · visionär · originell" data-emoji="🎨"><span class="arch-emoji">🎨</span><span class="arch-name">Creator</span><span class="arch-key">kreativ · visionär</span></div>
+        <div class="arch-chip" data-arch="Rebellin" data-key="provokant · ehrlich · disruptiv" data-emoji="🔥"><span class="arch-emoji">🔥</span><span class="arch-name">Rebellin</span><span class="arch-key">provokant · disruptiv</span></div>
+        <div class="arch-chip" data-arch="Königin" data-key="souverän · führungsstark · autoritär" data-emoji="👑"><span class="arch-emoji">👑</span><span class="arch-name">Königin</span><span class="arch-key">souverän · führungsstark</span></div>
+        <div class="arch-chip" data-arch="Beschützerin" data-key="fürsorglich · sicher · vertrauenswürdig" data-emoji="🌿"><span class="arch-emoji">🌿</span><span class="arch-name">Beschützerin</span><span class="arch-key">fürsorglich · sicher</span></div>
+        <div class="arch-chip" data-arch="Entdeckerin" data-key="neugierig · frei · abenteuerlustig" data-emoji="🧭"><span class="arch-emoji">🧭</span><span class="arch-name">Entdeckerin</span><span class="arch-key">neugierig · frei</span></div>
+        <div class="arch-chip" data-arch="Lover" data-key="warmherzig · verbindend · empathisch" data-emoji="💖"><span class="arch-emoji">💖</span><span class="arch-name">Lover</span><span class="arch-key">warmherzig · empathisch</span></div>
+        <div class="arch-chip" data-arch="Weise" data-key="tiefgründig · lehrend · analytisch" data-emoji="🦉"><span class="arch-emoji">🦉</span><span class="arch-name">Weise</span><span class="arch-key">tiefgründig · lehrend</span></div>
+        <div class="arch-chip" data-arch="Entertainer" data-key="spielerisch · leicht · humorvoll" data-emoji="🃏"><span class="arch-emoji">🃏</span><span class="arch-name">Entertainer</span><span class="arch-key">spielerisch · humorvoll</span></div>
+        <div class="arch-chip" data-arch="Unschuldige" data-key="optimistisch · offen · ehrlich" data-emoji="🌸"><span class="arch-emoji">🌸</span><span class="arch-name">Unschuldige</span><span class="arch-key">optimistisch · offen</span></div>
+        <div class="arch-chip" data-arch="Zauberer" data-key="transformativ · visionär · inspirierend" data-emoji="✨"><span class="arch-emoji">✨</span><span class="arch-name">Zauberer</span><span class="arch-key">transformativ · visionär</span></div>
+        <div class="arch-chip" data-arch="Nachbar" data-key="nahbar · bodenständig · authentisch" data-emoji="🤝"><span class="arch-emoji">🤝</span><span class="arch-name">Nachbar</span><span class="arch-key">nahbar · authentisch</span></div>
+      </div>
+    </div>
+    <button class="ob-btn" onclick="startApp()">Los geht's — Hooks generieren 🚀</button>
+  </div>
+</div>
+
+<div id="app">
+  <header class="app-header">
+    <div class="app-logo">Content in <em>Minutes</em></div>
+    <div class="header-actions">
+      <div class="autosave-badge"><div class="autosave-dot"></div>Profil wird automatisch gespeichert</div>
+      <button class="profile-pill" onclick="openModal()">✏️ Profil bearbeiten</button>
+    </div>
+  </header>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <p class="sidebar-label">Dein Archetyp</p>
+        <div class="sidebar-arch"><span class="sidebar-arch-emoji" id="sidebar-arch-emoji">–</span><div><div class="sidebar-arch-name" id="sidebar-arch-name">Kein Archetyp</div><div class="sidebar-arch-key" id="sidebar-arch-key"></div></div></div>
+        <button class="edit-link" onclick="openModal()">bearbeiten</button>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section"><p class="sidebar-label">Wer du bist</p><div class="sidebar-value" id="sidebar-identity">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
+      <div class="sidebar-section"><p class="sidebar-label">Wunschkundin</p><div class="sidebar-value" id="sidebar-audience">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
+      <div class="sidebar-section"><p class="sidebar-label">Expertise</p><div class="sidebar-value" id="sidebar-expertise">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
+      <div class="sidebar-section"><p class="sidebar-label">Brand Voice</p><div class="sidebar-value" id="sidebar-voice">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
+      <div class="sidebar-section"><p class="sidebar-label">Meine Wörter</p><div class="sidebar-value" id="sidebar-words" style="font-style:italic;">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
+      <div class="sidebar-divider"></div>
+      <button class="reset-link" onclick="resetProfile()">Profil zurücksetzen</button>
+      <p style="font-size:11px;color:var(--mid);line-height:1.5;margin-top:12px;">by <strong style="color:var(--hot);">Anne Trui</strong><br>annetrui.com</p>
+    </aside>
+    <main class="main-content">
+      <div class="card">
+        <p class="section-title">Dein Thema heute</p>
+        <textarea id="topic" placeholder="z.B. 'Du änderst alle zwei Wochen deine Positionierung'" style="min-height:80px;"></textarea>
+      </div>
+      <div class="card">
+        <p class="section-title">Welcher Hook-Typ?</p>
+        <div class="hook-types">
+          <div class="hook-chip active" data-type="kopf"><div class="chip-name">🧠 Kopf der Kundin</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
+          <div class="hook-chip" data-type="ich"><div class="chip-name">🪞 Ich & Geschichte</div><div class="chip-desc">Dein echter Moment — ungeschönt</div></div>
+          <div class="hook-chip" data-type="neugier"><div class="chip-name">🔍 Neugier & Geheimnis</div><div class="chip-desc">Andeutung die man aufdecken muss</div></div>
+          <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Meinung</div><div class="chip-desc">Deine echte Haltung</div></div>
+          <div class="hook-chip" data-type="pov"><div class="chip-name">🎬 POV-Format</div><div class="chip-desc">Versetzt sie in eine konkrete Szene</div></div>
+          <div class="hook-chip" data-type="paradox"><div class="chip-name">⚡ Paradox</div><div class="chip-desc">Zwei Wahrheiten die sich widersprechen</div></div>
+          <div class="hook-chip" data-type="emotional"><div class="chip-name">💙 Emotionale Offenheit</div><div class="chip-desc">Der Moment der zu persönlich wirkt</div></div>
+          <div class="hook-chip" data-type="zahlen"><div class="chip-name">📊 Ergebnis & Zahlen</div><div class="chip-desc">So spezifisch dass es nicht erfunden wirkt</div></div>
+          <div class="hook-chip" data-type="frage"><div class="chip-name">❓ Warum & Frage</div><div class="chip-desc">Die Frage die Julia sich nicht stellt</div></div>
+          <div class="hook-chip" data-type="statement"><div class="chip-name">💎 Starkes Statement</div><div class="chip-desc">Ein Satz. Klar. Mit Gewicht.</div></div>
+          <div class="hook-chip" data-type="alle"><div class="chip-name">🎯 Alle Typen</div><div class="chip-desc">Je ein Hook pro Typ</div></div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+        <div>
+          <p class="section-title" style="margin-bottom:8px;">Anzahl</p>
+          <div class="count-row">
+            <button class="count-btn" id="minus">−</button>
+            <span class="count-num" id="countNum">3</span>
+            <button class="count-btn" id="plus">+</button>
+          </div>
+        </div>
+        <button class="generate-btn" id="generateBtn" onclick="generateHooks()" style="flex:1;min-width:200px;">Hooks generieren 🚀</button>
+      </div>
+      <div id="results"></div>
+    </main>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <p class="modal-title">Profil bearbeiten</p>
+    <div class="ob-step"><p class="ob-step-label">Wer du bist · Pflichtfeld</p><textarea id="edit-identity"></textarea></div>
+    <div class="ob-step"><p class="ob-step-label">Wunschkundin · Pflichtfeld</p><textarea id="edit-audience"></textarea></div>
+    <div class="ob-step"><p class="ob-step-label">Expertise · Pflichtfeld</p><textarea id="edit-expertise"></textarea></div>
+    <div class="ob-step"><p class="ob-step-label">Brand Voice · Pflichtfeld</p><textarea id="edit-voice"></textarea></div>
+    <div class="ob-step"><p class="ob-step-label">Meine Wörter <span class="optional-badge">Optional</span></p><textarea id="edit-words" style="min-height:70px;"></textarea></div>
+    <div class="ob-step"><p class="ob-step-label">Archetyp <span class="optional-badge">Optional</span></p><div class="archetype-grid" id="edit-arch-grid"></div></div>
+    <button class="ob-btn" onclick="saveEdit()">Speichern ✓</button>
+  </div>
+</div>
+
+<div class="caption-modal-overlay" id="captionModal">
+  <div class="caption-modal">
+    <div class="caption-modal-handle"></div>
+    <p class="caption-modal-title">Caption schreiben lassen</p>
+    <div class="caption-modal-hook" id="captionSelectedHook"></div>
+    <span class="caption-field-label">Länge</span>
+    <div class="length-chips">
+      <div class="length-chip active" data-length="kurz" onclick="selectLength(this)"><span class="length-chip-name">Kurz</span><span class="length-chip-chars">bis 500 Zeichen</span></div>
+      <div class="length-chip" data-length="mittel" onclick="selectLength(this)"><span class="length-chip-name">Mittel</span><span class="length-chip-chars">500–1200 Zeichen</span></div>
+      <div class="length-chip" data-length="lang" onclick="selectLength(this)"><span class="length-chip-name">Lang</span><span class="length-chip-chars">bis 2000 Zeichen</span></div>
+    </div>
+    <span class="caption-field-label">Worum geht es?</span>
+    <textarea class="caption-textarea" id="captionContent" placeholder="Beschreib den Inhalt, eine Kundengeschichte, die Erkenntnis dahinter..." style="min-height:130px;"></textarea>
+    <span class="caption-field-label">CTA</span>
+    <div class="cta-chips" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+      <div class="cta-chip active" data-cta="Kommentiere mit deiner Antwort unten" onclick="selectCTA(this)">💬 Kommentieren</div>
+      <div class="cta-chip" data-cta="Speichere das für später" onclick="selectCTA(this)">🔖 Speichern</div>
+      <div class="cta-chip" data-cta="Schreib mir eine DM" onclick="selectCTA(this)">✉️ DM</div>
+      <div class="cta-chip" data-cta="Den Link findest du in meiner Bio" onclick="selectCTA(this)">🔗 Link in Bio</div>
+      <div class="cta-chip" data-cta="" onclick="selectCTA(this)">✏️ Eigener CTA</div>
+    </div>
+    <textarea class="caption-textarea" id="captionCTA" placeholder="Eigenen CTA eingeben..." style="min-height:44px;margin-bottom:16px;display:none;"></textarea>
+    <span class="caption-field-label">Keywords <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--mid);">— optional</span></span>
+    <textarea class="caption-textarea" id="captionKeywords" placeholder="z.B. Positionierung, Archetyp, Brand Voice" style="min-height:54px;margin-bottom:18px;"></textarea>
+    <button class="generate-caption-btn" id="generateCaptionBtn" onclick="generateCaption()">Caption generieren ✨</button>
+    <div class="caption-result" id="captionResult">
+      <div class="caption-result-label">Deine Caption</div>
+      <div class="caption-result-text" id="captionResultText"></div>
+      <div class="caption-char-count" id="captionCharCount"></div>
+      <div class="caption-copy-actions">
+        <button class="caption-copy-btn" onclick="copyCaptionOnly(this)">Caption kopieren</button>
+        <button class="caption-copy-btn" onclick="copyHookAndCaption(this)">Hook + Caption kopieren</button>
+        <button class="caption-copy-btn" onclick="resetCaption()" style="background:var(--cream);border:1.5px solid var(--border);color:var(--mid);">Neue Caption</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'hookgen_profile_v1';
+let profile = { identity:'', audience:'', expertise:'', voice:'', words:'', arch:null };
+let count = 3;
+
+const archetypes = [
+  {name:'Heldin',key:'mutig · entschlossen · inspirierend',emoji:'🦸'},
+  {name:'Creator',key:'kreativ · visionär · originell',emoji:'🎨'},
+  {name:'Rebellin',key:'provokant · ehrlich · disruptiv',emoji:'🔥'},
+  {name:'Königin',key:'souverän · führungsstark · autoritär',emoji:'👑'},
+  {name:'Beschützerin',key:'fürsorglich · sicher · vertrauenswürdig',emoji:'🌿'},
+  {name:'Entdeckerin',key:'neugierig · frei · abenteuerlustig',emoji:'🧭'},
+  {name:'Lover',key:'warmherzig · verbindend · empathisch',emoji:'💖'},
+  {name:'Weise',key:'tiefgründig · lehrend · analytisch',emoji:'🦉'},
+  {name:'Entertainer',key:'spielerisch · leicht · humorvoll',emoji:'🃏'},
+  {name:'Unschuldige',key:'optimistisch · offen · ehrlich',emoji:'🌸'},
+  {name:'Zauberer',key:'transformativ · visionär · inspirierend',emoji:'✨'},
+  {name:'Nachbar',key:'nahbar · bodenständig · authentisch',emoji:'🤝'},
+];
+
+function saveToStorage() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(profile)); } catch(e) {} }
+function loadFromStorage() { try { const r = localStorage.getItem(STORAGE_KEY); if(!r) return null; const p = JSON.parse(r); if(!p.identity||!p.audience||!p.voice) return null; return p; } catch(e) { return null; } }
+function clearStorage() { try { localStorage.removeItem(STORAGE_KEY); } catch(e) {} }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = loadFromStorage();
+  if(saved) {
+    document.getElementById('savedBanner').style.display = 'flex';
+    document.getElementById('dividerOr').style.display = 'flex';
+    document.getElementById('savedBannerName').textContent = saved.identity.substring(0,60) + (saved.identity.length>60?'…':'');
+  }
+});
+
+function loadSavedAndStart() {
+  const saved = loadFromStorage();
+  if(!saved) { showToast('Kein gespeichertes Profil gefunden'); return; }
+  profile = { identity:saved.identity||'', audience:saved.audience||'', expertise:saved.expertise||'', voice:saved.voice||'', words:saved.words||'', arch:saved.arch||null };
+  updateSidebar();
+  document.getElementById('onboarding').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  buildEditGrid();
+}
+
+document.querySelectorAll('#ob-arch-grid .arch-chip').forEach(chip => {
+  chip.onclick = () => { document.querySelectorAll('#ob-arch-grid .arch-chip').forEach(c => c.classList.remove('selected')); chip.classList.add('selected'); };
+});
+
+function validate() {
+  const fields = ['ob-identity','ob-audience','ob-expertise','ob-voice'];
+  let ok = true;
+  fields.forEach(id => { const el = document.getElementById(id); if(!el.value.trim()) { el.classList.add('invalid'); ok=false; } else el.classList.remove('invalid'); });
+  if(!ok) showToast('Bitte die Pflichtfelder ausfüllen 💖');
+  return ok;
+}
+
+function collectProfile() {
+  const chip = document.querySelector('#ob-arch-grid .arch-chip.selected');
+  profile.identity  = document.getElementById('ob-identity').value.trim();
+  profile.audience  = document.getElementById('ob-audience').value.trim();
+  profile.expertise = document.getElementById('ob-expertise').value.trim();
+  profile.voice     = document.getElementById('ob-voice').value.trim();
+  profile.words     = document.getElementById('ob-words').value.trim();
+  profile.arch = chip ? {name:chip.dataset.arch,key:chip.dataset.key,emoji:chip.dataset.emoji} : null;
+}
+
+function startApp() {
+  if(!validate()) return;
+  collectProfile();
+  try { saveToStorage(); } catch(e) {}
+  updateSidebar();
+  document.getElementById('onboarding').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  buildEditGrid();
+  setTimeout(() => showToast('Profil gespeichert ✓'), 300);
+}
+
+function updateSidebar() {
+  document.getElementById('sidebar-identity').textContent  = profile.identity  || '—';
+  document.getElementById('sidebar-audience').textContent  = profile.audience  || '—';
+  document.getElementById('sidebar-expertise').textContent = profile.expertise || '—';
+  document.getElementById('sidebar-voice').textContent     = profile.voice     || '—';
+  document.getElementById('sidebar-words').textContent     = profile.words     || '—';
+  if(profile.arch) {
+    document.getElementById('sidebar-arch-emoji').textContent = profile.arch.emoji;
+    document.getElementById('sidebar-arch-name').textContent  = profile.arch.name;
+    document.getElementById('sidebar-arch-key').textContent   = profile.arch.key;
+  } else {
+    document.getElementById('sidebar-arch-emoji').textContent = '–';
+    document.getElementById('sidebar-arch-name').textContent  = 'Kein Archetyp';
+    document.getElementById('sidebar-arch-key').textContent   = '';
+  }
+}
+
+function resetProfile() {
+  if(!confirm('Profil wirklich zurücksetzen?')) return;
+  clearStorage();
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('onboarding').style.display = 'flex';
+  document.getElementById('savedBanner').style.display = 'none';
+  document.getElementById('dividerOr').style.display = 'none';
+  ['ob-identity','ob-audience','ob-expertise','ob-voice','ob-words'].forEach(id => { document.getElementById(id).value = ''; });
+  document.querySelectorAll('#ob-arch-grid .arch-chip').forEach(c => c.classList.remove('selected'));
+  profile = {identity:'',audience:'',expertise:'',voice:'',words:'',arch:null};
+}
+
+document.getElementById('minus').onclick = () => { if(count>1){count--;document.getElementById('countNum').textContent=count;} };
+document.getElementById('plus').onclick  = () => { if(count<8){count++;document.getElementById('countNum').textContent=count;} };
+
+document.querySelectorAll('.hook-chip').forEach(chip => {
+  chip.onclick = () => { document.querySelectorAll('.hook-chip').forEach(c => c.classList.remove('active')); chip.classList.add('active'); };
+});
+
+const hookDefs = {
+  kopf: `Typ: Aus dem Kopf der Wunschkundin. Konkrete Situation + stiller Gedanke den sie nie laut sagt. Die Leserin liest es und denkt: Das bin ich. Aus ihrem inneren Monolog, nicht über sie sondern als sie.`,
+  ich: `Typ: Ich-Perspektive und Geschichte. Annes persönlicher Moment, spezifisch und nicht aufgehübscht. Kein Erfolgspost, sondern der echte Moment davor, danach oder mittendrin.`,
+  neugier: `Typ: Neugier und Geheimnis. Andeutung die man aufdecken muss. Zeigt genug um zu wissen dass es relevant ist, aber nicht genug um es zu verstehen.`,
+  provokation: `Typ: Provokation und Meinung. Eine Aussage die polarisiert, mit echter Haltung dahinter. Annes echte Meinung, klar ausgesprochen, ohne Absicherung.`,
+  pov: `Typ: POV-Format. POV: als Einstieg, dann eine Szene die sofort ein Bild erzeugt.`,
+  paradox: `Typ: Paradox. Zwei Dinge die sich widersprechen und trotzdem beide wahr sind.`,
+  emotional: `Typ: Emotionale Offenheit. Der Moment der eigentlich zu persönlich ist — genau deshalb bleibt er hängen.`,
+  zahlen: `Typ: Ergebnis und Zahlen. Konkretes Resultat, so spezifisch dass es nicht erfunden wirken kann.`,
+  frage: `Typ: Warum und Frage. Eine Frage die man nicht ignorieren kann weil man die Antwort will.`,
+  statement: `Typ: Starkes Statement. Ein Satz der alleine steht. Keine Erklärung nötig.`,
+  alle: `Schreibe je einen Hook für ALLE 10 Typen: 1. Kopf der Kundin 2. Ich-Geschichte 3. Neugier 4. Provokation 5. POV 6. Paradox 7. Emotionale Offenheit 8. Zahlen 9. Frage 10. Statement. Schreibe vor jeden Hook den Typ in Klammern.`
+};
+
+async function generateHooks() {
+  const topic = document.getElementById('topic').value.trim();
+  if(!topic) { showToast('Gib zuerst ein Thema ein 💖'); return; }
+  const activeChip = document.querySelector('.hook-chip.active');
+  const hookType = activeChip ? activeChip.dataset.type : 'kopf';
+  const isAll = hookType === 'alle';
+  const btn = document.getElementById('generateBtn');
+  const results = document.getElementById('results');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Hooks werden generiert…';
+  results.innerHTML = '';
+  window._hookStore = [];
+
+  const prompt = [
+    `Du bist ein Hook-Texter-Experte für Social Media. Generiere Hooks für folgende Person:`,
+    `Über sie: ${profile.identity}`,
+    `Wunschkundin: ${profile.audience}`,
+    `Expertise & USP: ${profile.expertise}`,
+    `Brand Voice: ${profile.voice}`,
+    profile.words ? `Ihre Wörter (beachten!): ${profile.words}` : '',
+    profile.arch  ? `Archetyp: ${profile.arch.name} (${profile.arch.key})` : '',
+    `Thema: "${topic}"`,
+    `Hook-Typ: ${hookDefs[hookType]}`,
+    isAll ? `Generiere einen Hook pro Typ.` : `Generiere genau ${count} verschiedene Hooks.`,
+    `WICHTIG — Ausgabeformat:`,
+    `HOOK: [Der Hook-Text]`,
+    `SUBLINE: [Optional — nur wenn sinnvoll]`,
+    `WARUM: [1-2 Sätze warum dieser Hook funktioniert]`,
+    `---`,
+    `Regeln: Nur Deutsch. Kein Warm-up. Vollständige echte Sätze. Klingen wie ein echter Mensch.`,
+    `Schreibe jetzt die Hooks:`
+  ].filter(Boolean).join('\n');
+
+  try {
+    const response = await fetch('/.netlify/functions/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, max_tokens: 1500 })
+    });
+    const data = await response.json();
+    if(data.error) throw new Error(data.error);
+    const raw = data.text || '';
+    if(!raw) throw new Error('Keine Antwort erhalten');
+
+    const blocks = raw.split('---').map(b => b.trim()).filter(b => b.length > 10);
+    const typeLabel = activeChip?.querySelector('.chip-name')?.textContent || 'Hook';
+
+    blocks.forEach((block, i) => {
+      const hookMatch    = block.match(/HOOK:\s*([\s\S]*?)(?=SUBLINE:|WARUM:|$)/i);
+      const sublineMatch = block.match(/SUBLINE:\s*([\s\S]*?)(?=WARUM:|$)/i);
+      const warumMatch   = block.match(/WARUM:\s*([\s\S]*?)$/i);
+      const hookText    = hookMatch    ? hookMatch[1].trim()    : '';
+      const sublineText = sublineMatch ? sublineMatch[1].trim() : '';
+      const warumText   = warumMatch   ? warumMatch[1].trim()   : '';
+      if(!hookText) return;
+
+      let label = typeLabel;
+      const typeInHook = hookText.match(/^\(([^)]+)\)/);
+      if(typeInHook) label = typeInHook[1];
+      const cleanHook = hookText.replace(/^\([^)]+\)\s*/, '');
+      const fullText  = sublineText ? `${cleanHook}\n↳ ${sublineText}` : cleanHook;
+
+      const hookIndex = window._hookStore.length;
+      window._hookStore.push({ hook: cleanHook, full: fullText });
+
+      const card = document.createElement('div');
+      card.className = 'result-card';
+      card.style.animationDelay = `${i * 0.08}s`;
+      card.innerHTML = `
+        <div class="result-type">${label}</div>
+        <div class="hook-main">${cleanHook}</div>
+        ${sublineText ? `<div class="hook-sub">↳ ${sublineText}</div>` : ''}
+        ${warumText ? `<div class="hook-why"><div class="hook-why-label">💡 Warum das funktioniert</div><div class="hook-why-text">${warumText}</div></div>` : ''}
+        <div class="card-actions">
+          <button class="copy-btn" onclick="copyText(this, window._hookStore[${hookIndex}].hook)">Hook kopieren</button>
+          ${sublineText ? `<button class="copy-full-btn" onclick="copyText(this, window._hookStore[${hookIndex}].full)">Hook + Subline kopieren</button>` : ''}
+          <button class="btn-caption" onclick="openCaptionModal(${hookIndex})">✍️ Caption dazu</button>
+        </div>`;
+      results.appendChild(card);
+    });
+
+    if(results.children.length === 0) results.innerHTML = `<div class="error-box">Format hat nicht gepasst — versuch's nochmal!</div>`;
+  } catch(err) {
+    results.innerHTML = `<div class="error-box">Ups: ${err.message}</div>`;
+  }
+  btn.disabled = false;
+  btn.innerHTML = 'Neue Hooks generieren 🚀';
+}
+
+function copyText(btn, text) {
+  const fallback = () => { const ta = document.createElement('textarea'); ta.value = text.trim(); ta.style.cssText='position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); };
+  const done = () => { const o=btn.textContent; btn.textContent='Kopiert ✓'; btn.classList.add('copied'); setTimeout(()=>{btn.textContent=o;btn.classList.remove('copied');},2000); };
+  if(navigator.clipboard?.writeText) { navigator.clipboard.writeText(text.trim()).then(done).catch(()=>{fallback();done();}); } else { fallback(); done(); }
+}
+
+function buildEditGrid() {
+  const grid = document.getElementById('edit-arch-grid');
+  grid.innerHTML = '';
+  archetypes.forEach(a => {
+    const chip = document.createElement('div');
+    chip.className = 'arch-chip' + (profile.arch && profile.arch.name===a.name ? ' selected' : '');
+    chip.dataset.arch=a.name; chip.dataset.key=a.key; chip.dataset.emoji=a.emoji;
+    chip.innerHTML = `<span class="arch-emoji">${a.emoji}</span><span class="arch-name">${a.name}</span><span class="arch-key">${a.key.split(' · ').slice(0,2).join(' · ')}</span>`;
+    chip.onclick = () => { document.querySelectorAll('#edit-arch-grid .arch-chip').forEach(c=>c.classList.remove('selected')); chip.classList.add('selected'); };
+    grid.appendChild(chip);
+  });
+}
+
+function openModal() {
+  document.getElementById('edit-identity').value  = profile.identity;
+  document.getElementById('edit-audience').value  = profile.audience;
+  document.getElementById('edit-expertise').value = profile.expertise;
+  document.getElementById('edit-voice').value     = profile.voice;
+  document.getElementById('edit-words').value     = profile.words;
+  buildEditGrid();
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function saveEdit() {
+  const identity=document.getElementById('edit-identity').value.trim(), audience=document.getElementById('edit-audience').value.trim(), expertise=document.getElementById('edit-expertise').value.trim(), voice=document.getElementById('edit-voice').value.trim();
+  if(!identity||!audience||!expertise||!voice) { showToast('Bitte Pflichtfelder ausfüllen 💖'); return; }
+  const chip = document.querySelector('#edit-arch-grid .arch-chip.selected');
+  profile = { identity, audience, expertise, voice, words:document.getElementById('edit-words').value.trim(), arch: chip?{name:chip.dataset.arch,key:chip.dataset.key,emoji:chip.dataset.emoji}:null };
+  saveToStorage(); updateSidebar(); closeModal(); showToast('Profil aktualisiert ✓');
+}
+document.getElementById('modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+
+function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3200); }
+
+function checkPW() {
+  const val = document.getElementById('pw-input').value.trim().toLowerCase();
+  if(val==='brandhook') { document.getElementById('pw-overlay').style.display='none'; }
+  else { const inp=document.getElementById('pw-input'); inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake'); document.getElementById('pw-error').textContent='Das Passwort stimmt nicht.'; inp.value=''; inp.focus(); }
+}
+
+// CAPTION
+let currentHookForCaption = '';
+let currentCaptionText = '';
+
+function selectCTA(chip) {
+  document.querySelectorAll('.cta-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active');
+  const a=document.getElementById('captionCTA'); if(chip.dataset.cta===''){a.style.display='block';a.focus();}else{a.style.display='none';a.value='';}
+}
+function getSelectedCTA() { const a=document.querySelector('.cta-chip.active'); if(!a) return 'Speichere das für später'; if(a.dataset.cta==='') return document.getElementById('captionCTA').value.trim()||'Speichere das für später'; return a.dataset.cta; }
+function selectLength(chip) { document.querySelectorAll('.length-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active'); }
+
+function openCaptionModal(hookIndex) {
+  const hookData = window._hookStore && window._hookStore[hookIndex];
+  currentHookForCaption = hookData ? hookData.hook : '';
+  document.getElementById('captionSelectedHook').textContent = currentHookForCaption;
+  document.getElementById('captionContent').value = '';
+  document.getElementById('captionKeywords').value = '';
+  document.getElementById('captionResult').classList.remove('visible');
+  document.getElementById('captionModal').classList.add('open');
+}
+function closeCaptionModal() { document.getElementById('captionModal').classList.remove('open'); }
+document.getElementById('captionModal').addEventListener('click', function(e){ if(e.target===this) closeCaptionModal(); });
+
+async function generateCaption() {
+  const content = document.getElementById('captionContent').value.trim();
+  if(!content) { showToast('Beschreib kurz worum es geht 💖'); return; }
+  const lengthChip = document.querySelector('.length-chip.active');
+  const length = lengthChip ? lengthChip.dataset.length : 'mittel';
+  const lengthMap = { kurz:'maximal 500 Zeichen', mittel:'zwischen 500 und 1200 Zeichen', lang:'maximal 2000 Zeichen' };
+  const btn = document.getElementById('generateCaptionBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Caption wird geschrieben…';
+
+  const prompt = [
+    `Du bist ein erfahrener Social Media Texter. Schreibe eine Instagram Caption.`,
+    `Über sie: ${profile.identity}`,
+    `Wunschkundin: ${profile.audience}`,
+    `Brand Voice: ${profile.voice}`,
+    profile.words ? `Eigene Wörter: ${profile.words}` : '',
+    profile.arch ? `Archetyp: ${profile.arch.name} (${profile.arch.key})` : '',
+    `Hook (bereits vorhanden, NICHT wiederholen): ${currentHookForCaption}`,
+    `Inhalt: ${content}`,
+    document.getElementById('captionKeywords').value.trim() ? `Keywords: ${document.getElementById('captionKeywords').value.trim()}` : '',
+    `Länge: ${lengthMap[length]}`,
+    `CTA am Ende: ${getSelectedCTA()}`,
+    `Struktur: Story → Erkenntnis → CTA. Vollständige Sätze, keine Bullet Points, sparsame Emojis.`,
+    `Schreibe jetzt nur die Caption:`
+  ].filter(Boolean).join('\n');
+
+  try {
+    const response = await fetch('/.netlify/functions/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, max_tokens: 1000 })
+    });
+    const data = await response.json();
+    if(data.error) throw new Error(data.error);
+    currentCaptionText = data.text || '';
+    document.getElementById('captionResultText').textContent = currentCaptionText;
+    const cc = currentCaptionText.length;
+    const countEl = document.getElementById('captionCharCount');
+    countEl.textContent = `${cc} / 2000 Zeichen`;
+    countEl.className = 'caption-char-count' + (cc>2000?' over':'');
+    document.getElementById('captionResult').classList.add('visible');
+    document.getElementById('captionResult').scrollIntoView({behavior:'smooth',block:'nearest'});
+  } catch(err) { showToast('Ups: ' + err.message); }
+
+  btn.disabled = false; btn.innerHTML = 'Caption neu generieren ✨';
+}
+
+function copyCaptionOnly(btn) { copyText(btn, currentCaptionText); }
+function copyHookAndCaption(btn) { copyText(btn, currentHookForCaption + '\n\n' + currentCaptionText); }
+function resetCaption() {
+  document.getElementById('captionContent').value=''; document.getElementById('captionKeywords').value='';
+  document.getElementById('captionCTA').value=''; document.getElementById('captionCTA').style.display='none';
+  document.querySelectorAll('.cta-chip').forEach((c,i)=>c.classList.toggle('active',i===0));
+  document.getElementById('captionResult').classList.remove('visible');
+  document.getElementById('generateCaptionBtn').innerHTML='Caption generieren ✨';
+  currentCaptionText='';
+}
+</script>
+</body>
+</html>
