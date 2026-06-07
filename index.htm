@@ -234,44 +234,55 @@ textarea.invalid { border-color: #e05050 !important; }
     <div class="ob-step">
       <p class="ob-step-label">Schritt 2 · Pflichtfeld</p>
       <p class="ob-step-title">Wer ist deine Wunschkundin — wirklich?</p>
-      <p class="ob-step-hint">Nicht die Demografie, sondern ihre echte Situation.</p>
-      <textarea id="ob-audience" placeholder="Meine Wunschkundin ist..."></textarea>
+      <p class="ob-step-hint">Nicht Demografie. Sondern: Was denkt sie morgens als erstes? Was hält sie nachts wach? Wie redet sie mit sich selbst?</p>
+      <div class="examples-row">
+        <div class="example-box good"><span class="example-label good-label">✓ So geht's</span>"Selbstständige Frau, 35+, postet fleißig aber verkauft zu wenig. Denkt: 'Ich mache was falsch, aber ich weiß nicht was.' Vergleicht sich ständig."</div>
+        <div class="example-box bad"><span class="example-label bad-label">✗ Zu flach</span>"Frauen die ein Online-Business aufbauen wollen."</div>
+      </div>
+      <textarea id="ob-audience" placeholder="Meine Wunschkundin ist... Sie denkt... Sie sagt sich... Ihr größtes Problem ist..."></textarea>
     </div>
 
     <div class="ob-step">
       <p class="ob-step-label">Schritt 3 · Pflichtfeld</p>
       <p class="ob-step-title">Was macht dich zur richtigen Person?</p>
-      <textarea id="ob-expertise" placeholder="z.B. '10 Jahre selbstständig, 100+ Kundinnen...'" style="min-height:90px;"></textarea>
+      <p class="ob-step-hint">Echte Zahlen, echte Erfahrungen — je spezifischer, desto stärker der Hook.</p>
+      <textarea id="ob-expertise" placeholder="z.B. '10 Jahre selbstständig, 200+ Kundinnen begleitet, selbst von 0 auf 6-stellig ohne Ads'" style="min-height:90px;"></textarea>
     </div>
 
     <div class="ob-step">
       <p class="ob-step-label">Schritt 4 · Pflichtfeld</p>
       <p class="ob-step-title">Wie klingt deine Brand Voice?</p>
-      <textarea id="ob-voice" placeholder="z.B. 'Direkt, warm, ehrlich. Kein Bullshit, viel Herz.'"></textarea>
+      <p class="ob-step-hint">Wie redet du wirklich? Nicht wie du denkst dass du klingen solltest.</p>
+      <div class="examples-row">
+        <div class="example-box good"><span class="example-label good-label">✓ Spezifisch</span>"Direkt, kein Bullshit. Ich sage Dinge so wie sie sind. Warm aber klar. Manchmal frech. Nie corporate."</div>
+        <div class="example-box bad"><span class="example-label bad-label">✗ Zu vage</span>"Professionell und freundlich."</div>
+      </div>
+      <textarea id="ob-voice" placeholder="z.B. 'Direkt, warm, ehrlich. Kein Bullshit, viel Herz. Ich sage gerne...'"></textarea>
     </div>
 
     <div class="ob-step">
-      <p class="ob-step-label">Schritt 5 <span class="optional-badge">Optional</span></p>
-      <p class="ob-step-title">Deine Wörter</p>
-      <textarea id="ob-words" placeholder="z.B. 'Ich sage gerne: hell yes, let's go. Ich sage NIE: authentisch, sichtbar.'" style="min-height:80px;"></textarea>
+      <p class="ob-step-label">Schritt 5 <span class="optional-badge">Optional aber mächtig</span></p>
+      <p class="ob-step-title">Deine Wörter — und deine No-Gos</p>
+      <p class="ob-step-hint">Was sagst du oft? Was würdest du nie sagen? Das ist der Unterschied zwischen "klingt wie KI" und "klingt wie ich".</p>
+      <textarea id="ob-words" placeholder="Ich sage gerne: [deine Ausdrücke]. Ich sage NIE: [Wörter die sich falsch anfühlen]." style="min-height:80px;"></textarea>
     </div>
 
     <div class="ob-step">
       <p class="ob-step-label">Schritt 6 <span class="optional-badge">Optional</span></p>
       <p class="ob-step-title">Welcher Archetyp bist du?</p>
       <div class="archetype-grid" id="ob-arch-grid">
-        <div class="arch-chip" data-arch="Heldin" data-key="mutig · entschlossen · inspirierend" data-emoji="🦸"><span class="arch-emoji">🦸</span><span class="arch-name">Heldin</span><span class="arch-key">mutig · entschlossen</span></div>
-        <div class="arch-chip" data-arch="Creator" data-key="kreativ · visionär · originell" data-emoji="🎨"><span class="arch-emoji">🎨</span><span class="arch-name">Creator</span><span class="arch-key">kreativ · visionär</span></div>
-        <div class="arch-chip" data-arch="Rebellin" data-key="provokant · ehrlich · disruptiv" data-emoji="🔥"><span class="arch-emoji">🔥</span><span class="arch-name">Rebellin</span><span class="arch-key">provokant · disruptiv</span></div>
-        <div class="arch-chip" data-arch="Königin" data-key="souverän · führungsstark · autoritär" data-emoji="👑"><span class="arch-emoji">👑</span><span class="arch-name">Königin</span><span class="arch-key">souverän · führend</span></div>
-        <div class="arch-chip" data-arch="Beschützerin" data-key="fürsorglich · sicher · vertrauenswürdig" data-emoji="🌿"><span class="arch-emoji">🌿</span><span class="arch-name">Beschützerin</span><span class="arch-key">fürsorglich · sicher</span></div>
-        <div class="arch-chip" data-arch="Entdeckerin" data-key="neugierig · frei · abenteuerlustig" data-emoji="🧭"><span class="arch-emoji">🧭</span><span class="arch-name">Entdeckerin</span><span class="arch-key">neugierig · frei</span></div>
-        <div class="arch-chip" data-arch="Lover" data-key="warmherzig · verbindend · empathisch" data-emoji="💖"><span class="arch-emoji">💖</span><span class="arch-name">Lover</span><span class="arch-key">warmherzig · empathisch</span></div>
-        <div class="arch-chip" data-arch="Weise" data-key="tiefgründig · lehrend · analytisch" data-emoji="🦉"><span class="arch-emoji">🦉</span><span class="arch-name">Weise</span><span class="arch-key">tiefgründig · lehrend</span></div>
-        <div class="arch-chip" data-arch="Entertainer" data-key="spielerisch · leicht · humorvoll" data-emoji="🃏"><span class="arch-emoji">🃏</span><span class="arch-name">Entertainer</span><span class="arch-key">spielerisch · humorvoll</span></div>
-        <div class="arch-chip" data-arch="Unschuldige" data-key="optimistisch · offen · ehrlich" data-emoji="🌸"><span class="arch-emoji">🌸</span><span class="arch-name">Unschuldige</span><span class="arch-key">optimistisch · offen</span></div>
-        <div class="arch-chip" data-arch="Zauberer" data-key="transformativ · visionär · inspirierend" data-emoji="✨"><span class="arch-emoji">✨</span><span class="arch-name">Zauberer</span><span class="arch-key">transformativ · visionär</span></div>
-        <div class="arch-chip" data-arch="Nachbar" data-key="nahbar · bodenständig · authentisch" data-emoji="🤝"><span class="arch-emoji">🤝</span><span class="arch-name">Nachbar</span><span class="arch-key">nahbar · authentisch</span></div>
+        <div class="arch-chip" data-arch="Heldin" data-key="mutig · entschlossen · inspirierend" data-emoji="🦸" data-emotion="Mut, Aufbruch, Entschlossenheit"><span class="arch-emoji">🦸</span><span class="arch-name">Heldin</span><span class="arch-key">mutig · entschlossen</span></div>
+        <div class="arch-chip" data-arch="Creator" data-key="kreativ · visionär · originell" data-emoji="🎨" data-emotion="Inspiration, Neugierde, kreative Energie"><span class="arch-emoji">🎨</span><span class="arch-name">Creator</span><span class="arch-key">kreativ · visionär</span></div>
+        <div class="arch-chip" data-arch="Rebellin" data-key="provokant · ehrlich · disruptiv" data-emoji="🔥" data-emotion="Unbequemheit, Herausforderung, Reibung"><span class="arch-emoji">🔥</span><span class="arch-name">Rebellin</span><span class="arch-key">provokant · disruptiv</span></div>
+        <div class="arch-chip" data-arch="Königin" data-key="souverän · führungsstark · autoritär" data-emoji="👑" data-emotion="Respekt, Souveränität, stille Stärke"><span class="arch-emoji">👑</span><span class="arch-name">Königin</span><span class="arch-key">souverän · führend</span></div>
+        <div class="arch-chip" data-arch="Beschützerin" data-key="fürsorglich · sicher · vertrauenswürdig" data-emoji="🌿" data-emotion="Geborgenheit, Vertrauen, Sicherheit"><span class="arch-emoji">🌿</span><span class="arch-name">Beschützerin</span><span class="arch-key">fürsorglich · sicher</span></div>
+        <div class="arch-chip" data-arch="Entdeckerin" data-key="neugierig · frei · abenteuerlustig" data-emoji="🧭" data-emotion="Aufbruch, Freiheit, Möglichkeit"><span class="arch-emoji">🧭</span><span class="arch-name">Entdeckerin</span><span class="arch-key">neugierig · frei</span></div>
+        <div class="arch-chip" data-arch="Lover" data-key="warmherzig · verbindend · empathisch" data-emoji="💖" data-emotion="Wärme, Verbindung, Zugehörigkeit"><span class="arch-emoji">💖</span><span class="arch-name">Lover</span><span class="arch-key">warmherzig · empathisch</span></div>
+        <div class="arch-chip" data-arch="Weise" data-key="tiefgründig · lehrend · analytisch" data-emoji="🦉" data-emotion="Klarheit, Erkenntnis, Verstehen"><span class="arch-emoji">🦉</span><span class="arch-name">Weise</span><span class="arch-key">tiefgründig · lehrend</span></div>
+        <div class="arch-chip" data-arch="Entertainer" data-key="spielerisch · leicht · humorvoll" data-emoji="🃏" data-emotion="Leichtigkeit, Freude, Überraschung"><span class="arch-emoji">🃏</span><span class="arch-name">Entertainer</span><span class="arch-key">spielerisch · humorvoll</span></div>
+        <div class="arch-chip" data-arch="Unschuldige" data-key="optimistisch · offen · ehrlich" data-emoji="🌸" data-emotion="Hoffnung, Offenheit, Frische"><span class="arch-emoji">🌸</span><span class="arch-name">Unschuldige</span><span class="arch-key">optimistisch · offen</span></div>
+        <div class="arch-chip" data-arch="Zauberer" data-key="transformativ · visionär · inspirierend" data-emoji="✨" data-emotion="Staunen, Transformation, das Unmögliche möglich machen"><span class="arch-emoji">✨</span><span class="arch-name">Zauberer</span><span class="arch-key">transformativ · visionär</span></div>
+        <div class="arch-chip" data-arch="Nachbar" data-key="nahbar · bodenständig · authentisch" data-emoji="🤝" data-emotion="Verbundenheit, Normalität, Wiedererkennung"><span class="arch-emoji">🤝</span><span class="arch-name">Nachbar</span><span class="arch-key">nahbar · authentisch</span></div>
       </div>
     </div>
     <button class="ob-btn" onclick="startApp()">Los geht's — Hooks generieren 🚀</button>
@@ -306,20 +317,20 @@ textarea.invalid { border-color: #e05050 !important; }
     <main class="main-content">
       <div class="card">
         <p class="section-title">Dein Thema heute</p>
-        <textarea id="topic" placeholder="z.B. 'Du änderst alle zwei Wochen deine Positionierung'" style="min-height:80px;"></textarea>
+        <textarea id="topic" placeholder="z.B. 'Du änderst alle zwei Wochen deine Positionierung' oder 'Warum Sichtbarkeit allein nicht verkauft'" style="min-height:80px;"></textarea>
       </div>
       <div class="card">
         <p class="section-title">Welcher Hook-Typ?</p>
         <div class="hook-types">
-          <div class="hook-chip active" data-type="kopf"><div class="chip-name">🧠 Kopf der Kundin</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
+          <div class="hook-chip active" data-type="kopf"><div class="chip-name">🧠 Im Kopf der Wunschkundin</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
           <div class="hook-chip" data-type="ich"><div class="chip-name">🪞 Ich & Geschichte</div><div class="chip-desc">Dein echter Moment — ungeschönt</div></div>
           <div class="hook-chip" data-type="neugier"><div class="chip-name">🔍 Neugier & Geheimnis</div><div class="chip-desc">Andeutung die man aufdecken muss</div></div>
-          <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Meinung</div><div class="chip-desc">Deine echte Haltung</div></div>
+          <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Meinung</div><div class="chip-desc">Deine echte Haltung, ungefiltert</div></div>
           <div class="hook-chip" data-type="pov"><div class="chip-name">🎬 POV-Format</div><div class="chip-desc">Versetzt sie in eine konkrete Szene</div></div>
           <div class="hook-chip" data-type="paradox"><div class="chip-name">⚡ Paradox</div><div class="chip-desc">Zwei Wahrheiten die sich widersprechen</div></div>
           <div class="hook-chip" data-type="emotional"><div class="chip-name">💙 Emotionale Offenheit</div><div class="chip-desc">Der Moment der zu persönlich wirkt</div></div>
           <div class="hook-chip" data-type="zahlen"><div class="chip-name">📊 Ergebnis & Zahlen</div><div class="chip-desc">So spezifisch dass es nicht erfunden wirkt</div></div>
-          <div class="hook-chip" data-type="frage"><div class="chip-name">❓ Warum & Frage</div><div class="chip-desc">Die Frage die Julia sich nicht stellt</div></div>
+          <div class="hook-chip" data-type="frage"><div class="chip-name">❓ Die Frage die wehtut</div><div class="chip-desc">Was sie sich selbst nicht traut zu fragen</div></div>
           <div class="hook-chip" data-type="statement"><div class="chip-name">💎 Starkes Statement</div><div class="chip-desc">Ein Satz. Klar. Mit Gewicht.</div></div>
           <div class="hook-chip" data-type="alle"><div class="chip-name">🎯 Alle Typen</div><div class="chip-desc">Je ein Hook pro Typ</div></div>
         </div>
@@ -400,18 +411,18 @@ let profile = { identity:'', audience:'', expertise:'', voice:'', words:'', arch
 let count = 3;
 
 const archetypes = [
-  {name:'Heldin',key:'mutig · entschlossen · inspirierend',emoji:'🦸'},
-  {name:'Creator',key:'kreativ · visionär · originell',emoji:'🎨'},
-  {name:'Rebellin',key:'provokant · ehrlich · disruptiv',emoji:'🔥'},
-  {name:'Königin',key:'souverän · führungsstark · autoritär',emoji:'👑'},
-  {name:'Beschützerin',key:'fürsorglich · sicher · vertrauenswürdig',emoji:'🌿'},
-  {name:'Entdeckerin',key:'neugierig · frei · abenteuerlustig',emoji:'🧭'},
-  {name:'Lover',key:'warmherzig · verbindend · empathisch',emoji:'💖'},
-  {name:'Weise',key:'tiefgründig · lehrend · analytisch',emoji:'🦉'},
-  {name:'Entertainer',key:'spielerisch · leicht · humorvoll',emoji:'🃏'},
-  {name:'Unschuldige',key:'optimistisch · offen · ehrlich',emoji:'🌸'},
-  {name:'Zauberer',key:'transformativ · visionär · inspirierend',emoji:'✨'},
-  {name:'Nachbar',key:'nahbar · bodenständig · authentisch',emoji:'🤝'},
+  {name:'Heldin',key:'mutig · entschlossen · inspirierend',emoji:'🦸',emotion:'Mut, Aufbruch, Entschlossenheit'},
+  {name:'Creator',key:'kreativ · visionär · originell',emoji:'🎨',emotion:'Inspiration, Neugierde, kreative Energie'},
+  {name:'Rebellin',key:'provokant · ehrlich · disruptiv',emoji:'🔥',emotion:'Unbequemheit, Herausforderung, Reibung'},
+  {name:'Königin',key:'souverän · führungsstark · autoritär',emoji:'👑',emotion:'Respekt, Souveränität, stille Stärke'},
+  {name:'Beschützerin',key:'fürsorglich · sicher · vertrauenswürdig',emoji:'🌿',emotion:'Geborgenheit, Vertrauen, Sicherheit'},
+  {name:'Entdeckerin',key:'neugierig · frei · abenteuerlustig',emoji:'🧭',emotion:'Aufbruch, Freiheit, Möglichkeit'},
+  {name:'Lover',key:'warmherzig · verbindend · empathisch',emoji:'💖',emotion:'Wärme, Verbindung, Zugehörigkeit'},
+  {name:'Weise',key:'tiefgründig · lehrend · analytisch',emoji:'🦉',emotion:'Klarheit, Erkenntnis, Verstehen'},
+  {name:'Entertainer',key:'spielerisch · leicht · humorvoll',emoji:'🃏',emotion:'Leichtigkeit, Freude, Überraschung'},
+  {name:'Unschuldige',key:'optimistisch · offen · ehrlich',emoji:'🌸',emotion:'Hoffnung, Offenheit, Frische'},
+  {name:'Zauberer',key:'transformativ · visionär · inspirierend',emoji:'✨',emotion:'Staunen, Transformation, das Unmögliche möglich machen'},
+  {name:'Nachbar',key:'nahbar · bodenständig · authentisch',emoji:'🤝',emotion:'Verbundenheit, Normalität, Wiedererkennung'},
 ];
 
 function saveToStorage() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(profile)); } catch(e) {} }
@@ -456,7 +467,7 @@ function collectProfile() {
   profile.expertise = document.getElementById('ob-expertise').value.trim();
   profile.voice     = document.getElementById('ob-voice').value.trim();
   profile.words     = document.getElementById('ob-words').value.trim();
-  profile.arch = chip ? {name:chip.dataset.arch,key:chip.dataset.key,emoji:chip.dataset.emoji} : null;
+  profile.arch = chip ? {name:chip.dataset.arch,key:chip.dataset.key,emoji:chip.dataset.emoji,emotion:chip.dataset.emotion} : null;
 }
 
 function startApp() {
@@ -506,101 +517,255 @@ document.querySelectorAll('.hook-chip').forEach(chip => {
   chip.onclick = () => { document.querySelectorAll('.hook-chip').forEach(c => c.classList.remove('active')); chip.classList.add('active'); };
 });
 
+// ─────────────────────────────────────────────
+// HOOK DEFINITIONS — überarbeitet für maximale Spezifität
+// ─────────────────────────────────────────────
 const hookDefs = {
-  kopf: `Typ: Kopf der Wunschkundin.
-Formel: Konkrete Alltagssituation aus dem Leben der Wunschkundin + der stille Gedanke dahinter den sie nie laut ausspricht.
-Schreib direkt aus ihrem inneren Monolog — nicht ÜBER sie, sondern ALS sie. Die Leserin liest es und denkt sofort: das bin ich. Kein generisches Gefühl — eine spezifische Szene aus ihrem echten Alltag. Der Nebensatz macht oft den Hook: die unerwartete Konkretisierung die wirklich trifft.
-WICHTIG: Beziehe dich auf die konkrete Wunschkundin aus dem Profil. Was beschäftigt sie? Was denkt sie aber sagt sie nie? Was ist ihre echte Situation?
-Länge: 1-2 Sätze. Direkt rein, kein Warm-up.
-Beispiele: "Du hast heute 3 Mal deine Bio geändert. Und trotzdem fühlt sie sich immer noch nicht richtig an." / "Du weißt genau was du kannst. Aber sobald du es aufschreibst, klingt es plötzlich wie alle anderen."
-No-Gos: Keine generellen Aussagen. Nie "das kennt man". Kein Warm-up. Direkt in die spezifische Szene.`,
 
-  ich: `Typ: Ich-Perspektive und Geschichte.
-Formel: Echter persönlicher Moment der Person hinter dem Profil + Lücke die man schließen will.
-Der ungeschönte Moment — nicht der Erfolg, sondern was davor, danach oder mittendrin passiert ist. Je unbequemer die Wahrheit, desto stärker der Hook. Spezifische Details machen ihn unverwechselbar.
-WICHTIG: Basiert auf den Eingaben der Nutzerin — ihrer Expertise, ihrer Geschichte, ihrem Weg. Niemals erfinden. Die Brand Voice und der Archetyp bestimmen wie persönlich und wie direkt der Ton ist.
-Länge: 1-3 Sätze. Die Lücke macht den Hook.
-Beispiele: "Ich hatte 0 Anfragen. Und habe trotzdem gepostet." / "Letzten Monat habe ich überlegt aufzuhören. Heute weiß ich warum ich es nicht getan habe."
-No-Gos: Kein Erfolgspost als Einstieg. Keine aufgehübschte Version. Kein "Ich habe gelernt dass..."`,
+  kopf: `TYP: Im Kopf der Wunschkundin.
 
-  neugier: `Typ: Neugier und Geheimnis.
-Formel: Relevantes Problem aus dem Thema der Nutzerin + unerwartete Wendung andeuten ohne sie aufzulösen.
-Zeigt genug um zu wissen dass es relevant ist — aber nicht genug um es zu verstehen. Echte Neugier-Lücke, kein Clickbait. Der Nebensatz oder die Wendung macht den Unterschied — nicht das Thema selbst.
-WICHTIG: Das Geheimnis muss direkt mit der Expertise der Nutzerin und dem Thema ihrer Wunschkundin zusammenhängen. Nichts Generisches.
-Länge: 1-2 Sätze.
-Beispiele: "Es gibt einen Grund warum manche Coaches aus dem Schlaf verkaufen. Und er hat nichts mit Content zu tun." / "Was ich nach 50 Kundengesprächen verstanden habe — und warum ich es lange nicht sagen wollte."
-No-Gos: Keine leere Andeutung. Kein "Du wirst nicht glauben was..." Kein Clickbait.`,
+ZIEL: Die Wunschkundin liest den Hook und denkt sofort "Wie weiß sie das?" — nicht weil es irgendwie passt, sondern weil es exakt ihr Gedanke ist. Nicht vage, nicht allgemein. Eine konkrete Szene aus ihrem echten Alltag, in ihrer eigenen Sprache.
 
-  provokation: `Typ: Provokation und Meinung.
-Formel: Eine Aussage die eine Lüge benennt, eine heilige Kuh schlachtet oder ein Verhalten direkt angreift. Dann Stille. Keine Erklärung.
-Die Aussage muss wehtun. Nicht ein bisschen unbequem — wirklich polarisierend. Sie spricht aus was die Wunschkundin insgeheim über sich selbst denkt. Macht keine Ausnahmen. Der Stachel sitzt weil er wahr ist.
-WICHTIG: Die Provokation muss zur Haltung und Brand Voice der Nutzerin passen — eine Rebellin provoziert anders als eine Königin. Basiert immer auf dem Thema und der Expertise der Nutzerin. Vor dem Schreiben fragen: Würde jemand das wütend kommentieren? Wenn nein — nochmal schärfer.
-Länge: 1 Satz. Kein Warm-up. Keine Erklärung danach.
-Beispiele: "Du postest seit 2 Jahren. Und noch immer kauft niemand. Irgendwann musst du aufhören den Algorithmus dafür verantwortlich zu machen." / "Du willst Premium-Preise. Aber dein Content sieht aus als hättest du Angst dich wirklich zu zeigen." / "Nett sein im Content ist die höflichste Art unsichtbar zu bleiben." / "Deine Wunschkundin scrollt an dir vorbei. Nicht weil sie dich nicht sieht. Sondern weil sie keinen Grund hat zu bleiben."
-No-Gos: Alles was mit "ich finde" oder "vielleicht" anfängt. Alles was sich erklärt. Alles was niemanden stört. Weichgespülte Versionen.`,
+SCHREIBWEISE:
+- Schreibe AUS ihr heraus — als wäre sie die Schreiberin. Ihr innerer Monolog, nicht eine Beschreibung davon.
+- Benutze die Wörter die sie benutzen würde — nicht Fachbegriffe, nicht "Content-Strategie", sondern wie sie im Gespräch mit einer Freundin redet.
+- Zeige eine KONKRETE Situation: nicht "du fühlst dich unsicher" sondern WO, WANN, WAS genau passiert.
+- Der Nebensatz oder die Wendung am Ende ist oft das, was wirklich trifft — die unerwartete Konkretisierung.
+- Nenne die Wunschkundin direkt, wenn es Sinn ergibt (z.B. ihre Berufsbezeichnung, ihre konkrete Situation aus dem Profil).
 
-  pov: `Typ: POV-Format.
-Formel: POV: + konkrete Szene die die Wunschkundin aus dem Profil kennt oder fürchtet.
-Versetzt die Leserin direkt in eine Situation. Das Bild muss in 1-2 Sätzen entstehen. Der Nebensatz oder das konkrete Detail am Ende macht den Hook unausweichlich.
-WICHTIG: Die Szene muss direkt aus dem Leben der beschriebenen Wunschkundin kommen — spezifisch, nicht generisch. Was ist ihr konkreter Alltag? Was fürchtet sie? Was kennt sie zu gut?
-Länge: kurz. Die Szene macht die Arbeit.
-Beispiele: "POV: Du scrollst durch Instagram und denkst — warum klingt deren Content so klar und meiner so... naja." / "POV: Dein Kunde fragt dich was du eigentlich machst. Du weißt es. Aber erklären kannst du es gerade nicht."
-No-Gos: Keine abstrakte Szene. Muss sofort ein konkretes Bild erzeugen. Nie generalisieren.`,
+LÄNGE: 2–3 Sätze. Ein natürlicher Gedankenfluss, kein Stakkato.
 
-  paradox: `Typ: Paradox.
-Formel: Starke Aussage + und trotzdem / aber + Widerspruch der auch wahr ist.
-Zwei Dinge die sich widersprechen und trotzdem beide stimmen. Das Gehirn will den Widerspruch auflösen — das ist der Hook. Muss wirklich wahr sein, kein aufgesetzter Kontrast.
-WICHTIG: Beide Teile des Paradoxons müssen auf den Eingaben der Nutzerin und der Wunschkundin basieren. Kein erfundener Widerspruch.
-Länge: variabel. Der Widerspruch braucht Raum.
-Beispiele: "Du bist die Expertin. Und trotzdem glaubst du ihr manchmal mehr als dir." / "Du weißt alles über deine Zielgruppe. Und trotzdem weißt du nicht was sie wirklich kaufen lässt."
-No-Gos: Kein aufgesetzter Kontrast. Beide Teile müssen wahr sein. Kein "einerseits andererseits".`,
+KEINE AUFGEBLASENEN FORMULIERUNGEN. Kein "bei den richtigen landen" (zu vage). Stattdessen: Was passiert genau? Wer sieht es? Was fühlt sie dabei?
 
-  emotional: `Typ: Emotionale Offenheit.
-Formel: Echter ungeschönter Moment + keine sofortige Auflösung.
-Der Moment der eigentlich zu persönlich ist — genau deshalb bleibt er hängen. Kein Happy End als Einstieg. Kein Selbstmitleid. Der rohe Moment, mit Würde erzählt.
-WICHTIG: Basiert auf dem was die Nutzerin in ihrem Profil über sich und ihren Weg geschrieben hat. Der Archetyp bestimmt wie offen und verletzlich der Ton sein darf — eine Lover öffnet sich anders als eine Rebellin.
-Länge: der erste Satz ist der Hook. Oft kurz und unvermittelt.
-Beispiele: "Letzte Woche habe ich ernsthaft überlegt ob das alles noch Sinn macht." / "Ich hatte Angst dass niemand kauft. Und dann hat niemand gekauft."
-No-Gos: Kein sofortiges "aber dann habe ich gelernt". Keine Erklärung davor. Kein Selbstmitleid.`,
+BEISPIELE FÜR DEN ANSATZ (nicht kopieren — nur zur Orientierung):
+"Du hast heute Abend nach dem Kinderschlafenlegen noch schnell was gepostet. Dreimal den Text umgeschrieben. Und als du auf 'Veröffentlichen' gedrückt hast, wusstest du schon: die Likes kommen, aber die Anfragen nicht."
+"Du schaust dir gerade das Profil einer Kollegin an. Ähnliches Thema, ähnliche Zielgruppe. Irgendwie klingt sie klarer. Du weißt nicht warum — und das ist der Teil der dich wirklich nervt."
 
-  zahlen: `Typ: Ergebnis und Zahlen.
-Formel: Spezifische Zahl aus dem Kontext der Nutzerin + Kontext der überrascht oder neugierig macht.
-So spezifisch dass es nicht erfunden wirken kann. Keine runden Zahlen. Die Zahl macht die Arbeit. Basiert auf echten Kontextdaten aus den Eingaben.
-WICHTIG: Die Zahlen müssen zum Thema und zur Expertise der Nutzerin passen. Niemals erfinden — aus dem Kontext ableiten oder eine realistische Situation konstruieren die zu ihr passt.
-Länge: oft sehr kurz. 1-2 Sätze.
-Beispiele: "11 Anfragen. 3 Wochen. Kein einziger Werbepost." / "47 Minuten. So lang hat mein erster verkaufter Post gedauert."
-No-Gos: Keine runden Zahlen. Keine Übertreibung. Keine erfundenen Zahlen die nicht zum Profil passen.`,
+NO-GOs:
+- Kein "Du kennst das bestimmt" oder "Klingt bekannt?"
+- Kein generisches Gefühl ohne konkrete Szene
+- Nie "bei den richtigen hängen bleibt", "sichtbar werden", "dein volles Potenzial"
+- Kein Coaching-Jargon`,
 
-  frage: `Typ: Warum und Frage.
-Formel: Frage die einen Schmerz oder eine Neugier direkt aktiviert — die die Wunschkundin sich selbst nicht traut zu stellen.
-Eine Frage die man nicht ignorieren kann weil man die Antwort will. Kein Vorgeplänkel. Die Frage trifft genau was die Leserin beschäftigt aber nie laut ausspricht.
-WICHTIG: Die Frage muss direkt auf die Wunschkundin aus dem Profil zielen — ihren konkreten Schmerz, ihre konkrete Situation. Basiert auf dem Thema und der Expertise der Nutzerin.
-Länge: 1 Satz, direkt gestellt.
-Beispiele: "Warum kaufen manche aus dem Schlaf — und andere nicht, egal wie viel sie posten?" / "Wann hast du aufgehört so zu klingen wie du wirklich bist?"
-No-Gos: Keine rhetorische Frage ohne Substanz. Kein "Kennst du das?" Kein Vorgeplänkel.`,
+  ich: `TYP: Ich-Perspektive und persönliche Geschichte.
 
-  statement: `Typ: Starkes Statement.
-Formel: Eine tiefe Überzeugung der Nutzerin, ausgesprochen ohne Absicherung. Ein Satz. Klar. Mit Gewicht.
-Keine Erklärung nötig, keine Einleitung. Klingt wie eine echte Überzeugung, nicht wie eine Marketingaussage. So kurz wie möglich.
-WICHTIG: Das Statement muss die echte Haltung und Positionierung der Nutzerin widerspiegeln — basiert auf ihrer Brand Voice, ihrem Archetyp und ihrer Expertise. Eine Königin formuliert ein Statement anders als eine Rebellin.
-Länge: 1 Satz. Manchmal 3 Wörter.
-Beispiele: "Du bist nicht zu teuer. Du bist nur noch nicht klar." / "Personal Brand ist kein Thema. Es ist die Grundlage von allem."
-No-Gos: Keine Erklärung danach. Keine Absicherung. Nicht länger als nötig. Nie generisch.`,
+ZIEL: Der Hook zeigt einen echten, ungeschönten Moment aus dem Leben der Schreiberin — so spezifisch und konkret, dass er nicht erfunden wirken kann. Nicht der Erfolg. Der Moment davor, danach, oder mittendrin.
 
-  alle: `Schreibe je einen Hook für ALLE 10 Typen:
-1. Kopf der Kundin
-2. Ich-Geschichte
+SCHREIBWEISE:
+- Erste Person, direkt rein — kein "Ich möchte euch heute erzählen"
+- Der Moment muss UNANGENEHM genug sein um ehrlich zu wirken. Zu glatt = unglaubwürdig.
+- Konkrete Details: Uhrzeit, Ort, was genau gesagt/gedacht wurde, eine spezifische Zahl, ein konkreter Name oder Kontext (aus den Profilinformationen ableiten)
+- Die Lücke zwischen dem Moment und dem was danach kommt MACHT den Hook — nicht auflösen, nur andeuten
+- Die Brand Voice und der Archetyp bestimmen wie persönlich und wie direkt der Ton ist (eine Rebellin erzählt anders als eine Lover)
+
+LÄNGE: 2–4 Sätze. Natürlicher Erzählfluss.
+
+BEISPIELE FÜR DEN ANSATZ (nicht kopieren):
+"Ich saß um 23 Uhr noch an meinem Laptop und habe meinen Angebotstext zum vierten Mal umgeschrieben. Nicht weil er schlecht war. Sondern weil ich Angst hatte dass er zu direkt klingt."
+"Mein erster Launch hat 11 Euro gebracht. Ich habe es niemandem erzählt. Aber genau das war der Moment wo ich verstanden habe was ich falsch gemacht hatte."
+
+NO-GOs:
+- Kein Erfolgseinstieg ("Ich habe X erreicht und möchte dir zeigen wie")
+- Keine aufgehübschte Version
+- Nie "Ich habe gelernt dass..." als erster Satz
+- Kein Selbstmitleid ohne Würde`,
+
+  neugier: `TYP: Neugier und Geheimnis.
+
+ZIEL: Die Leserin muss weiterlesen weil sie die Antwort will — nicht weil es nach Clickbait klingt, sondern weil die Andeutung so spezifisch und relevant ist, dass sie die Lücke nicht ignorieren kann.
+
+SCHREIBWEISE:
+- Die Neugier-Lücke entsteht durch SPEZIFITÄT. Nicht "Es gibt einen Grund warum..." sondern WAS für ein Grund, in welchem Kontext, für wen genau.
+- Die Wendung oder der Nebensatz am Ende macht den Unterschied: was sie NICHT erwartet hätte.
+- Das Geheimnis muss direkt mit dem Thema und der Expertise der Schreiberin zusammenhängen — nichts Generisches.
+- Die Wunschkundin muss sich in der Frage oder dem Kontext erkennen.
+
+LÄNGE: 2 Sätze. Die zweite hält den Leser fest.
+
+BEISPIELE FÜR DEN ANSATZ:
+"Es gibt Frauen die nach drei Monaten mehr verdienen als nach drei Jahren mit täglich posten. Der Unterschied hat nichts mit Content-Frequenz zu tun."
+"Ich habe 47 Kundengespräche ausgewertet. Was fast alle gemeinsam haben, hat mich überrascht — und es ist nicht das was du denkst."
+
+NO-GOs:
+- Kein "Du wirst nicht glauben was..."
+- Kein leerer Cliffhanger ohne inhaltlichen Anker
+- Nie "Es gibt einen Grund" ohne dass klar wird WAS für ein Kontext`,
+
+  provokation: `TYP: Provokation und Meinung.
+
+ZIEL: Ein Satz der wehtut. Nicht ein bisschen unbequem — wirklich polarisierend. Er trifft weil er wahr ist und weil ihn niemand so direkt sagt. Die Wunschkundin denkt entweder "Stimmt, verdammt nochmal" oder "Das ist zu weit" — beides ist richtig.
+
+SCHREIBWEISE:
+- Kein Warm-up. Kein "Ich glaube..." oder "Vielleicht..." — das entschärft alles.
+- Benennt ein konkretes Verhalten, eine Lüge, eine Ausrede — spezifisch genug dass es nicht auf alle zutrifft, aber direkt genug dass sie sich ertappt fühlt.
+- Die Provokation muss zur Haltung und Brand Voice der Schreiberin passen. Eine Rebellin provoziert anders als eine Königin.
+- Der Stachel sitzt weil er eine Wahrheit ausspricht die die Wunschkundin insgeheim über sich selbst denkt, aber nie laut sagt.
+- Vor dem Schreiben fragen: Würde jemand das wütend kommentieren? Wenn nein — nochmal schärfer.
+
+LÄNGE: 1–2 Sätze. Kein Anhang, kein "aber".
+
+BEISPIELE FÜR DEN ANSATZ:
+"Du postest seit zwei Jahren. Noch immer kauft niemand. Irgendwann musst du aufhören den Algorithmus dafür verantwortlich zu machen."
+"Premium-Preise wollen, aber Content schreiben als hättest du Angst dich wirklich zu zeigen — das ist kein Algorithmus-Problem."
+
+NO-GOs:
+- Alles was mit "ich finde" oder "vielleicht" anfängt
+- Alles was sich sofort erklärt oder entschuldigt
+- Alles was niemanden wirklich stört
+- Generische Aussagen die auf jeden zutreffen`,
+
+  pov: `TYP: POV-Format.
+
+ZIEL: Die Leserin ist sofort in der Szene. Nicht beschrieben — erlebt. Das Bild entsteht in 1–2 Sätzen und das konkrete Detail am Ende macht es unausweichlich.
+
+SCHREIBWEISE:
+- Beginnt mit "POV:" — das ist das Signal das die Leserin sofort in die Szene versetzt.
+- Die Szene muss direkt aus dem Alltag der Wunschkundin kommen — was kennt sie zu gut, was fürchtet sie, was wünscht sie sich?
+- Konkrete Details: Was tut sie? Was denkt sie? Was ist der genaue Moment?
+- Der Nebensatz oder das Detail am Ende ist der eigentliche Hook — die unerwartete Wendung oder die Wahrheit die reintrifft.
+- Nenne die Wunschkundin konkret (ihre Situation, Berufsbezeichnung, spezifischen Kontext aus dem Profil).
+
+LÄNGE: 2–3 Sätze.
+
+BEISPIELE FÜR DEN ANSATZ:
+"POV: Du scrollst durch dein eigenes Profil und überlegst ob eine Fremde, die dich nicht kennt, wirklich verstehen würde was du anbietest. Sie würde es nicht."
+"POV: Dein Kunde fragt dich gerade 'Und was machst du genau?' Du weißt die Antwort. Aber erklären kannst du es gerade irgendwie nicht."
+
+NO-GOs:
+- Keine abstrakte Szene ohne konkretes Bild
+- Nie generalisieren ("Viele kennen das")
+- Kein Happy-End im POV`,
+
+  paradox: `TYP: Paradox.
+
+ZIEL: Zwei Dinge die sich widersprechen und trotzdem beide wahr sind. Das Gehirn will den Widerspruch auflösen — das hält die Leserin fest. Der Kontrast muss echt sein, kein aufgesetzter.
+
+SCHREIBWEISE:
+- Starke Aussage + "und trotzdem" / "aber" / "obwohl" + Widerspruch der genauso wahr ist.
+- Beide Teile müssen direkt auf die Wunschkundin und ihre Situation zutreffen — aus den Profildaten ableiten.
+- Der Widerspruch darf ruhig ein bisschen wehtun oder überraschen.
+- Die Sprache ist ruhiger als bei Provokation — das Paradox spricht für sich.
+
+LÄNGE: 2–3 Sätze. Der Widerspruch braucht Raum.
+
+BEISPIELE FÜR DEN ANSATZ:
+"Du bist die Expertin in dem was du tust. Und trotzdem glaubst du ihr manchmal mehr als dir — dieser Frau mit dem glänzenden Feed und halb so viel Erfahrung."
+"Du weißt alles über deine Wunschkundin. Ihr Problem, ihren Alltag, was sie nachts wachhält. Und trotzdem kauft sie noch nicht."
+
+NO-GOs:
+- Kein aufgesetzter Kontrast wo keiner ist
+- Beide Teile müssen wahr sein
+- Kein "einerseits andererseits" — das klingt nach Schulaufsatz`,
+
+  emotional: `TYP: Emotionale Offenheit.
+
+ZIEL: Der Moment der eigentlich zu persönlich ist — genau deshalb bleibt er hängen. Kein aufgesetztes Gefühl, kein Selbstmitleid. Der rohe Moment, mit Würde erzählt.
+
+SCHREIBWEISE:
+- Der erste Satz IST der Hook — kurz, unvermittelt, direkt in den Moment.
+- Keine sofortige Auflösung ("aber dann habe ich gelernt...") — das nimmt dem Moment die Kraft.
+- Konkrete Details machen ihn unverwechselbar: Was war der Kontext? Was wurde gedacht, gefühlt, gesagt?
+- Der Archetyp bestimmt wie offen und verletzlich der Ton sein darf — eine Lover öffnet sich anders als eine Rebellin.
+- Die Wunschkundin muss sich in dem Gefühl (nicht nur der Situation) wiedererkennen.
+
+LÄNGE: 2–3 Sätze. Direkt rein, kein Anlauf.
+
+BEISPIELE FÜR DEN ANSATZ:
+"Letzte Woche habe ich ernsthaft überlegt ob das alles noch Sinn macht. Nicht als Drama — sondern ganz ruhig, beim Kaffee. Und das war irgendwie erschreckender als jedes Stressgefühl."
+"Ich hatte Angst dass niemand kauft. Dann hat niemand gekauft. Und ich musste entscheiden was das über mich oder mein Angebot aussagt."
+
+NO-GOs:
+- Kein sofortiges "aber dann habe ich gelernt"
+- Keine Erklärung davor die den Moment abschwächt
+- Kein Selbstmitleid ohne Würde
+- Kein aufgesetztes Gefühl`,
+
+  zahlen: `TYP: Ergebnis und Zahlen.
+
+ZIEL: So spezifisch dass es nicht erfunden wirken kann. Die Zahl allein ist nicht der Hook — der Kontext um die Zahl herum macht ihn relevant für die Wunschkundin.
+
+SCHREIBWEISE:
+- Keine runden Zahlen (nicht 100, sondern 94 oder 112). Spezifität = Glaubwürdigkeit.
+- Die Zahl braucht einen Kontext der überrascht oder neugierig macht — warum ist das relevant für die Wunschkundin?
+- Ableiten aus den echten Angaben der Schreiberin — nie erfinden, nie übertreiben.
+- Die Wunschkundin muss sich fragen: Was bedeutet das für mich?
+
+LÄNGE: 2 Sätze. Kurz, präzise.
+
+BEISPIELE FÜR DEN ANSATZ:
+"11 Anfragen in 3 Wochen. Kein einziger Werbepost, keine Ads, kein Reels-Marathon — nur eine andere Art zu schreiben."
+"47 Minuten. So lange hat mein erster Post gedauert der wirklich verkauft hat. Nicht weil er perfekt war, sondern weil er ehrlich war."
+
+NO-GOs:
+- Keine runden Zahlen
+- Keine Zahlen die nicht zum Profil passen
+- Nicht die Zahl ohne Kontext stehen lassen`,
+
+  frage: `TYP: Die Frage die wehtut.
+
+ZIEL: Eine Frage die die Leserin nicht ignorieren kann — weil sie die Antwort will, fürchtet, oder noch nie so direkt gestellt bekommen hat. Die Frage trifft genau was sie beschäftigt aber nie laut ausspricht.
+
+SCHREIBWEISE:
+- Direkt gestellt, kein Vorgeplänkel.
+- Die Frage zielt auf einen konkreten Schmerz oder eine konkrete Unsicherheit der Wunschkundin — aus dem Profil ableiten.
+- Kein rhetorisches "Kennst du das?" — die Frage muss für sich stehen.
+- Die Frage soll die Leserin innehalten lassen, nicht nicken lassen.
+
+LÄNGE: 1–2 Sätze. Die Frage ist alles.
+
+BEISPIELE FÜR DEN ANSATZ:
+"Warum kaufen manche Frauen aus dem Schlaf und andere nicht — egal wie oft sie posten?"
+"Wann hast du aufgehört so zu schreiben wie du wirklich redest?"
+"Was genau passiert zwischen 'Sie folgt dir' und 'Sie kauft bei dir' — und weißt du das gerade wirklich?"
+
+NO-GOs:
+- Kein "Kennst du das?"
+- Keine rhetorische Frage ohne inhaltlichen Biss
+- Kein Vorgeplänkel vor der Frage`,
+
+  statement: `TYP: Starkes Statement.
+
+ZIEL: Eine echte Überzeugung, ausgesprochen ohne Absicherung. Ein Satz. Klar. Mit Gewicht. Klingt wie eine Überzeugung, nicht wie eine Marketingaussage.
+
+SCHREIBWEISE:
+- Keine Einleitung, keine Erklärung danach — der Satz steht für sich.
+- Das Statement muss die echte Haltung und Positionierung der Schreiberin widerspiegeln — Brand Voice, Archetyp, Expertise.
+- Konkret, nicht generisch. "Du bist nicht zu teuer" ist ein Statement. "Es gibt so viele Möglichkeiten" ist keins.
+- So kurz wie möglich. Manchmal 3 Wörter. Manchmal 2 Sätze. Nie länger als nötig.
+- Eine Königin formuliert ein Statement anders als eine Rebellin — der Archetyp bestimmt die Energie.
+
+LÄNGE: 1–2 Sätze. Nie länger.
+
+BEISPIELE FÜR DEN ANSATZ:
+"Du bist nicht zu teuer. Du bist nur noch nicht klar."
+"Wer sich online wie alle anderen positioniert, wird auch wie alle anderen übersehen."
+"Deine Wunschkundin kauft nicht weil dein Content zu wenig ist — sondern weil sie nicht versteht was sie bei dir bekommt die sie woanders nicht bekommt."
+
+NO-GOs:
+- Keine Erklärung danach
+- Keine Absicherung ("ich glaube", "vielleicht", "es kann sein dass")
+- Nicht länger als nötig
+- Nie generisch`,
+
+  alle: `Schreibe je einen Hook für ALLE 10 Typen. Nummeriere sie und schreibe den Typ in Klammern davor.
+
+1. Im Kopf der Wunschkundin
+2. Ich & Geschichte
 3. Neugier & Geheimnis
 4. Provokation & Meinung
 5. POV-Format
 6. Paradox
 7. Emotionale Offenheit
 8. Ergebnis & Zahlen
-9. Warum & Frage
+9. Die Frage die wehtut
 10. Starkes Statement
 
-Schreibe vor jeden Hook den Typ in Klammern.
-WICHTIG: Jeder Hook muss die Wunschkundin, die Brand Voice und den Archetyp der Nutzerin spürbar machen. Kein Hook darf generisch sein — alle basieren auf den eingegebenen Profildaten.`
+ÜBERGREIFENDE REGELN FÜR ALLE TYPEN:
+- Jeder Hook muss die Wunschkundin, Brand Voice und Archetyp der Schreiberin spürbar machen
+- Kein Hook darf generisch sein — alle basieren auf den eingegebenen Profildaten
+- Die Wunschkundin wird konkret beschrieben (ihre Situation, ihr echtes Wording, ihr Alltag) — nicht abstrakt
+- Kein Stakkato. Jeder Hook ist ein natürlicher Satz- oder Gedankenfluss
+- Verbotene Phrasen in ALLEN Typen: "bei den richtigen hängen bleibt", "sichtbar werden", "volles Potenzial", "authentisch sein", "auf die nächste Stufe"`
 };
 
 function stripMarkdown(text) {
@@ -637,49 +802,88 @@ async function generateHooks() {
   results.innerHTML = '';
   window._hookStore = [];
 
+  // Archetyp-Emotion für den Prompt
+  const archEmotion = profile.arch && profile.arch.emotion ? profile.arch.emotion : '';
+
   const prompt = [
-    `Du bist ein Hook-Texter-Experte für Social Media. Deine Aufgabe: Hooks schreiben die so klingen als hätte die Person sie selbst geschrieben — nicht generisch, nicht nach KI.`,
+    `Du bist ein Hook-Texter-Experte für Social Media. Du schreibst Hooks die sich anfühlen als hätte die Person sie selbst geschrieben — nicht nach KI, nicht nach Marketing-Template.`,
     ``,
-    `PROFIL DER NUTZERIN:`,
-    `Wer sie ist und wem sie hilft: ${profile.identity}`,
-    `Ihre Wunschkundin (schreib für diese Person — aus ihrem Kopf, ihrer Situation, ihrem Alltag): ${profile.audience}`,
-    `Expertise und USP: ${profile.expertise}`,
-    `Brand Voice (genau so muss der Hook klingen — nicht ähnlich, sondern exakt dieser Ton): ${profile.voice}`,
-    profile.words ? `Ihre Wörter — PFLICHT: Diese Wörter und No-Gos beachten: ${profile.words}` : '',
+    `────────────────────────────────`,
+    `PROFIL DER SCHREIBERIN`,
+    `────────────────────────────────`,
+    ``,
+    `WER SIE IST UND WEM SIE HILFT:`,
+    profile.identity,
+    ``,
+    `IHRE WUNSCHKUNDIN — KONKRET:`,
+    `${profile.audience}`,
+    `Wichtig: Die Wunschkundin ist real, mit einem echten Alltag, echten Gedanken, echter Sprache. Schreibe aus IHRER Perspektive heraus — benutze ihre Wörter, ihre Bilder, ihre konkreten Situationen. Nie über sie, sondern als ob du sie kennst.`,
+    ``,
+    `EXPERTISE UND GLAUBWÜRDIGKEIT:`,
+    profile.expertise,
+    ``,
+    `BRAND VOICE — DER TON IST NICHT VERHANDELBAR:`,
+    `${profile.voice}`,
+    `Der Hook muss in dieser Sprache klingen. Nicht ähnlich. Exakt dieser Ton.`,
+    ``,
+    profile.words ? `EIGENE WÖRTER UND NO-GOs — PFLICHT:
+Diese Regeln sind absolut. Verbotene Wörter kommen NIE vor, eigene Ausdrücke fließen natürlich ein:
+${profile.words}` : '',
+    ``,
     profile.arch ? `ARCHETYP: ${profile.arch.name} (${profile.arch.key})
-WICHTIG: Dieser Archetyp bestimmt wie der Hook klingt und fühlt. Eine ${profile.arch.name} schreibt NICHT wie eine andere. Verkörpere diese Energie spürbar — nicht als Label, sondern als echte Sprache.` : '',
+EMOTIONEN DIE DIESER ARCHETYP AUSLÖST: ${archEmotion}
+Der Hook muss diese emotionale Energie haben. Nicht als Etikett, sondern in der Sprache, im Rhythmus, in der Energie des Textes. Eine ${profile.arch.name} schreibt anders als jeder andere Archetyp — das muss spürbar sein.` : '',
     ``,
-    `THEMA: "${topic}"`,
+    `────────────────────────────────`,
+    `THEMA:`,
+    `"${topic}"`,
+    `────────────────────────────────`,
     ``,
     `HOOK-TYP UND ANWEISUNG:`,
     hookDefs[hookType],
     ``,
-    isAll ? `Generiere einen Hook pro Typ (10 total).` : `Generiere genau ${count} verschiedene Hooks.`,
+    `────────────────────────────────`,
+    `ABSOLUTE REGELN — KEINE AUSNAHMEN`,
+    `────────────────────────────────`,
     ``,
-    `ABSOLUTE REGELN:`,
-    `- Kein Hook darf generisch sein — jeder muss sich anfühlen als käme er von genau dieser Person`,
-    `- Die Wunschkundin aus dem Profil muss spürbar sein — ihre konkrete Situation, nicht eine abstrakte Zielgruppe`,
-    `- Die Brand Voice ist nicht optional — der Hook muss in dieser Sprache klingen`,
-    `- Der Archetyp ist spürbar in Energie, Ton und Formulierung`,
+    `SPRACHE & STIL:`,
+    `- Kein Stakkato. Hooks sind natürliche Sätze mit Fluss — kurz darf kurz sein, aber nicht abgehackt`,
+    `- Vollständige, echte Sätze — so wie man im Gespräch redet, nicht wie eine Aufzählung`,
+    `- Die Wunschkundin wird konkret benannt wenn es Sinn ergibt (ihre Berufsbezeichnung, ihre konkrete Situation) — nie abstrakt "Frauen" oder "Menschen"`,
+    `- Ihr echtes Wording: sie sagt nicht "ich bekomme keinen Content-Traffic", sie sagt "niemand reagiert auf meine Posts"`,
+    `- Spezifisch: nicht "bei den richtigen hängen bleibt" (zu vage) sondern was GENAU passiert, bei wem, in welchem Moment`,
+    ``,
+    `VERBOTENE FORMULIERUNGEN (absolut):`,
+    `- "bei den richtigen hängen bleibt"`,
+    `- "sichtbar werden" / "Sichtbarkeit"`,
+    `- "volles Potenzial entfalten"`,
+    `- "auf die nächste Stufe bringen"`,
+    `- "authentisch sein"`,
+    `- "Schritt für Schritt"`,
+    `- "tauche ein"`,
+    `- "lass uns"`,
+    `- Gedankenstrich als Stilmittel`,
     `- Kein Markdown, keine Sterne, keine Unterstriche`,
     `- Nur Deutsch`,
-    `- Kein Warm-up, direkt rein`,
-    `- Vollständige echte Sätze — kein KI-Stakkato`,
     ``,
-    `AUSGABEFORMAT (strikt einhalten):`,
+    isAll ? `Generiere einen Hook pro Typ (10 total). Jeder Hook ist eigenständig und stark.` : `Generiere genau ${count} verschiedene Hooks. Jeder ist eigenständig, kein ist eine Variation des anderen.`,
+    ``,
+    `────────────────────────────────`,
+    `AUSGABEFORMAT (strikt):`,
+    `────────────────────────────────`,
     `HOOK: [Hook-Text]`,
-    `SUBLINE: [Optional — nur wenn ein kurzer Ergänzungssatz den Hook schärfer macht]`,
-    `WARUM: [1-2 Sätze: warum genau dieser Hook funktioniert — konkret, nicht generisch]`,
+    `SUBLINE: [Optional — nur wenn ein kurzer Anschluss-Satz den Hook schärfer macht oder die Lücke öffnet]`,
+    `WARUM: [1–2 Sätze: Warum genau dieser Hook funktioniert — konkret auf die Wunschkundin und das Thema bezogen, nicht generisch]`,
     `---`,
     ``,
-    `Schreibe jetzt die Hooks:`
+    `Jetzt die Hooks:`
   ].filter(Boolean).join('\n');
 
   try {
     const response = await fetch('/.netlify/functions/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, max_tokens: 1500 })
+      body: JSON.stringify({ prompt, max_tokens: 1800 })
     });
     const textRaw = await response.text();
     let data;
@@ -747,7 +951,7 @@ function buildEditGrid() {
   archetypes.forEach(a => {
     const chip = document.createElement('div');
     chip.className = 'arch-chip' + (profile.arch && profile.arch.name===a.name ? ' selected' : '');
-    chip.dataset.arch=a.name; chip.dataset.key=a.key; chip.dataset.emoji=a.emoji;
+    chip.dataset.arch=a.name; chip.dataset.key=a.key; chip.dataset.emoji=a.emoji; chip.dataset.emotion=a.emotion;
     chip.innerHTML = `<span class="arch-emoji">${a.emoji}</span><span class="arch-name">${a.name}</span><span class="arch-key">${a.key.split(' · ').slice(0,2).join(' · ')}</span>`;
     chip.onclick = () => { document.querySelectorAll('#edit-arch-grid .arch-chip').forEach(c=>c.classList.remove('selected')); chip.classList.add('selected'); };
     grid.appendChild(chip);
@@ -768,7 +972,7 @@ function saveEdit() {
   const identity=document.getElementById('edit-identity').value.trim(), audience=document.getElementById('edit-audience').value.trim(), expertise=document.getElementById('edit-expertise').value.trim(), voice=document.getElementById('edit-voice').value.trim();
   if(!identity||!audience||!expertise||!voice) { showToast('Bitte Pflichtfelder ausfüllen 💖'); return; }
   const chip = document.querySelector('#edit-arch-grid .arch-chip.selected');
-  profile = { identity, audience, expertise, voice, words:document.getElementById('edit-words').value.trim(), arch: chip?{name:chip.dataset.arch,key:chip.dataset.key,emoji:chip.dataset.emoji}:null };
+  profile = { identity, audience, expertise, voice, words:document.getElementById('edit-words').value.trim(), arch: chip?{name:chip.dataset.arch,key:chip.dataset.key,emoji:chip.dataset.emoji,emotion:chip.dataset.emotion}:null };
   saveToStorage(); updateSidebar(); closeModal(); showToast('Profil aktualisiert ✓');
 }
 document.getElementById('modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
@@ -814,18 +1018,20 @@ async function generateCaption() {
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Caption wird geschrieben…';
 
   const prompt = [
-    `Du bist ein erfahrener Social Media Texter. Schreibe eine Instagram Caption die klingt wie von der Person selbst geschrieben.`,
+    `Du bist ein erfahrener Social Media Texter. Schreibe eine Instagram Caption die klingt wie von der Person selbst geschrieben — nicht nach KI, nicht nach Marketing-Template.`,
     ``,
     `PROFIL:`,
     `Wer sie ist: ${profile.identity}`,
     `Wunschkundin: ${profile.audience}`,
-    `Brand Voice (genau dieser Ton): ${profile.voice}`,
-    profile.words ? `Wörter und No-Gos (PFLICHT): ${profile.words}` : '',
-    profile.arch ? `Archetyp: ${profile.arch.name} (${profile.arch.key})` : '',
+    `Brand Voice (genau dieser Ton, keine Variation): ${profile.voice}`,
+    profile.words ? `Eigene Wörter und No-Gos (ABSOLUT PFLICHT): ${profile.words}` : '',
+    profile.arch ? `Archetyp: ${profile.arch.name} (${profile.arch.key}) — die Energie und Emotion dahinter: ${profile.arch.emotion||''}` : '',
     ``,
-    `Hook (bereits vorhanden, NICHT wiederholen): ${currentHookForCaption}`,
+    `Hook (bereits vorhanden, NICHT wiederholen oder variieren):`,
+    currentHookForCaption,
     ``,
-    `Inhalt: ${content}`,
+    `Inhalt der Caption:`,
+    content,
     document.getElementById('captionKeywords').value.trim() ? `Keywords (als normale Wörter einbauen, keine Hashtags): ${document.getElementById('captionKeywords').value.trim()}` : '',
     ``,
     `Länge: ${lengthMap[length]}`,
@@ -833,14 +1039,14 @@ async function generateCaption() {
     ``,
     `REGELN:`,
     `- Erster Satz: eigenständiger Stopper, direkt rein, kein Warm-up`,
-    `- Konkret und spezifisch, nicht generisch`,
+    `- Konkret und spezifisch — die Wunschkundin ist konkret, ihre Situation ist konkret, die Sprache ist ihre Sprache`,
     `- Kein Markdown, keine Sterne, keine Unterstriche`,
-    `- Kein Gedankenstrich, lieber Komma oder neuer Satz`,
-    `- Vollständige Sätze, kein Stakkato, kein aufgeblähter Text`,
-    `- Verbotene Phrasen: "Lass uns", "Ich helfe dir", "Tauche ein", "Schritt für Schritt", "Nicht weil..., sondern", "authentisch", "sichtbar", "begleiten"`,
+    `- Kein Gedankenstrich als Stilmittel`,
+    `- Vollständige Sätze in natürlichem Fluss — kein Stakkato, kein aufgeblähter Text`,
+    `- Verbotene Phrasen: "lass uns", "ich helfe dir", "tauche ein", "schritt für schritt", "authentisch", "sichtbar", "auf die nächste Stufe", "volles Potenzial"`,
     `- Keine Coaching-Fachsprache, kein Business-Jargon`,
-    `- Sparsame Emojis`,
-    `- Hook NICHT wiederholen`,
+    `- Sparsame Emojis, nur wo sie wirklich Sinn ergeben`,
+    `- Hook NICHT wiederholen oder variieren — die Caption beginnt ab Satz zwei`,
     ``,
     `Schreibe jetzt nur die Caption:`
   ].filter(Boolean).join('\n');
