@@ -190,6 +190,40 @@ textarea.invalid { border-color: #e05050 !important; }
   .onboarding-box { padding: 32px 20px; }
   .autosave-badge { display: none; }
 }
+
+.tab-bar { display: flex; gap: 4px; background: var(--blush); border-radius: 12px; padding: 4px; margin-bottom: 20px; }
+.tab-btn { flex: 1; padding: 10px 16px; border: none; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--mid); }
+.tab-btn.active { background: white; color: var(--hot); font-weight: 600; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
+.tab-btn:hover:not(.active) { color: var(--black); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Standalone caption panel */
+.standalone-caption { max-width: 680px; }
+.standalone-caption .caption-field-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 8px; display: block; }
+.standalone-caption .length-chips { display: flex; gap: 8px; margin-bottom: 18px; }
+.standalone-caption .length-chip { flex: 1; border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.15s; background: var(--cream); }
+.standalone-caption .length-chip:hover { border-color: var(--pink); }
+.standalone-caption .length-chip.active { border-color: var(--hot); background: #f7ecf2; }
+.standalone-caption .length-chip-name { font-size: 13px; font-weight: 600; color: var(--navy); display: block; }
+.standalone-caption .length-chip-chars { font-size: 10px; color: var(--mid); display: block; margin-top: 2px; }
+.standalone-caption textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy); background: var(--cream); resize: vertical; outline: none; transition: border-color 0.2s; box-sizing: border-box; margin-bottom: 14px; }
+.standalone-caption textarea:focus { border-color: var(--hot); }
+.standalone-caption textarea::placeholder { color: #C0B0A0; }
+.standalone-cta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.standalone-caption .generate-btn { width: 100%; padding: 15px; background: var(--hot); color: white; border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
+.standalone-caption .generate-btn:hover { background: #7d1347; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(158,26,89,0.35); }
+.standalone-caption .generate-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+.sc-result { margin-top: 20px; display: none; }
+.sc-result.visible { display: block; }
+.sc-result-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--hot); font-weight: 600; margin-bottom: 10px; }
+.sc-result-text { background: var(--cream); border-radius: 10px; padding: 16px; font-size: 14px; color: var(--navy); line-height: 1.7; white-space: pre-wrap; border: 1px solid var(--border); margin-bottom: 12px; }
+.sc-char-count { font-size: 11px; color: var(--mid); margin-bottom: 10px; }
+.sc-char-count.over { color: #e05050; font-weight: 600; }
+.sc-copy-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.sc-copy-btn { background: var(--blush); border: none; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--mid); cursor: pointer; transition: all 0.15s; }
+.sc-copy-btn:hover { background: var(--hot); color: white; }
+.sc-copy-btn.copied { background: var(--green); color: white; }
 </style>
 </head>
 <body>
@@ -315,38 +349,92 @@ textarea.invalid { border-color: #e05050 !important; }
       <p style="font-size:11px;color:var(--mid);line-height:1.5;margin-top:12px;">by <strong style="color:var(--hot);">Anne Trui</strong><br>annetrui.com</p>
     </aside>
     <main class="main-content">
-      <div class="card">
-        <p class="section-title">Dein Thema heute</p>
-        <textarea id="topic" placeholder="Beschreibe worüber du heute schreiben willst. Ein Satz reicht — oder schreib deine Gedanken dazu." style="min-height:80px;"></textarea>
+      <!-- TAB BAR -->
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('hooks', this)">🪝 Hook + Caption</button>
+        <button class="tab-btn" onclick="switchTab('caption', this)">✍️ Nur Caption</button>
       </div>
-      <div class="card">
-        <p class="section-title">Welcher Hook-Typ?</p>
-        <div class="hook-types">
-          <div class="hook-chip active" data-type="kopf"><div class="chip-name">🧠 Im Kopf der Wunschkundin</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
-          <div class="hook-chip" data-type="ich"><div class="chip-name">🪞 Ich & Geschichte</div><div class="chip-desc">Dein echter Moment — ungeschönt</div></div>
-          <div class="hook-chip" data-type="neugier"><div class="chip-name">🔍 Neugier & Geheimnis</div><div class="chip-desc">Andeutung die man aufdecken muss</div></div>
-          <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Meinung</div><div class="chip-desc">Deine echte Haltung, ungefiltert</div></div>
-          <div class="hook-chip" data-type="pov"><div class="chip-name">🎬 POV-Format</div><div class="chip-desc">Versetzt sie in eine konkrete Szene</div></div>
-          <div class="hook-chip" data-type="paradox"><div class="chip-name">⚡ Paradox</div><div class="chip-desc">Zwei Wahrheiten die sich widersprechen</div></div>
-          <div class="hook-chip" data-type="emotional"><div class="chip-name">💙 Emotionale Offenheit</div><div class="chip-desc">Der Moment der zu persönlich wirkt</div></div>
-          <div class="hook-chip" data-type="zahlen"><div class="chip-name">📊 Ergebnis & Zahlen</div><div class="chip-desc">So spezifisch dass es nicht erfunden wirkt</div></div>
-          <div class="hook-chip" data-type="frage"><div class="chip-name">❓ Die Frage die wehtut</div><div class="chip-desc">Was die Wunschkundin sich nicht traut zu fragen</div></div>
-          <div class="hook-chip" data-type="statement"><div class="chip-name">💎 Starkes Statement</div><div class="chip-desc">Ein Satz. Klar. Mit Gewicht.</div></div>
 
+      <!-- TAB 1: HOOK + CAPTION -->
+      <div class="tab-panel active" id="tab-hooks">
+        <div class="card">
+          <p class="section-title">Dein Thema heute</p>
+          <textarea id="topic" placeholder="Beschreibe worüber du heute schreiben willst. Ein Satz reicht — oder schreib deine Gedanken dazu." style="min-height:80px;"></textarea>
         </div>
-      </div>
-      <div class="card" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-        <div>
-          <p class="section-title" style="margin-bottom:8px;">Anzahl</p>
-          <div class="count-row">
-            <button class="count-btn" id="minus">−</button>
-            <span class="count-num" id="countNum">3</span>
-            <button class="count-btn" id="plus">+</button>
+        <div class="card">
+          <p class="section-title">Welcher Hook-Typ?</p>
+          <div class="hook-types">
+            <div class="hook-chip active" data-type="kopf"><div class="chip-name">🧠 Im Kopf der Wunschkundin</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
+            <div class="hook-chip" data-type="ich"><div class="chip-name">🪞 Ich & Geschichte</div><div class="chip-desc">Dein echter Moment — ungeschönt</div></div>
+            <div class="hook-chip" data-type="neugier"><div class="chip-name">🔍 Neugier & Geheimnis</div><div class="chip-desc">Andeutung die man aufdecken muss</div></div>
+            <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Meinung</div><div class="chip-desc">Deine echte Haltung, ungefiltert</div></div>
+            <div class="hook-chip" data-type="pov"><div class="chip-name">🎬 POV-Format</div><div class="chip-desc">Versetzt sie in eine konkrete Szene</div></div>
+            <div class="hook-chip" data-type="paradox"><div class="chip-name">⚡ Paradox</div><div class="chip-desc">Zwei Wahrheiten die sich widersprechen</div></div>
+            <div class="hook-chip" data-type="emotional"><div class="chip-name">💙 Emotionale Offenheit</div><div class="chip-desc">Der Moment der zu persönlich wirkt</div></div>
+            <div class="hook-chip" data-type="zahlen"><div class="chip-name">📊 Ergebnis & Zahlen</div><div class="chip-desc">So spezifisch dass es nicht erfunden wirkt</div></div>
+            <div class="hook-chip" data-type="frage"><div class="chip-name">❓ Die Frage die wehtut</div><div class="chip-desc">Was die Wunschkundin sich nicht traut zu fragen</div></div>
+            <div class="hook-chip" data-type="statement"><div class="chip-name">💎 Starkes Statement</div><div class="chip-desc">Ein Satz. Klar. Mit Gewicht.</div></div>
           </div>
         </div>
-        <button class="generate-btn" id="generateBtn" onclick="generateHooks()" style="flex:1;min-width:200px;">Hooks generieren 🚀</button>
+        <div class="card" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+          <div>
+            <p class="section-title" style="margin-bottom:8px;">Anzahl</p>
+            <div class="count-row">
+              <button class="count-btn" id="minus">−</button>
+              <span class="count-num" id="countNum">3</span>
+              <button class="count-btn" id="plus">+</button>
+            </div>
+          </div>
+          <button class="generate-btn" id="generateBtn" onclick="generateHooks()" style="flex:1;min-width:200px;">Hooks generieren 🚀</button>
+        </div>
+        <div id="results"></div>
       </div>
-      <div id="results"></div>
+
+      <!-- TAB 2: NUR CAPTION -->
+      <div class="tab-panel" id="tab-caption">
+        <div class="card standalone-caption">
+          <p class="section-title" style="margin-bottom:16px;">Caption direkt schreiben lassen</p>
+
+          <span class="caption-field-label">Dein Hook <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--mid);">— optional, wenn du schon einen hast</span></span>
+          <textarea id="sc-hook" placeholder="Füge deinen Hook ein — oder lass das Feld leer wenn du noch keinen hast." style="min-height:60px;"></textarea>
+
+          <span class="caption-field-label">Länge</span>
+          <div class="length-chips">
+            <div class="length-chip active" data-length="kurz" onclick="selectScLength(this)"><span class="length-chip-name">Kurz</span><span class="length-chip-chars">bis 500 Zeichen</span></div>
+            <div class="length-chip" data-length="mittel" onclick="selectScLength(this)"><span class="length-chip-name">Mittel</span><span class="length-chip-chars">500–1200 Zeichen</span></div>
+            <div class="length-chip" data-length="lang" onclick="selectScLength(this)"><span class="length-chip-name">Lang</span><span class="length-chip-chars">bis 2000 Zeichen</span></div>
+          </div>
+
+          <span class="caption-field-label">Worum geht es?</span>
+          <textarea id="sc-content" placeholder="Beschreibe den Inhalt, deine Erkenntnis, eine Kundengeschichte — oder einfach worum es geht." style="min-height:120px;"></textarea>
+
+          <span class="caption-field-label">CTA</span>
+          <div class="standalone-cta-chips">
+            <div class="cta-chip active" data-cta="Kommentiere mit deiner Antwort unten" onclick="selectScCTA(this)">💬 Kommentieren</div>
+            <div class="cta-chip" data-cta="Speichere das für später" onclick="selectScCTA(this)">🔖 Speichern</div>
+            <div class="cta-chip" data-cta="Schreib mir eine DM" onclick="selectScCTA(this)">✉️ DM</div>
+            <div class="cta-chip" data-cta="Den Link findest du in meiner Bio" onclick="selectScCTA(this)">🔗 Link in Bio</div>
+            <div class="cta-chip" data-cta="" onclick="selectScCTA(this)">✏️ Eigener CTA</div>
+          </div>
+          <textarea id="sc-custom-cta" placeholder="Eigenen CTA eingeben..." style="min-height:44px;margin-bottom:16px;display:none;"></textarea>
+
+          <span class="caption-field-label">Keywords <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--mid);">— optional</span></span>
+          <textarea id="sc-keywords" placeholder="z.B. Positionierung, Archetyp, Brand Voice" style="min-height:54px;margin-bottom:18px;"></textarea>
+
+          <button class="generate-btn" id="scGenerateBtn" onclick="generateStandaloneCaption()">Caption generieren ✨</button>
+
+          <div class="sc-result" id="scResult">
+            <div class="sc-result-label" style="margin-top:20px;">Deine Caption</div>
+            <div class="sc-result-text" id="scResultText"></div>
+            <div class="sc-char-count" id="scCharCount"></div>
+            <div class="sc-copy-actions">
+              <button class="sc-copy-btn" onclick="copyScCaption(this)">Caption kopieren</button>
+              <button class="sc-copy-btn" onclick="copyScHookAndCaption(this)" id="scCopyBoth" style="display:none;">Hook + Caption kopieren</button>
+              <button class="sc-copy-btn" onclick="resetScCaption()" style="background:var(--cream);border:1.5px solid var(--border);color:var(--mid);">Neue Caption</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 </div>
@@ -976,11 +1064,28 @@ let currentHookForCaption = '';
 let currentCaptionText = '';
 
 function selectCTA(chip) {
-  document.querySelectorAll('.cta-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active');
+  chip.closest('.cta-chips, .caption-modal').querySelectorAll('.cta-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active');
   const a=document.getElementById('captionCTA'); if(chip.dataset.cta===''){a.style.display='block';a.focus();}else{a.style.display='none';a.value='';}
 }
-function getSelectedCTA() { const a=document.querySelector('.cta-chip.active'); if(!a) return 'Speichere das für später'; if(a.dataset.cta==='') return document.getElementById('captionCTA').value.trim()||'Speichere das für später'; return a.dataset.cta; }
-function selectLength(chip) { document.querySelectorAll('.length-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active'); }
+function getSelectedCTA() { const a=document.querySelector('#captionModal .cta-chip.active'); if(!a) return 'Speichere das für später'; if(a.dataset.cta==='') return document.getElementById('captionCTA').value.trim()||'Speichere das für später'; return a.dataset.cta; }
+function selectLength(chip) { chip.closest('.length-chips').querySelectorAll('.length-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active'); }
+
+// Standalone caption CTA/length
+function selectScCTA(chip) {
+  chip.closest('.standalone-cta-chips').querySelectorAll('.cta-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active');
+  const a=document.getElementById('sc-custom-cta'); if(chip.dataset.cta===''){a.style.display='block';a.focus();}else{a.style.display='none';a.value='';}
+}
+function getScCTA() { const a=document.querySelector('.standalone-cta-chips .cta-chip.active'); if(!a) return 'Speichere das für später'; if(a.dataset.cta==='') return document.getElementById('sc-custom-cta').value.trim()||'Speichere das für später'; return a.dataset.cta; }
+function selectScLength(chip) { chip.closest('.length-chips').querySelectorAll('.length-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active'); }
+function getScLength() { const c=document.querySelector('#tab-caption .length-chip.active'); return c?c.dataset.length:'mittel'; }
+
+// Tab switching
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
 
 function openCaptionModal(hookIndex) {
   const hookData = window._hookStore && window._hookStore[hookIndex];
@@ -1070,6 +1175,90 @@ function resetCaption() {
   document.getElementById('generateCaptionBtn').innerHTML='Caption generieren ✨';
   currentCaptionText='';
 }
+let scCaptionText = '';
+
+async function generateStandaloneCaption() {
+  const scContent = document.getElementById('sc-content').value.trim();
+  if(!scContent) { showToast('Beschreib kurz worum es geht 💖'); return; }
+  const scHook = document.getElementById('sc-hook').value.trim();
+  const length = getScLength();
+  const lengthMap = { kurz:'maximal 500 Zeichen', mittel:'zwischen 500 und 1200 Zeichen', lang:'maximal 2000 Zeichen' };
+  const btn = document.getElementById('scGenerateBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Caption wird geschrieben…';
+
+  const prompt = [
+    `Du bist ein erfahrener Social Media Texter. Schreibe eine Instagram Caption die klingt wie von der Person selbst geschrieben — nicht nach KI, nicht nach Marketing-Template.`,
+    ``,
+    `PROFIL:`,
+    `Wer sie ist: ${profile.identity}`,
+    `Wunschkundin: ${profile.audience}`,
+    `Brand Voice (genau dieser Ton, keine Variation): ${profile.voice}`,
+    profile.words ? `Eigene Wörter und No-Gos (ABSOLUT PFLICHT): ${profile.words}` : '',
+    profile.arch ? `Archetyp: ${profile.arch.name} (${profile.arch.key}) — die Energie und Emotion dahinter: ${profile.arch.emotion||''}` : '',
+    ``,
+    scHook ? `Hook (bereits vorhanden, NICHT wiederholen oder variieren, Caption beginnt danach):\n${scHook}` : `Kein Hook vorhanden — die Caption beginnt direkt mit einem starken ersten Satz.`,
+    ``,
+    `Inhalt der Caption:`,
+    scContent,
+    document.getElementById('sc-keywords').value.trim() ? `Keywords (als normale Wörter einbauen, keine Hashtags): ${document.getElementById('sc-keywords').value.trim()}` : '',
+    ``,
+    `Länge: ${lengthMap[length]}`,
+    `CTA am Ende: ${getScCTA()}`,
+    ``,
+    `REGELN:`,
+    scHook ? `- Hook NICHT wiederholen — Caption beginnt mit Satz zwei` : `- Erster Satz ist ein eigenständiger Stopper, direkt rein, kein Warm-up`,
+    `- Konkret und spezifisch — die Wunschkundin ist konkret, ihre Situation ist konkret, die Sprache ist ihre Sprache`,
+    `- Kein Markdown, keine Sterne, keine Unterstriche`,
+    `- Kein Gedankenstrich als Stilmittel`,
+    `- Vollständige Sätze in natürlichem Fluss — kein Stakkato`,
+    `- Verbotene Phrasen: "lass uns", "ich helfe dir", "tauche ein", "schritt für schritt", "authentisch", "sichtbar", "auf die nächste Stufe", "volles Potenzial"`,
+    `- Keine Coaching-Fachsprache, kein Business-Jargon`,
+    `- Sparsame Emojis, nur wo sie wirklich Sinn ergeben`,
+    ``,
+    `Schreibe jetzt nur die Caption:`
+  ].filter(Boolean).join('\n');
+
+  try {
+    const response = await fetch('/.netlify/functions/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, max_tokens: 1000 })
+    });
+    const textRaw = await response.text();
+    let data;
+    try { data = JSON.parse(textRaw); } catch(e) { throw new Error('Server-Fehler'); }
+    if(data.error) throw new Error(data.error);
+    scCaptionText = stripMarkdown(data.text || '');
+    document.getElementById('scResultText').textContent = scCaptionText;
+    const cc = scCaptionText.length;
+    const countEl = document.getElementById('scCharCount');
+    countEl.textContent = `${cc} / 2000 Zeichen`;
+    countEl.className = 'sc-char-count' + (cc>2000?' over':'');
+    document.getElementById('scResult').classList.add('visible');
+    // Show "Hook + Caption kopieren" only if hook was provided
+    document.getElementById('scCopyBoth').style.display = scHook ? 'inline-block' : 'none';
+    document.getElementById('scResult').scrollIntoView({behavior:'smooth',block:'nearest'});
+  } catch(err) { showToast('Ups: ' + err.message); }
+
+  btn.disabled = false; btn.innerHTML = 'Caption neu generieren ✨';
+}
+
+function copyScCaption(btn) { copyText(btn, scCaptionText); }
+function copyScHookAndCaption(btn) {
+  const h = document.getElementById('sc-hook').value.trim();
+  copyText(btn, h ? h + '\n\n' + scCaptionText : scCaptionText);
+}
+function resetScCaption() {
+  document.getElementById('sc-content').value='';
+  document.getElementById('sc-keywords').value='';
+  document.getElementById('sc-custom-cta').value='';
+  document.getElementById('sc-custom-cta').style.display='none';
+  document.querySelectorAll('.standalone-cta-chips .cta-chip').forEach((c,i)=>c.classList.toggle('active',i===0));
+  document.getElementById('scResult').classList.remove('visible');
+  document.getElementById('scGenerateBtn').innerHTML='Caption generieren ✨';
+  scCaptionText='';
+}
+
 </script>
 </body>
 </html>
