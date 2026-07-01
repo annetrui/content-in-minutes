@@ -359,7 +359,7 @@ textarea.invalid { border-color: #e05050 !important; }
       <div class="tab-panel active" id="tab-hooks">
         <div class="card">
           <p class="section-title">Dein Thema heute</p>
-          <textarea id="topic" placeholder="Beschreibe worüber du heute schreiben willst. Ein Satz reicht — oder schreib deine Gedanken dazu." style="min-height:80px;"></textarea>
+          <textarea id="topic" placeholder="Schreib so viel du willst — ein Satz, eine Idee, Gedanken, Kontext, eine Geschichte. Je mehr du gibst, desto besser trifft der Hook. Nicht alles muss im Hook landen, aber alles hilft zu verstehen was er treffen soll." style="min-height:80px;"></textarea>
         </div>
         <div class="card">
           <p class="section-title">Welcher Hook-Typ?</p>
@@ -387,7 +387,13 @@ textarea.invalid { border-color: #e05050 !important; }
           </div>
           <button class="generate-btn" id="generateBtn" onclick="generateHooks()" style="flex:1;min-width:200px;">Hooks generieren 🚀</button>
         </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <button onclick="resetHooks()" style="background:none;border:1.5px solid var(--border);border-radius:8px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--mid);cursor:pointer;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--hot)';this.style.color='var(--hot)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--mid)'">✏️ Neue Hook von 0 schreiben</button>
+        </div>
         <div id="results"></div>
+      <div id="hooks-hint" style="display:none; background: #f7ecf2; border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-top: 4px; font-size: 13px; color: var(--mid); line-height: 1.6;">
+        💡 <strong style="color:var(--hot);">Noch nicht fertig.</strong> Lies die Hooks durch und pass sie auf dich an — ein Wort tauschen, einen Satz kürzen, dein echtes Wording rein. Der Hook ist ein Entwurf, du bist die Autorin.
+      </div>
       </div>
 
       <!-- TAB 2: NUR CAPTION -->
@@ -596,6 +602,16 @@ function resetProfile() {
   ['ob-identity','ob-audience','ob-expertise','ob-voice','ob-words'].forEach(id => { document.getElementById(id).value = ''; });
   document.querySelectorAll('#ob-arch-grid .arch-chip').forEach(c => c.classList.remove('selected'));
   profile = {identity:'',audience:'',expertise:'',voice:'',words:'',arch:null};
+}
+
+function resetHooks() {
+  document.getElementById('topic').value = '';
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('hooks-hint').style.display = 'none';
+  document.querySelectorAll('.hook-chip').forEach((c,i) => c.classList.toggle('active', i===0));
+  document.getElementById('countNum').textContent = '3';
+  count = 3;
+  document.getElementById('topic').focus();
 }
 
 document.getElementById('minus').onclick = () => { if(count>1){count--;document.getElementById('countNum').textContent=count;} };
@@ -919,8 +935,9 @@ EMOTIONEN DIE DIESER ARCHETYP AUSLÖST: ${archEmotion}
 Der Hook muss diese emotionale Energie haben. Nicht als Etikett, sondern in der Sprache, im Rhythmus, in der Energie des Textes. Eine ${profile.arch.name} schreibt anders als jeder andere Archetyp — das muss spürbar sein.` : '',
     ``,
     `────────────────────────────────`,
-    `THEMA:`,
+    `THEMA — DEIN BRIEFING:`,
     `"${topic}"`,
+    `Lies das als Briefing, nicht als fertigen Hook-Text. Die Nutzerin hat hier alles reingeschrieben was relevant ist — Idee, Kontext, Gedanken, Story-Ansätze. Nicht alles muss im Hook landen. Aber alles hilft dir zu verstehen was der Hook wirklich treffen soll. Deine Aufgabe: destilliere daraus die stärkste mögliche Aussage.`,
     `────────────────────────────────`,
     ``,
     `HOOK-TYP UND ANWEISUNG:`,
@@ -1021,6 +1038,10 @@ Der Hook muss diese emotionale Energie haben. Nicht als Etikett, sondern in der 
         </div>`;
       results.appendChild(card);
     });
+
+    if(results.children.length > 0) {
+      document.getElementById('hooks-hint').style.display = 'block';
+    }
 
     if(results.children.length === 0) results.innerHTML = `<div class="error-box">Format hat nicht gepasst — versuch's nochmal!</div>`;
   } catch(err) {
