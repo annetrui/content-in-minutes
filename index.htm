@@ -393,7 +393,7 @@ textarea.invalid { border-color: #e05050 !important; }
 
         <div id="results"></div>
       <div id="hooks-hint" style="display:none; padding: 8px 2px 12px; font-size: 11px; color: #aaa; line-height: 1.5; letter-spacing: 0.2px;">
-        Entwurf — jetzt anpassen. Dein Wording, dein Satz, deine Stimme.
+        Das ist dein Entwurf — prüf ihn und pass ihn an, bis er sich wirklich nach dir anfühlt.
       </div>
       </div>
 
@@ -978,11 +978,13 @@ Der Hook muss diese emotionale Energie haben. Nicht als Etikett, sondern in der 
     `Generiere genau ${count} verschiedene Hooks. Jeder ist eigenständig, kein ist eine Variation des anderen.`,
     ``,
     `────────────────────────────────`,
-    `AUSGABEFORMAT (strikt):`,
+    `AUSGABEFORMAT (strikt — keine Abweichungen):`,
     `────────────────────────────────`,
+    `Trenne jeden Hook mit --- (drei Bindestriche, eigene Zeile). Kein anderes Trennzeichen. Keine Nummerierungen wie "# HOOK 2" oder "Hook 2:". Kein Markdown.`,
+    ``,
     `HOOK: [Hook-Text]`,
-    `SUBLINE: [Optional — nur wenn ein kurzer Anschluss-Satz den Hook schärfer macht oder die Lücke öffnet]`,
-    `WARUM: [1–2 Sätze: Warum genau dieser Hook funktioniert — konkret auf die Wunschkundin und das Thema bezogen, nicht generisch]`,
+    `SUBLINE: [Optional — nur wenn ein kurzer Anschluss-Satz den Hook schärfer macht]`,
+    `WARUM: [1–2 Sätze: Warum dieser Hook funktioniert — konkret auf Wunschkundin und Thema bezogen]`,
     `---`,
     ``,
     `Jetzt die Hooks:`
@@ -1001,7 +1003,11 @@ Der Hook muss diese emotionale Energie haben. Nicht als Etikett, sondern in der 
     const raw = data.text || '';
     if(!raw) throw new Error('Keine Antwort erhalten');
 
-    const blocks = raw.split('---').map(b => b.trim()).filter(b => b.length > 10);
+    // Normalisiere alternative Trennzeichen die das Modell manchmal ausgibt
+    const normalized = raw
+      .replace(/^#{1,3}\s*HOOK\s*\d+/gim, '---')  // # HOOK 2, ## Hook 2 etc.
+      .replace(/^-{3,}/gm, '---');                    // --- bleibt ---
+    const blocks = normalized.split('---').map(b => b.trim()).filter(b => b.length > 10);
     const typeLabel = activeChip?.querySelector('.chip-name')?.textContent || 'Hook';
 
     blocks.forEach((block, i) => {
