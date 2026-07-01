@@ -224,6 +224,25 @@ textarea.invalid { border-color: #e05050 !important; }
 .sc-copy-btn { background: var(--blush); border: none; border-radius: 8px; padding: 8px 16px; font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--mid); cursor: pointer; transition: all 0.15s; }
 .sc-copy-btn:hover { background: var(--hot); color: white; }
 .sc-copy-btn.copied { background: var(--green); color: white; }
+
+/* ── MIKROFON ── */
+.mic-wrap { position: relative; }
+.mic-btn {
+  position: absolute; right: 10px; bottom: 10px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--cream); border: 1.5px solid var(--border);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 15px; transition: all 0.2s; z-index: 2;
+}
+.mic-btn:hover { border-color: var(--hot); background: #f7ecf2; }
+.mic-btn.recording {
+  background: #fee2e2; border-color: #ef4444;
+  animation: mic-pulse 1.2s ease-in-out infinite;
+}
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+}
 </style>
 </head>
 <body>
@@ -353,6 +372,24 @@ textarea.invalid { border-color: #e05050 !important; }
       <div class="tab-bar">
         <button class="tab-btn active" onclick="switchTab('hooks', this)">🪝 Hook + Caption</button>
         <button class="tab-btn" onclick="switchTab('caption', this)">✍️ Nur Caption</button>
+        <button class="tab-btn" onclick="switchTab('carousel', this)" style="position:relative;">🎠 Karussell <span style="font-size:9px;font-weight:700;background:var(--hot);color:white;border-radius:100px;padding:2px 7px;margin-left:4px;letter-spacing:0.5px;vertical-align:middle;">SOON</span></button>
+      </div>
+
+      <!-- TAB 3: KARUSSELL COMING SOON -->
+      <div class="tab-panel" id="tab-carousel">
+        <div style="text-align:center;padding:64px 24px 80px;">
+          <div style="font-size:48px;margin-bottom:20px;">🎠</div>
+          <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--hot);font-weight:700;margin-bottom:12px;">Coming Soon</p>
+          <h2 style="font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,32px);color:var(--navy);line-height:1.25;margin-bottom:16px;max-width:480px;margin-left:auto;margin-right:auto;">Karussell-Posts — komplett in deiner Brand Voice.</h2>
+          <p style="font-size:14px;color:var(--mid);line-height:1.75;max-width:420px;margin:0 auto 32px;">Hook, Slides, Reframe, CTA — alles auf einmal generiert. Basierend auf deinem Profil, deiner Wunschkundin und deinem Archetyp.</p>
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:460px;margin:0 auto;">
+            <span style="background:white;border:1.5px solid var(--border);border-radius:100px;padding:6px 16px;font-size:12px;color:var(--mid);font-weight:500;">🪝 Hook-Slide</span>
+            <span style="background:white;border:1.5px solid var(--border);border-radius:100px;padding:6px 16px;font-size:12px;color:var(--mid);font-weight:500;">😬 Agitations-Slide</span>
+            <span style="background:white;border:1.5px solid var(--border);border-radius:100px;padding:6px 16px;font-size:12px;color:var(--mid);font-weight:500;">💡 Wert-Slides</span>
+            <span style="background:white;border:1.5px solid var(--border);border-radius:100px;padding:6px 16px;font-size:12px;color:var(--mid);font-weight:500;">⚡ Reframe</span>
+            <span style="background:white;border:1.5px solid var(--border);border-radius:100px;padding:6px 16px;font-size:12px;color:var(--mid);font-weight:500;">📣 CTA-Slide</span>
+          </div>
+        </div>
       </div>
 
       <!-- TAB 1: HOOK + CAPTION -->
@@ -413,7 +450,10 @@ textarea.invalid { border-color: #e05050 !important; }
           </div>
 
           <span class="caption-field-label">Worum geht es?</span>
-          <textarea id="sc-content" placeholder="Beschreibe den Inhalt, deine Erkenntnis, eine Kundengeschichte — oder einfach worum es geht." style="min-height:120px;"></textarea>
+          <div class="mic-wrap">
+            <textarea id="sc-content" placeholder="Beschreibe den Inhalt, deine Erkenntnis, eine Kundengeschichte — oder einfach worum es geht." style="min-height:120px;padding-right:48px;width:100%;border:1.5px solid var(--border);border-radius:10px;padding:12px 48px 12px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--navy);background:var(--cream);resize:vertical;outline:none;transition:border-color 0.2s;box-sizing:border-box;margin-bottom:14px;"></textarea>
+            <button class="mic-btn" id="micBtnSc" onclick="toggleMic('sc-content', 'micBtnSc')" title="Diktierfunktion">🎤</button>
+          </div>
 
           <span class="caption-field-label">CTA</span>
           <div class="standalone-cta-chips">
@@ -472,7 +512,10 @@ textarea.invalid { border-color: #e05050 !important; }
       <div class="length-chip" data-length="lang" onclick="selectLength(this)"><span class="length-chip-name">Lang</span><span class="length-chip-chars">bis 2000 Zeichen</span></div>
     </div>
     <span class="caption-field-label">Worum geht es?</span>
-    <textarea class="caption-textarea" id="captionContent" placeholder="Beschreib den Inhalt, eine Kundengeschichte, die Erkenntnis dahinter..." style="min-height:130px;"></textarea>
+    <div class="mic-wrap">
+      <textarea class="caption-textarea" id="captionContent" placeholder="Beschreib den Inhalt, eine Kundengeschichte, die Erkenntnis dahinter..." style="min-height:130px;padding-right:48px;"></textarea>
+      <button class="mic-btn" id="micBtnModal" onclick="toggleMic('captionContent', 'micBtnModal')" title="Diktierfunktion">🎤</button>
+    </div>
     <span class="caption-field-label">CTA</span>
     <div class="cta-chips" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
       <div class="cta-chip active" data-cta="Kommentiere mit deiner Antwort unten" onclick="selectCTA(this)">💬 Kommentieren</div>
@@ -1336,6 +1379,79 @@ function resetScCaption() {
   document.getElementById('scResult').classList.remove('visible');
   document.getElementById('scGenerateBtn').innerHTML='Caption generieren ✨';
   scCaptionText='';
+}
+
+// ── DIKTIERFUNKTION ──
+let activeRecognition = null;
+
+function toggleMic(fieldId, btnId) {
+  const btn = document.getElementById(btnId);
+  const field = document.getElementById(fieldId);
+
+  // Läuft bereits — stoppen
+  if (activeRecognition) {
+    activeRecognition.stop();
+    activeRecognition = null;
+    btn.classList.remove('recording');
+    btn.textContent = '🎤';
+    return;
+  }
+
+  // Browser-Support prüfen
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    showToast('Diktierfunktion wird in diesem Browser nicht unterstützt 😔');
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'de-DE';
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  let baseText = field.value;
+  if (baseText && !baseText.endsWith(' ')) baseText += ' ';
+
+  recognition.onstart = () => {
+    btn.classList.add('recording');
+    btn.textContent = '⏹';
+    activeRecognition = recognition;
+  };
+
+  recognition.onresult = (e) => {
+    let interim = '';
+    let final = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        final += e.results[i][0].transcript;
+      } else {
+        interim += e.results[i][0].transcript;
+      }
+    }
+    if (final) {
+      baseText += final + ' ';
+      field.value = baseText;
+    } else {
+      field.value = baseText + interim;
+    }
+    field.style.height = 'auto';
+    field.style.height = field.scrollHeight + 'px';
+  };
+
+  recognition.onerror = (e) => {
+    if (e.error !== 'aborted') showToast('Mikrofon-Fehler: ' + e.error);
+    btn.classList.remove('recording');
+    btn.textContent = '🎤';
+    activeRecognition = null;
+  };
+
+  recognition.onend = () => {
+    btn.classList.remove('recording');
+    btn.textContent = '🎤';
+    activeRecognition = null;
+  };
+
+  recognition.start();
 }
 
 </script>
