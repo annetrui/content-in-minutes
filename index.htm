@@ -93,6 +93,9 @@ textarea.invalid { border-color: #e05050 !important; }
 .hook-chip { border: 1.5px solid var(--border); border-radius: 10px; padding: 12px; cursor: pointer; transition: all 0.18s; background: var(--cream); }
 .hook-chip:hover  { border-color: var(--pink); background: #f7ecf2; }
 .hook-chip.active { border-color: var(--hot); background: #f7ecf2; }
+.hook-chip.active .chip-name { color: var(--hot); }
+.hook-chip.active::after { content: '✓'; position: absolute; top: 6px; right: 8px; font-size: 11px; color: var(--hot); font-weight: 700; }
+.hook-chip { position: relative; }
 .chip-name { font-size: 12px; font-weight: 600; color: var(--black); margin-bottom: 2px; }
 .chip-desc { font-size: 11px; color: var(--mid); line-height: 1.4; }
 
@@ -402,9 +405,13 @@ textarea.invalid { border-color: #e05050 !important; }
           <textarea id="topic" placeholder="Schreib so viel du willst — ein Satz, eine Idee, Gedanken, Kontext, eine Geschichte. Je mehr du gibst, desto besser trifft der Hook. Nicht alles muss im Hook landen, aber alles hilft zu verstehen was er treffen soll." style="min-height:80px;"></textarea>
         </div>
         <div class="card">
-          <p class="section-title">Welcher Hook-Typ?</p>
-          <div class="hook-types">
-            <div class="hook-chip active" data-type="kopf"><div class="chip-name">🧠 Im Kopf der Wunschkundin</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <p class="section-title" style="margin-bottom:0;">Welche Hook-Typen?</p>
+            <span id="chip-counter" style="font-size:11px;color:var(--mid);font-weight:500;">0 / 5 gewählt</span>
+          </div>
+          <p style="font-size:11px;color:var(--mid);margin-bottom:12px;line-height:1.5;">Wähle bis zu 5 Typen — pro Typ wird ein Hook generiert. Mindestens 1 Pflicht.</p>
+          <div class="hook-types" id="hookChipGrid">
+            <div class="hook-chip" data-type="kopf"><div class="chip-name">🧠 Im Kopf der Wunschkundin</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
             <div class="hook-chip" data-type="ich"><div class="chip-name">🪞 Ich & Geschichte</div><div class="chip-desc">Dein echter Moment — ungeschönt</div></div>
             <div class="hook-chip" data-type="neugier"><div class="chip-name">🔍 Neugier & Geheimnis</div><div class="chip-desc">Andeutung die man aufdecken muss</div></div>
             <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Meinung</div><div class="chip-desc">Deine echte Haltung, ungefiltert</div></div>
@@ -416,16 +423,8 @@ textarea.invalid { border-color: #e05050 !important; }
             <div class="hook-chip" data-type="statement"><div class="chip-name">💎 Starkes Statement</div><div class="chip-desc">Ein Satz. Klar. Mit Gewicht.</div></div>
           </div>
         </div>
-        <div class="card" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-          <div>
-            <p class="section-title" style="margin-bottom:8px;">Anzahl</p>
-            <div class="count-row">
-              <button class="count-btn" id="minus">−</button>
-              <span class="count-num" id="countNum">3</span>
-              <button class="count-btn" id="plus">+</button>
-            </div>
-          </div>
-          <button class="generate-btn" id="generateBtn" onclick="generateHooks()" style="flex:1;min-width:200px;">Hooks generieren 🚀</button>
+        <div class="card">
+          <button class="generate-btn" id="generateBtn" onclick="generateHooks()">Hooks generieren 🚀</button>
         </div>
 
         <div id="results"></div>
@@ -654,17 +653,40 @@ function resetHooks() {
   document.getElementById('topic').value = '';
   document.getElementById('results').innerHTML = '';
   document.getElementById('hooks-hint').style.display = 'none';
-  document.querySelectorAll('.hook-chip').forEach((c,i) => c.classList.toggle('active', i===0));
-  document.getElementById('countNum').textContent = '3';
-  count = 3;
+  document.querySelectorAll('.hook-chip').forEach(c => c.classList.remove('active'));
+  updateCounter();
   document.getElementById('topic').focus();
 }
 
-document.getElementById('minus').onclick = () => { if(count>1){count--;document.getElementById('countNum').textContent=count;} };
-document.getElementById('plus').onclick  = () => { if(count<8){count++;document.getElementById('countNum').textContent=count;} };
+// Anzahl-Buttons entfernt — wird jetzt durch Typ-Auswahl gesteuert
+
+// Multi-select Chips
+const MAX_SELECTED = 5;
+
+function getSelectedTypes() {
+  return [...document.querySelectorAll('.hook-chip.active')].map(c => c.dataset.type);
+}
+
+function updateCounter() {
+  const n = getSelectedTypes().length;
+  const counter = document.getElementById('chip-counter');
+  if (counter) {
+    counter.textContent = `${n} / 5 gewählt`;
+    counter.style.color = n === 0 ? '#e05050' : n === 5 ? 'var(--hot)' : 'var(--mid)';
+  }
+}
 
 document.querySelectorAll('.hook-chip').forEach(chip => {
-  chip.onclick = () => { document.querySelectorAll('.hook-chip').forEach(c => c.classList.remove('active')); chip.classList.add('active'); };
+  chip.onclick = () => {
+    const isActive = chip.classList.contains('active');
+    const selected = getSelectedTypes();
+    if (!isActive && selected.length >= MAX_SELECTED) {
+      showToast('Maximal 5 Typen auswählen 💖');
+      return;
+    }
+    chip.classList.toggle('active');
+    updateCounter();
+  };
 });
 
 // ─────────────────────────────────────────────
@@ -952,188 +974,200 @@ function renderMarkdown(text) {
     .replace(/\n/g, '<br>');
 }
 
+// Hooks pro Typ basierend auf Anzahl gewählter Typen
+function hooksPerType(numTypes) {
+  if (numTypes === 1) return 3;
+  if (numTypes === 2) return 2;
+  return 1;
+}
+
 async function generateHooks() {
   const topic = document.getElementById('topic').value.trim();
   if(!topic) { showToast('Gib zuerst ein Thema ein 💖'); return; }
-  const activeChip = document.querySelector('.hook-chip.active');
-  const hookType = activeChip ? activeChip.dataset.type : 'kopf';
+  const selectedTypes = getSelectedTypes();
+  if(selectedTypes.length === 0) { showToast('Wähle mindestens einen Hook-Typ 💖'); return; }
+
   const btn = document.getElementById('generateBtn');
   const results = document.getElementById('results');
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Hooks werden generiert…';
   results.innerHTML = '';
   window._hookStore = [];
+  document.getElementById('hooks-hint').style.display = 'none';
 
-  // Archetyp-Emotion für den Prompt
-  const archEmotion = profile.arch && profile.arch.emotion ? profile.arch.emotion : '';
+  const numPerType = hooksPerType(selectedTypes.length);
+  const typeLabels = {
+    kopf: '🧠 Im Kopf der Wunschkundin', ich: '🪞 Ich & Geschichte',
+    neugier: '🔍 Neugier & Geheimnis', provokation: '🔥 Provokation & Meinung',
+    pov: '🎬 POV-Format', paradox: '⚡ Paradox',
+    emotional: '💙 Emotionale Offenheit', zahlen: '📊 Ergebnis & Zahlen',
+    frage: '❓ Die Frage die wehtut', statement: '💎 Starkes Statement',
+  };
 
-  const prompt = [
-    `Du bist ein Hook-Texter-Experte für Social Media. Du schreibst Hooks die sich anfühlen als hätte die Person sie selbst geschrieben — nicht nach KI, nicht nach Marketing-Template.`,
-    ``,
-    `────────────────────────────────`,
-    `PROFIL DER SCHREIBERIN`,
-    `────────────────────────────────`,
-    ``,
-    `WER SIE IST UND WEM SIE HILFT:`,
-    profile.identity,
-    ``,
-    `IHRE WUNSCHKUNDIN — KONKRET:`,
-    `${profile.audience}`,
-    `Wichtig: Die Wunschkundin ist real, mit einem echten Alltag, echten Gedanken, echter Sprache. Schreibe aus IHRER Perspektive heraus — benutze ihre Wörter, ihre Bilder, ihre konkreten Situationen. Nie über sie, sondern als ob du sie kennst.`,
-    ``,
-    `EXPERTISE UND GLAUBWÜRDIGKEIT:`,
-    profile.expertise,
-    ``,
-    `BRAND VOICE — DER TON IST NICHT VERHANDELBAR:`,
-    `${profile.voice}`,
-    `Der Hook muss in dieser Sprache klingen. Nicht ähnlich. Exakt dieser Ton.`,
-    ``,
-    profile.words ? `EIGENE WÖRTER UND NO-GOs — PFLICHT:
-Diese Regeln sind absolut. Verbotene Wörter kommen NIE vor, eigene Ausdrücke fließen natürlich ein:
-${profile.words}` : '',
-    ``,
-    profile.arch ? `ARCHETYP: ${profile.arch.name} (${profile.arch.key})
-EMOTIONEN DIE DIESER ARCHETYP AUSLÖST: ${archEmotion}
-Der Hook muss diese emotionale Energie haben. Nicht als Etikett, sondern in der Sprache, im Rhythmus, in der Energie des Textes. Eine ${profile.arch.name} schreibt anders als jeder andere Archetyp — das muss spürbar sein.` : '',
-    ``,
-    `────────────────────────────────`,
-    `THEMA — DEIN BRIEFING:`,
-    `"${topic}"`,
-    `Lies das als Briefing, nicht als fertigen Hook-Text. Die Nutzerin hat hier alles reingeschrieben was relevant ist — Idee, Kontext, Gedanken, Story-Ansätze. Nicht alles muss im Hook landen. Aber alles hilft dir zu verstehen was der Hook wirklich treffen soll. Deine Aufgabe: destilliere daraus die stärkste mögliche Aussage.`,
-    `────────────────────────────────`,
-    ``,
-    `HOOK-TYP UND ANWEISUNG:`,
-    hookDefs[hookType],
-    ``,
-    `────────────────────────────────`,
-    `ÜBERGREIFENDE TECHNIKEN UND QUALITÄTSMASSSTAB:`,
-    ``,
-    `SCHÄRFE-REGEL: Wenn ein Hook erklärt was er ist, ist er zu schwach. Wenn er einfach trifft — ist er fertig. Kein Warm-up, keine Einleitung, kein Kontext davor. Direkt rein.`,
-    ``,
-    `MASSSTAB FÜR DIE QUALITÄT — so müssen die Hooks klingen (nicht kopieren, aber diese Schärfe erreichen):`,
-    `"2 Monate. 0 Verkäufe. Sie sucht schon nach einem Job." — 8 Wörter, komplette Story, sofort ein Bild.`,
-    `"Du hast 10 Notion-Tabellen und keinen roten Faden." — trifft ohne Erklärung.`,
-    `"Ich stehe mit nackten Brüsten in der Umkleide." — sofort ein Bild, kein Kontext nötig.`,
-    `"Du bist nicht am Anfang deiner Selbstständigkeit. Also hör auf, dich so zu verhalten." — eine Überzeugung, klar ausgesprochen.`,
-    `"Mehr Content ist nicht die Lösung. Es ist das Problem." — kontra-intuitiv, keine Absicherung.`,
-    ``,
-    `- REFRAME: Mindestens eine Variante dreht eine verbreitete Annahme um. Der Reframe zeigt dass die Schlussfolgerung die sie gezogen hat eine falsche Weiche war — nicht durch Erlaubnis, sondern durch Aufdeckung.`,
-    `- NEGATIVSTART: Gerne eine Variante startet im Schmerz oder Scheitern — macht alles danach glaubwürdiger.`,
-    `- FREMDE STIMME: Beim Ich & Geschichte Typ gerne eine Variante als Zitat — Kundin, Kritiker, Kommentar.`,
-    `- KRUMME ZAHLEN: Niemals rund. 11 statt 10, 3.168 statt 3.000, 47 statt 50. Nicht verhandelbar.`,
-    ``,
-    `DIE 5 COPYWRITING-FORMELN — nutze sie als strategischen Layer:`,
-    `A. OPEN LOOP: Öffne eine Frage die man schließen muss. Auflösung bewusst weglassen. "Das ist der wahre Grund warum deine Brand nicht kauft — und es liegt nicht an deinem Preis."`,
-    `B. HOW-TO: Nicht "5 Schritte zu..." — sondern das Ergebnis vorne, der Weg als Bonus. "Wie du aufhörst dich zu verbiegen — und trotzdem mehr verkaufst."`,
-    `C. ZAHLEN & NUTZEN: Konkrete Zahl + klarer Nutzen. "3 Dinge die deine Brand sofort unverwechselbar machen — ohne mehr Content zu produzieren."`,
-    `D. FRAGE: So spezifisch dass die Wunschkundin denkt "Woher weiß sie das?" — "Hast du das Gefühl dass du alles gibst — und trotzdem unsichtbar bleibst?"`,
-    `E. GEHEIMNIS: Echte Andeutung auf etwas das wirklich überrascht — kein Clickbait. "Das Geheimnis hinter Brands die kaufen lassen ohne zu pitchen."`,
-    ``,
-    `────────────────────────────────`,
-    ``,
-    `SPRACHE & STIL:`,
-    `- LESBARKEIT: 3 Sekunden — dann muss der Hook sitzen. Einfache, direkte Sätze. Kein verschachtelter Satzbau. Keine Konstruktionen die das Gehirn zweimal lesen muss. Was gut funktioniert: kurze Hauptsätze, konkretes Bild, direkte Aussage. "2 Monate. 0 Verkäufe." funktioniert. "Wenn du dich fragst warum dein Content trotz regelmäßigen Postens keine Anfragen generiert..." funktioniert nicht.`,
-    `- Kein Stakkato. Hooks sind natürliche Sätze mit Fluss — kurz darf kurz sein, aber nicht abgehackt`,
-    `- Vollständige, echte Sätze — so wie man im Gespräch redet, nicht wie eine Aufzählung`,
-    `- Die Wunschkundin wird konkret benannt wenn es Sinn ergibt (ihre Berufsbezeichnung, ihre konkrete Situation) — nie abstrakt "Frauen" oder "Menschen"`,
-    `- Ihr echtes Wording: sie sagt nicht "ich bekomme keinen Content-Traffic", sie sagt "niemand reagiert auf meine Posts"`,
-    `- Spezifisch: nicht "bei den richtigen hängen bleibt" (zu vage) sondern was GENAU passiert, bei wem, in welchem Moment`,
-    ``,
-    `VERBOTENE FORMULIERUNGEN (absolut):`,
-    `- "Nicht weil... sondern weil" — klingt nach KI-Stakkato, nicht nach echter Sprache`,
-    `- "bei den richtigen hängen bleibt"`,
-    `- "sichtbar werden" / "Sichtbarkeit"`,
-    `- "volles Potenzial entfalten"`,
-    `- "auf die nächste Stufe bringen"`,
-    `- "authentisch sein"`,
-    `- "Schritt für Schritt"`,
-    `- "tauche ein"`,
-    `- "lass uns"`,
-    `- Gedankenstrich als Stilmittel`,
-    `- Kein Markdown, keine Sterne, keine Unterstriche`,
-    `- Nur Deutsch`,
-    ``,
-    `Generiere genau ${count} verschiedene Hooks. Jeder ist eigenständig, kein ist eine Variation des anderen.`,
-    ``,
-    `────────────────────────────────`,
-    `AUSGABEFORMAT (strikt — keine Abweichungen):`,
-    `────────────────────────────────`,
-    `Trenne jeden Hook mit --- (drei Bindestriche, eigene Zeile). Kein anderes Trennzeichen. Keine Nummerierungen wie "# HOOK 2" oder "Hook 2:". Kein Markdown.`,
-    ``,
-    `HOOK: [Hook-Text]`,
-    `SUBLINE: [Optional — nur wenn ein kurzer Anschluss-Satz den Hook schärfer macht]`,
-    `WARUM: [1–2 Sätze: Warum dieser Hook funktioniert — konkret auf Wunschkundin und Thema bezogen]`,
-    `---`,
-    ``,
-    `Jetzt die Hooks:`
-  ].filter(Boolean).join('\n');
+  for (let t = 0; t < selectedTypes.length; t++) {
+    const hookType = selectedTypes[t];
+    const typeLabel = typeLabels[hookType] || hookType;
+    btn.innerHTML = `<span class="spinner"></span>${typeLabel} (${t+1}/${selectedTypes.length})…`;
 
-  try {
-    const response = await fetch('/.netlify/functions/claude', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, max_tokens: 1800 })
-    });
-    const textRaw = await response.text();
-    let data;
-    try { data = JSON.parse(textRaw); } catch(e) { throw new Error('Server-Fehler: ' + textRaw.substring(0, 100)); }
-    if(data.error) throw new Error(data.error);
-    const raw = data.text || '';
-    if(!raw) throw new Error('Keine Antwort erhalten');
+    const placeholder = document.createElement('div');
+    placeholder.className = 'result-card';
+    placeholder.style.opacity = '0.4';
+    placeholder.innerHTML = `<div class="result-type">${typeLabel}</div><div class="hook-main" style="color:var(--mid);font-size:14px;font-family:sans-serif;">Wird generiert…</div>`;
+    results.appendChild(placeholder);
+    placeholder.scrollIntoView({behavior:'smooth', block:'nearest'});
 
-    // Normalisiere alternative Trennzeichen die das Modell manchmal ausgibt
-    const normalized = raw
-      .replace(/^#{1,3}\s*HOOK\s*\d+/gim, '---')  // # HOOK 2, ## Hook 2 etc.
-      .replace(/^-{3,}/gm, '---');                    // --- bleibt ---
-    const blocks = normalized.split('---').map(b => b.trim()).filter(b => b.length > 10);
-    const typeLabel = activeChip?.querySelector('.chip-name')?.textContent || 'Hook';
+    const archEmotion = profile.arch && profile.arch.emotion ? profile.arch.emotion : '';
+    const prompt = [
+      `Du bist ein Hook-Texter-Experte für Social Media. Du schreibst Hooks die sich anfühlen als hätte die Person sie selbst geschrieben — nicht nach KI, nicht nach Marketing-Template.`,
+      ``,
+      `────────────────────────────────`,
+      `PROFIL DER SCHREIBERIN`,
+      `────────────────────────────────`,
+      `WER SIE IST UND WEM SIE HILFT:`,
+      profile.identity,
+      ``,
+      `IHRE WUNSCHKUNDIN — KONKRET:`,
+      `${profile.audience}`,
+      `Wichtig: Schreibe aus IHRER Perspektive heraus — ihre Wörter, ihre konkreten Situationen. Nie über sie, sondern als ob du sie kennst.`,
+      ``,
+      `EXPERTISE UND GLAUBWÜRDIGKEIT:`,
+      profile.expertise,
+      ``,
+      `BRAND VOICE — DER TON IST NICHT VERHANDELBAR:`,
+      `${profile.voice}`,
+      `Der Hook muss in dieser Sprache klingen. Nicht ähnlich. Exakt dieser Ton.`,
+      ``,
+      profile.words ? `EIGENE WÖRTER UND NO-GOs — PFLICHT:\nDiese Regeln sind absolut. Verbotene Wörter kommen NIE vor:\n${profile.words}` : '',
+      ``,
+      profile.arch ? `ARCHETYP: ${profile.arch.name} (${profile.arch.key})\nEMOTIONEN: ${archEmotion}\nDiese emotionale Energie muss spürbar sein — in Sprache, Rhythmus, Energie.` : '',
+      ``,
+      `────────────────────────────────`,
+      `THEMA — DEIN BRIEFING:`,
+      `"${topic}"`,
+      `Lies das als Briefing, nicht als fertigen Hook-Text. Destilliere daraus die stärkste mögliche Aussage.`,
+      `────────────────────────────────`,
+      ``,
+      `HOOK-TYP UND ANWEISUNG:`,
+      hookDefs[hookType],
+      ``,
+      `ÜBERGREIFENDE TECHNIKEN UND QUALITÄTSMASSSTAB:`,
+      ``,
+      `SCHÄRFE-REGEL: Wenn ein Hook erklärt was er ist, ist er zu schwach. Wenn er einfach trifft — ist er fertig.`,
+      ``,
+      `MASSSTAB (diese Schärfe erreichen, nicht kopieren):`,
+      `"2 Monate. 0 Verkäufe. Sie sucht schon nach einem Job."`,
+      `"Du hast 10 Notion-Tabellen und keinen roten Faden."`,
+      `"Mehr Content ist nicht die Lösung. Es ist das Problem."`,
+      `"Letzte Woche habe ich um mich selbst getrauert."`,
+      `"Du bist nicht am Anfang deiner Selbstständigkeit. Also hör auf, dich so zu verhalten."`,
+      ``,
+      `- REFRAME: Mindestens eine Variante zeigt dass die Schlussfolgerung die sie gezogen hat eine falsche Weiche war — durch Aufdeckung, nicht durch Erlaubnis.`,
+      `- NEGATIVSTART: Gerne eine Variante startet im Schmerz oder Scheitern.`,
+      `- FREMDE STIMME: Beim Ich-Typ gerne ein Zitat als Opener.`,
+      `- KRUMME ZAHLEN: Niemals rund. 11 statt 10, 3.168 statt 3.000.`,
+      ``,
+      `DIE 5 COPYWRITING-FORMELN als strategischer Layer:`,
+      `A. OPEN LOOP: Öffne eine Frage — Auflösung bewusst weglassen.`,
+      `B. HOW-TO: Ergebnis vorne, Weg als Bonus. "Wie du X ohne Y."`,
+      `C. ZAHLEN & NUTZEN: Konkrete Zahl + klarer Nutzen.`,
+      `D. FRAGE: So spezifisch dass sie denkt "Woher weiß sie das?"`,
+      `E. GEHEIMNIS: Echte Andeutung — kein Clickbait.`,
+      ``,
+      `────────────────────────────────`,
+      `SPRACHE & STIL:`,
+      `- 3 Sekunden — dann muss der Hook sitzen. Einfache, direkte Sätze. Kein verschachtelter Satzbau.`,
+      `- Kein Stakkato, vollständige Sätze in natürlichem Fluss.`,
+      `- Die Wunschkundin wird konkret benannt — ihre Situation, ihr echtes Wording.`,
+      `- Spezifisch: nicht vage Lückenfüller sondern was GENAU passiert.`,
+      ``,
+      `VERBOTENE FORMULIERUNGEN:`,
+      `- "Nicht weil... sondern weil" — klingt nach KI`,
+      `- "bei den richtigen hängen bleibt", "sichtbar werden", "volles Potenzial entfalten"`,
+      `- "auf die nächste Stufe", "authentisch sein", "Schritt für Schritt", "tauche ein", "lass uns"`,
+      `- Gedankenstrich als Stilmittel, Markdown, Sterne, Unterstriche`,
+      `- Nur Deutsch`,
+      ``,
+      `Generiere genau ${numPerType} Hook(s). Jeder ist eigenständig und stark.`,
+      ``,
+      `AUSGABEFORMAT (strikt — kein Markdown, keine Nummerierung wie # HOOK 2):`,
+      `HOOK: [Hook-Text]`,
+      `SUBLINE: [Optional]`,
+      `WARUM: [1–2 Sätze warum dieser Hook funktioniert]`,
+      `---`,
+      ``,
+      `Jetzt die Hooks:`
+    ].filter(Boolean).join('\n');
 
-    blocks.forEach((block, i) => {
-      const hookMatch    = block.match(/HOOK:\s*([\s\S]*?)(?=SUBLINE:|WARUM:|$)/i);
-      const sublineMatch = block.match(/SUBLINE:\s*([\s\S]*?)(?=WARUM:|$)/i);
-      const warumMatch   = block.match(/WARUM:\s*([\s\S]*?)$/i);
+    try {
+      const response = await fetch('/.netlify/functions/claude', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt, max_tokens: 1200 })
+      });
+      const textRaw = await response.text();
+      let data;
+      try { data = JSON.parse(textRaw); } catch(e) { throw new Error('Server-Fehler: ' + textRaw.substring(0, 100)); }
+      if(data.error) throw new Error(data.error);
+      const raw = data.text || '';
 
-      const hookText    = hookMatch    ? stripMarkdown(hookMatch[1].trim())    : '';
-      const sublineText = sublineMatch ? stripMarkdown(sublineMatch[1].trim()) : '';
-      const warumText   = warumMatch   ? stripMarkdown(warumMatch[1].trim())   : '';
+      const normalized = raw
+        .replace(/^#{1,3}\s*HOOK\s*\d+/gim, '---')
+        .replace(/^-{3,}/gm, '---');
+      const blocks = normalized.split('---').map(b => b.trim()).filter(b => b.length > 10);
 
-      if(!hookText) return;
+      placeholder.remove();
 
-      let label = typeLabel;
-      const typeInHook = hookText.match(/^\(([^)]+)\)/);
-      if(typeInHook) label = typeInHook[1];
-      const cleanHook = hookText.replace(/^\([^)]+\)\s*/, '');
-      const fullText  = sublineText ? `${cleanHook}\n↳ ${sublineText}` : cleanHook;
+      blocks.forEach((block, i) => {
+        const hookMatch    = block.match(/HOOK:\s*([\s\S]*?)(?=SUBLINE:|WARUM:|$)/i);
+        const sublineMatch = block.match(/SUBLINE:\s*([\s\S]*?)(?=WARUM:|$)/i);
+        const warumMatch   = block.match(/WARUM:\s*([\s\S]*?)$/i);
+        const hookText    = hookMatch    ? stripMarkdown(hookMatch[1].trim()) : '';
+        const sublineText = sublineMatch ? stripMarkdown(sublineMatch[1].trim()) : '';
+        const warumText   = warumMatch   ? stripMarkdown(warumMatch[1].trim()) : '';
+        if(!hookText) return;
+        const cleanHook = hookText.replace(/^\([^)]+\)\s*/, '');
+        const fullText  = sublineText ? `${cleanHook}\n↳ ${sublineText}` : cleanHook;
+        const hookIndex = window._hookStore.length;
+        window._hookStore.push({ hook: cleanHook, full: fullText });
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.style.animationDelay = `${i * 0.08}s`;
+        card.innerHTML = `
+          <div class="result-type">${typeLabel}</div>
+          <div class="hook-main">${renderMarkdown(cleanHook)}</div>
+          ${sublineText ? `<div class="hook-sub">↳ ${renderMarkdown(sublineText)}</div>` : ''}
+          ${warumText ? `<div class="hook-why"><div class="hook-why-label">💡 Warum das funktioniert</div><div class="hook-why-text">${renderMarkdown(warumText)}</div></div>` : ''}
+          <div class="card-actions">
+            <button class="copy-btn" onclick="copyText(this, window._hookStore[${hookIndex}].hook)">Hook kopieren</button>
+            ${sublineText ? `<button class="copy-full-btn" onclick="copyText(this, window._hookStore[${hookIndex}].full)">Hook + Subline kopieren</button>` : ''}
+            <button class="btn-caption" onclick="openCaptionModal(${hookIndex})">✍️ Caption dazu</button>
+          </div>`;
+        results.appendChild(card);
+      });
 
-      const hookIndex = window._hookStore.length;
-      window._hookStore.push({ hook: cleanHook, full: fullText });
+      if(blocks.filter(b => b.length > 10).length === 0) {
+        placeholder.remove();
+        const errCard = document.createElement('div');
+        errCard.className = 'error-box';
+        errCard.style.marginBottom = '12px';
+        errCard.textContent = `${typeLabel}: Format nicht erkannt — versuch nochmal`;
+        results.appendChild(errCard);
+      }
 
-      const card = document.createElement('div');
-      card.className = 'result-card';
-      card.style.animationDelay = `${i * 0.08}s`;
-      card.innerHTML = `
-        <div class="result-type">${label}</div>
-        <div class="hook-main">${renderMarkdown(cleanHook)}</div>
-        ${sublineText ? `<div class="hook-sub">↳ ${renderMarkdown(sublineText)}</div>` : ''}
-        ${warumText ? `<div class="hook-why"><div class="hook-why-label">💡 Warum das funktioniert</div><div class="hook-why-text">${renderMarkdown(warumText)}</div></div>` : ''}
-        <div class="card-actions">
-          <button class="copy-btn" onclick="copyText(this, window._hookStore[${hookIndex}].hook)">Hook kopieren</button>
-          ${sublineText ? `<button class="copy-full-btn" onclick="copyText(this, window._hookStore[${hookIndex}].full)">Hook + Subline kopieren</button>` : ''}
-          <button class="btn-caption" onclick="openCaptionModal(${hookIndex})">✍️ Caption dazu</button>
-        </div>`;
-      results.appendChild(card);
-    });
-
-    if(results.children.length > 0) {
-      document.getElementById('hooks-hint').style.display = 'block';
+    } catch(err) {
+      placeholder.remove();
+      const errCard = document.createElement('div');
+      errCard.className = 'error-box';
+      errCard.style.marginBottom = '12px';
+      errCard.textContent = `${typeLabel}: ${err.message}`;
+      results.appendChild(errCard);
     }
+  }
 
-    if(results.children.length === 0) results.innerHTML = `<div class="error-box">Format hat nicht gepasst — versuch's nochmal!</div>`;
-  } catch(err) {
-    results.innerHTML = `<div class="error-box">Ups: ${err.message}</div>`;
+  if(document.querySelectorAll('.result-card').length > 0) {
+    document.getElementById('hooks-hint').style.display = 'block';
   }
   btn.disabled = false;
-  btn.innerHTML = 'Neue Hooks generieren 🚀';
+  btn.innerHTML = 'Hooks generieren 🚀';
 }
 
 function copyText(btn, text) {
