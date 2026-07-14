@@ -709,18 +709,18 @@ function getSelectedGoal() {
 const goalDescriptions = {
   verkaufen: {
     label: 'VERKAUFEN',
-    ziel: 'Sie denkt: "Ich will das. Wie kann ich kaufen?" — Direktheit + Dringlichkeit + klare Entscheidung. Der Hook muss einen konkreten Kaufimpuls auslösen.',
-    hebel: 'Besonders wirksam: Verknappung, Dringlichkeit, Verlustaversion ("Was sie verliert wenn sie jetzt nicht handelt"), Sozialer Beweis.'
+    ziel: 'Sie denkt: "Ich will das. Wie kann ich kaufen?" — Der Hook erzeugt einen konkreten Kaufimpuls. Direktheit, Dringlichkeit, klare Entscheidung. Kein "vielleicht", kein "irgendwann". Jetzt.',
+    hebel: 'Nutze: Verknappung ("begrenzte Plätze"), Dringlichkeit ("nur noch bis..."), Verlustaversion ("was sie verliert wenn sie jetzt nicht handelt"), Sozialer Beweis mit konkreten Zahlen. Ein Verkaufs-Hook klingt entschieden — nicht einladend.'
   },
   vertrauen: {
-    label: 'VERTRAUEN AUFBAUEN',
-    ziel: 'Sie denkt: "Das will ich auch." — Traumzustand zeigen + Transformation + Identität. Der Hook malt ein Bild wer sie sein könnte.',
-    hebel: 'Besonders wirksam: Zugehörigkeit, Gegenseitigkeit, Konsistenz, Sozialer Beweis.'
+    label: 'VERTRAUEN AUFBAUEN / DESIRE WECKEN',
+    ziel: 'Sie denkt: "Das will ich auch." — Der Hook zeigt einen Zustand, eine Transformation oder ein Leben das sie will. Kein Angebot, kein Pitch — nur das Bild. Sie soll sich selbst darin sehen.',
+    hebel: 'Nutze: Zugehörigkeit ("Frauen die X gemacht haben"), Gegenseitigkeit (gib zuerst eine Erkenntnis), Sozialer Beweis (echte Ergebnisse anderer), Konsistenz (knüpf an was sie bereits will). Ein Vertrauens-Hook ist warm, nicht drängend.'
   },
   kompetenz: {
     label: 'KOMPETENZ ZEIGEN',
-    ziel: 'Sie denkt: "Die weiß wovon sie spricht." — Expertise zeigen + Spezifität + echte Erfahrung. Der Hook beweist, nicht behauptet.',
-    hebel: 'Besonders wirksam: Autorität, Sozialer Beweis, spezifische Zahlen und Ergebnisse.'
+    ziel: 'Sie denkt: "Die weiß wovon sie spricht." — Der Hook beweist Expertise, er behauptet sie nicht. Spezifische Zahlen, echte Erfahrungen, konkrete Ergebnisse. Kein "Ich bin Expertin" — sondern der Beweis dafür.',
+    hebel: 'Nutze: Autorität (spezifische Erfahrung, krumme Zahlen), Sozialer Beweis (was Kundinnen erreicht haben — konkret), Details die niemand erfinden würde. Ein Kompetenz-Hook klingt ruhig und präzise — nicht überzeugen wollend.'
   }
 };
 
@@ -895,9 +895,13 @@ async function generateHooks() {
       `WICHTIG: Bleib beim Thema. Der Hook-Typ ist die Linse durch die das Thema gezeigt wird — nicht die Erlaubnis es zu verlassen. Die Kernaussage des Themas muss im Hook erkennbar sein.`,
       `────────────────────────────────`,
       ``,
+      `════════════════════════════════`,
       `ZIEL DIESES HOOKS: ${goalInfo.label}`,
       `${goalInfo.ziel}`,
       `${goalInfo.hebel}`,
+      ``,
+      `WICHTIG: Das Ziel ist nicht optional. Jeder Hook muss dieses eine Ziel erfüllen — nicht ein anderes. Ein Hook der für "Kompetenz zeigen" geschrieben wird klingt anders als einer für "Verkaufen". Der Unterschied muss spürbar sein.`,
+      `════════════════════════════════`,
       ``,
       `LÄNGE: Maximal 1–2 Sätze. Kein längerer Hook. Kürze ist Stärke.`,
       `────────────────────────────────`,
@@ -948,7 +952,10 @@ async function generateHooks() {
       `────────────────────────────────`,
       `SPRACHE & STIL:`,
       `- 3 Sekunden — dann muss der Hook sitzen. Einfache, direkte Sätze. Kein verschachtelter Satzbau.`,
-    `- MIKROMOMENTE & BILDER: Nutze Mikromomente und konkrete Bilder aus dem echten Alltag der Wunschkundin — abgeleitet aus den Profildaten, nicht aus generischen Klischees. Der Moment muss so spezifisch sein, dass er nur auf sie passt, nicht auf alle Personen dieser Zielgruppe. Was tut sie gerade? Wo ist sie? Was ist der genaue Auslöser?`,
+      `- LESBARKEITS-TEST: Lies den Hook laut vor. Wenn du stolperst, ist der Satz falsch. Kein Satz der beim Lesen eine zweite Runde braucht.`,
+      `- FLÜSSIGES DEUTSCH: Natürliche Satzstellung, keine Inversionen wie "Trotzdem gekauft haben sie." Kein Satz der clever klingen will aber schwer zu lesen ist.`,
+      `- KEIN DOPPEL-TWIST: Nicht "X ist nicht das Problem. Y ist es." — das ist eine verschachtelte Konstruktion die das Gehirn zweimal parsen muss. Lieber direkt: eine Aussage, ein Bild.`,
+      `- MIKROMOMENTE & BILDER: Nutze Mikromomente aus dem echten Alltag der Wunschkundin — abgeleitet aus den Profildaten, nicht aus generischen Klischees. Der Moment muss so spezifisch sein, dass er nur auf sie passt. Was tut sie gerade? Wo ist sie? Was ist der genaue Auslöser?`,
       `- Kein Stakkato, vollständige Sätze in natürlichem Fluss.`,
       `- Die Wunschkundin wird konkret benannt — ihre Situation, ihr echtes Wording.`,
       `- Spezifisch: nicht vage Lückenfüller sondern was GENAU passiert.`,
