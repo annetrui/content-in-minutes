@@ -310,9 +310,9 @@ textarea.invalid { border-color: #e05050 !important; }
 
     <div class="ob-step">
       <p class="ob-step-label">Schritt 3 · Pflichtfeld</p>
-      <p class="ob-step-title">Was macht dich zur richtigen Person?</p>
-      <p class="ob-step-hint">Echte Zahlen, echte Erfahrungen — je spezifischer, desto stärker der Hook.</p>
-      <textarea id="ob-expertise" placeholder="z.B. '10 Jahre selbstständig, 200+ Kundinnen begleitet, selbst von 0 auf 6-stellig ohne Ads'" style="min-height:90px;"></textarea>
+      <p class="ob-step-title">Was macht dich zur richtigen Person — und was bietest du an?</p>
+      <p class="ob-step-hint">Deine Expertise, echte Zahlen, Erfahrungen — und dein konkretes Angebot. Je spezifischer, desto stärker der Hook.</p>
+      <textarea id="ob-expertise" placeholder="z.B. '10 Jahre selbstständig, 200+ Kundinnen, selbst von 0 auf 6-stellig. Mein Hauptangebot: [Name] — hilft Frauen dabei, [konkretes Ergebnis].'" style="min-height:90px;"></textarea>
     </div>
 
     <div class="ob-step">
@@ -373,7 +373,7 @@ textarea.invalid { border-color: #e05050 !important; }
       <div class="sidebar-divider"></div>
       <div class="sidebar-section"><p class="sidebar-label">Wer du bist</p><div class="sidebar-value" id="sidebar-identity">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
       <div class="sidebar-section"><p class="sidebar-label">Wunschkundin</p><div class="sidebar-value" id="sidebar-audience">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
-      <div class="sidebar-section"><p class="sidebar-label">Expertise</p><div class="sidebar-value" id="sidebar-expertise">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
+      <div class="sidebar-section"><p class="sidebar-label">Expertise & Angebot</p><div class="sidebar-value" id="sidebar-expertise">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
       <div class="sidebar-section"><p class="sidebar-label">Brand Voice</p><div class="sidebar-value" id="sidebar-voice">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
       <div class="sidebar-section"><p class="sidebar-label">Meine Wörter</p><div class="sidebar-value" id="sidebar-words" style="font-style:italic;">—</div><button class="edit-link" onclick="openModal()">bearbeiten</button></div>
       <div class="sidebar-divider"></div>
@@ -444,11 +444,11 @@ textarea.invalid { border-color: #e05050 !important; }
             <div class="hook-chip" data-type="kopf"><div class="chip-name">🧠 Kopf der Wunschkundin / POV</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
             <div class="hook-chip" data-type="ich"><div class="chip-name">🪞 Ich & Geschichte</div><div class="chip-desc">Dein echter Moment — ungeschönt</div></div>
             <div class="hook-chip" data-type="neugier"><div class="chip-name">🔍 Neugier & Frage</div><div class="chip-desc">Lücke öffnen die geschlossen werden muss</div></div>
-            <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Statement</div><div class="chip-desc">Deine echte Haltung — klar ausgesprochen</div></div>
+            <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Statement</div><div class="chip-desc">Haltung, Meinung, starker Satz — klar ausgesprochen</div></div>
             <div class="hook-chip" data-type="paradox"><div class="chip-name">⚡ Paradox</div><div class="chip-desc">Zwei Wahrheiten die sich widersprechen</div></div>
             <div class="hook-chip" data-type="emotional"><div class="chip-name">💙 Emotionale Offenheit</div><div class="chip-desc">Der Moment der zu persönlich wirkt</div></div>
             <div class="hook-chip" data-type="zahlen"><div class="chip-name">📊 Ergebnis & Zahlen</div><div class="chip-desc">So spezifisch dass es nicht erfunden wirkt</div></div>
-            <div class="hook-chip" data-type="emotional_offenheit"><div class="chip-name">💎 Starkes Statement / Meinung</div><div class="chip-desc">Ein Satz mit Gewicht — keine Absicherung</div></div>
+
           </div>
         </div>
         <div class="card">
@@ -520,7 +520,7 @@ textarea.invalid { border-color: #e05050 !important; }
     <p class="modal-title">Profil bearbeiten</p>
     <div class="ob-step"><p class="ob-step-label">Wer du bist · Pflichtfeld</p><textarea id="edit-identity"></textarea></div>
     <div class="ob-step"><p class="ob-step-label">Wunschkundin · Pflichtfeld</p><textarea id="edit-audience"></textarea></div>
-    <div class="ob-step"><p class="ob-step-label">Expertise · Pflichtfeld</p><textarea id="edit-expertise"></textarea></div>
+    <div class="ob-step"><p class="ob-step-label">Expertise & Angebot · Pflichtfeld</p><p class="ob-step-hint" style="font-size:11px;color:var(--mid);margin-bottom:8px;">Deine Erfahrung, Zahlen — und dein konkretes Hauptangebot.</p><textarea id="edit-expertise"></textarea></div>
     <div class="ob-step"><p class="ob-step-label">Brand Voice · Pflichtfeld</p><textarea id="edit-voice"></textarea></div>
     <div class="ob-step"><p class="ob-step-label">Meine Wörter <span class="optional-badge">Optional</span></p><textarea id="edit-words" style="min-height:70px;"></textarea></div>
     <div class="ob-step"><p class="ob-step-label">Archetyp <span class="optional-badge">Optional</span></p><div class="archetype-grid" id="edit-arch-grid"></div></div>
@@ -751,285 +751,45 @@ document.querySelectorAll('.hook-chip').forEach(chip => {
 // ─────────────────────────────────────────────
 const hookDefs = {
 
-  kopf: `TYP: Im Kopf der Wunschkundin / POV-Format.
-
-ZIEL: Die Wunschkundin liest den Hook und denkt sofort "Wie weiß sie das?" 3 Sekunden — dann muss es sitzen. Konkret, kurz, auf den Punkt.
-
-SCHREIBWEISE:
-- Schreibe AUS ihr heraus — ihr innerer Monolog, nicht eine Beschreibung davon.
-- Echte Alltagsszene: WO, WANN, WAS genau passiert. Ihr Wording, nicht Fachbegriffe.
-- Einfache, direkte Sätze. Kein verschachtelter Satzbau, keine langen Konstruktionen.
-- SHAME-MIRROR als starke Technik: Benenne einen heimlichen Glaubenssatz den sie insgeheim denkt — ohne ihn so zu nennen. Der Hook benennt einfach die Wahrheit die sie über sich denkt, aber nie laut sagt. Kein "Du denkst dir..." davor nötig — der Satz macht es von selbst. Beispiel: "Irgendwann hört man auf zu fragen warum der Content nicht zieht — und fängt an zu fragen ob man vielleicht einfach nicht gut genug ist. Das ist die falsche Frage."
-- REFRAME als Alternative: Zeige dass die Schlussfolgerung die sie gezogen hat eine falsche Weiche war. Nicht durch Erlaubnis-Sätze — durch Aufdeckung. Sie hat die ganze Zeit die falsche Frage gestellt.
-
-LÄNGE: 1–2 Sätze. Kurz genug um in 3 Sekunden zu landen.
-
-BEISPIELE (nicht kopieren — nur Orientierung):
-"2 Monate. 0 Verkäufe. Sie sucht schon nach einem Job."
-"Du hast heute Abend gepostet und es schon beim Abschicken gewusst: Likes ja, Anfragen nein."
-"Irgendwann hört man auf zu fragen warum der Content nicht zieht — und fängt an zu fragen ob man vielleicht einfach nicht gut genug ist. Das ist die falsche Frage."
-
-SUBTYP POV: Beginnt mit "POV:" — versetzt sie sofort in eine konkrete Szene aus ihrem Alltag. Das Bild entsteht in 1-2 Sätzen. Beispiele: "POV: Du sitzt vor dem leeren Dokument. Wieder." / "POV: Deine Nachbarin fragt: Kannst du davon auch leben?"
-
-NO-GOs:
-- Kein "Du kennst das bestimmt" oder "Klingt bekannt?"
-- Kein generisches Gefühl ohne konkrete Szene
-- Keine verschachtelten Sätze mit Nebensätzen
-- Nie "bei den richtigen hängen bleibt", "sichtbar werden", "dein volles Potenzial"
-- Kein Coaching-Jargon
-- Nie "Nicht weil... sondern weil" — das ist abgehacktes KI-Stakkato`,
-
-  ich: `TYP: Ich-Perspektive und persönliche Geschichte.
-
-ZIEL: Der Hook zeigt einen echten, ungeschönten Moment aus dem Leben der Schreiberin — so spezifisch und konkret, dass er nicht erfunden wirken kann. Nicht der Erfolg. Der Moment davor, danach, oder mittendrin.
-
-ZWEI SUBTYPEN — wähle den der stärker wirkt:
-
-SUBTYP A — EIGENER MOMENT:
-Erste Person, direkt rein. Ein Moment der unangenehm genug ist um ehrlich zu wirken. Konkrete Details: Uhrzeit, Ort, Zahl, was genau gesagt oder gedacht wurde. Die Lücke zwischen dem Moment und dem was danach kommt macht den Hook — nicht auflösen, nur andeuten. Mindestens eine der Varianten startet im Schmerz oder Scheitern, nicht im Erfolg.
-
-SUBTYP B — FREMDE STIMME / ZITAT:
-Jemand anderes hat etwas gesagt — eine Kundin, ein Kritiker, ein Kommentar, jemand aus dem Netzwerk. Diesen Satz als Opener zitieren. Das schafft sofort Drama, Identifikation und lädt zum Reagieren ein. Das Zitat muss zur Expertise und zum Thema der Schreiberin passen — aus den Profilinformationen ableiten was realistisch gesagt worden sein könnte.
-Beispiel-Mechanik: "Jemand hat mir letzte Woche geschrieben: 'Ich finde dein Content gut, aber kaufen würde ich bei dir nicht.'" — dann die Reaktion darauf.
-
-LÄNGE: 2–4 Sätze. Natürlicher Erzählfluss.
-
-BEISPIELE FÜR DEN ANSATZ (nicht kopieren):
-"Ich bin selbststaendig & verdiene nur Mindestlohn."
-"Ich hab 3 Jahre Content gemacht — und niemand hat gekauft."
-"Es war so knapp. Hat es gereicht?"
-"Ich saß um 23 Uhr noch an meinem Laptop und habe den Angebotstext zum vierten Mal umgeschrieben. Angst dass er zu direkt klingt. Dabei war er gut."
-"Mein erster Launch hat 11 Euro gebracht. Ich habe es niemandem erzählt. Aber genau das war der Moment wo ich verstanden habe was ich falsch gemacht hatte."
-"Jemand hat mir mal gesagt: 'Du bist eigentlich zu nett um wirklich zu verkaufen.' Ich habe zwei Tage gebraucht um zu verstehen warum mich das so getroffen hat."
-
-NO-GOs:
-- Kein Erfolgseinstieg ("Ich habe X erreicht und möchte dir zeigen wie")
-- Keine aufgehübschte Version
-- Nie "Ich habe gelernt dass..." als erster Satz
-- Kein Selbstmitleid ohne Würde
-- Fremde-Stimme-Zitate nie erfinden die nicht zum Kontext der Schreiberin passen
-- Nie "Nicht weil... sondern weil" — das klingt nach KI-Stakkato, nicht nach echter Sprache`,
-
-  neugier: `TYP: Neugier, Geheimnis & Frage.
-
-ZIEL: Die Leserin muss weiterlesen weil sie die Antwort will — nicht weil es nach Clickbait klingt, sondern weil die Andeutung so spezifisch und relevant ist, dass sie die Lücke nicht ignorieren kann.
-
-SCHREIBWEISE:
-- Die Neugier-Lücke entsteht durch SPEZIFITÄT. Nicht "Es gibt einen Grund warum..." sondern WAS für ein Grund, in welchem Kontext, für wen genau.
-- Die Wendung oder der Nebensatz am Ende macht den Unterschied: was sie NICHT erwartet hätte.
-- Das Geheimnis muss direkt mit dem Thema und der Expertise der Schreiberin zusammenhängen — nichts Generisches.
-- Die Wunschkundin muss sich in der Frage oder dem Kontext erkennen.
-- NEGATIVSTART als Option: Eine Variante darf mit einem schlechten Ergebnis oder einem Problem starten — das die Neugier-Lücke erst aufmacht. "Ich habe jahrelang dasselbe gemacht wie alle. Dann habe ich eine Auswertung von 47 Gesprächen gemacht — und das Ergebnis hat mich überrascht." Der Schmerz im ersten Satz macht die Lücke größer.
-
-LÄNGE: 2 Sätze. Die zweite hält den Leser fest.
-
-BEISPIELE FÜR DEN ANSATZ:
-"Es gibt Frauen die nach drei Monaten mehr verdienen als nach drei Jahren mit täglich posten. Der Unterschied hat nichts mit Content-Frequenz zu tun."
-"Ich habe 47 Kundengespräche ausgewertet. Was fast alle gemeinsam haben, hat mich überrascht — und es ist nicht das was du denkst."
-
-NO-GOs:
-- Kein "Du wirst nicht glauben was..."
-- Kein leerer Cliffhanger ohne inhaltlichen Anker
-- Nie "Es gibt einen Grund" ohne dass klar wird WAS für ein Kontext`,
-
-  provokation: `TYP: Provokation, Meinung & Statement.
-
-ZIEL: Ein Satz der wehtut. Nicht ein bisschen unbequem — wirklich polarisierend. Er trifft weil er wahr ist und weil ihn niemand so direkt sagt. Die Wunschkundin denkt entweder "Stimmt, verdammt nochmal" oder "Das ist zu weit" — beides ist richtig.
-
-SCHREIBWEISE:
-- Kein Warm-up. Kein "Ich glaube..." oder "Vielleicht..." — das entschärft alles.
-- Benennt ein konkretes Verhalten, eine Lüge, eine Ausrede — spezifisch genug dass es nicht auf alle zutrifft, aber direkt genug dass sie sich ertappt fühlt.
-- Die Provokation muss zur Haltung und Brand Voice der Schreiberin passen. Eine Rebellin provoziert anders als eine Königin.
-- Der Stachel sitzt weil er eine Wahrheit ausspricht die die Wunschkundin insgeheim über sich selbst denkt, aber nie laut sagt.
-- Vor dem Schreiben fragen: Würde jemand das wütend kommentieren? Wenn nein — nochmal schärfer.
-- REFRAME-OPTION: Eine der Varianten kann eine verbreitete Annahme aufstellen und sofort umkehren. Mechanik: verbreiteter Glaube benennen → Widerspruch der wehtut. "Du denkst, du brauchst mehr Follower bevor du mehr verkaufen kannst. Das stimmt nicht." Der Reframe provoziert weil er eine bequeme Ausrede wegnimmt.
-- NEGATIVEINSTIEG als Option: Eine Variante darf im Schmerz oder im Scheitern starten — bevor sie die eigentliche Aussage macht. Das holt die Leserin direkt ab bevor sie überhaupt merkt dass sie weiterliest.
-
-LÄNGE: 1–2 Sätze. Kein Anhang, kein "aber".
-
-BEISPIELE FÜR DEN ANSATZ:
-"Nur Feiglinge schreiben ihre Texte mit Claude oder ChatGPT."
-"Mehr Content ist nicht die Lösung. Es ist das Problem."
-"Sie sagen: Geld verdirbt den Charakter. Ja. Es stimmt."
-"Du postest seit zwei Jahren. Noch immer kauft niemand. Irgendwann musst du aufhören den Algorithmus dafür verantwortlich zu machen."
-"Premium-Preise wollen, aber Content schreiben als hättest du Angst dich wirklich zu zeigen — das ist kein Algorithmus-Problem."
-
-NO-GOs:
-- Alles was mit "ich finde" oder "vielleicht" anfängt
-- Alles was sich sofort erklärt oder entschuldigt
-- Alles was niemanden wirklich stört
-- Generische Aussagen die auf jeden zutreffen`,
-
-  pov: `TYP: POV-Format.
-
-ZIEL: Die Leserin ist sofort in der Szene. Nicht beschrieben — erlebt. Das Bild entsteht in 1–2 Sätzen und das konkrete Detail am Ende macht es unausweichlich.
-
-SCHREIBWEISE:
-- Beginnt mit "POV:" — das ist das Signal das die Leserin sofort in die Szene versetzt.
-- Die Szene muss direkt aus dem Alltag der Wunschkundin kommen — was kennt sie zu gut, was fürchtet sie, was wünscht sie sich?
-- Konkrete Details: Was tut sie? Was denkt sie? Was ist der genaue Moment?
-- Der Nebensatz oder das Detail am Ende ist der eigentliche Hook — die unerwartete Wendung oder die Wahrheit die reintrifft.
-- Nenne die Wunschkundin konkret (ihre Situation, Berufsbezeichnung, spezifischen Kontext aus dem Profil).
-
-LÄNGE: 2–3 Sätze.
-
-BEISPIELE FÜR DEN ANSATZ:
-"POV: Du sitzt vor dem leeren Dokument. Wieder."
-"POV: Deine Nachbarin sieht dein Instagram und fragt: Kannst du davon auch leben?"
-"POV: Du scrollst durch dein eigenes Profil und überlegst ob eine Fremde, die dich nicht kennt, wirklich verstehen würde was du anbietest. Sie würde es nicht."
-"POV: Dein Kunde fragt dich gerade 'Und was machst du genau?' Du weißt die Antwort. Aber erklären kannst du es gerade irgendwie nicht."
-
-NO-GOs:
-- Keine abstrakte Szene ohne konkretes Bild
-- Nie generalisieren ("Viele kennen das")
-- Kein Happy-End im POV`,
-
-  paradox: `TYP: Paradox.
-
-ZIEL: Zwei Dinge die sich widersprechen und trotzdem beide wahr sind. Das Gehirn will den Widerspruch auflösen — das hält die Leserin fest. Der Kontrast muss echt sein, kein aufgesetzter.
-
-SCHREIBWEISE:
-- Starke Aussage + "und trotzdem" / "aber" / "obwohl" + Widerspruch der genauso wahr ist.
-- Beide Teile müssen direkt auf die Wunschkundin und ihre Situation zutreffen — aus den Profildaten ableiten.
-- Der Widerspruch darf ruhig ein bisschen wehtun oder überraschen.
-- Die Sprache ist ruhiger als bei Provokation — das Paradox spricht für sich.
-- REFRAME-VARIANTE: Eine der Optionen kann eine Annahme als erstes nennen und dann sofort die eigentliche Wahrheit dagegen stellen. Nicht als sanfter Widerspruch, sondern als Aufdeckung: "Du hasst nicht Content erstellen. Du hasst, dass dein Content nichts bringt." Das ist ein Paradox das auch ein Reframe ist — und deshalb besonders stark hängen bleibt.
-
-LÄNGE: 2–3 Sätze. Der Widerspruch braucht Raum.
-
-BEISPIELE FÜR DEN ANSATZ:
-"Du bist die Expertin in dem was du tust. Und trotzdem glaubst du ihr manchmal mehr als dir — dieser Frau mit dem glänzenden Feed und halb so viel Erfahrung."
-"Du weißt alles über deine Wunschkundin. Ihr Problem, ihren Alltag, was sie nachts wachhält. Und trotzdem kauft sie noch nicht."
-
-NO-GOs:
-- Kein aufgesetzter Kontrast wo keiner ist
-- Beide Teile müssen wahr sein
-- Kein "einerseits andererseits" — das klingt nach Schulaufsatz`,
-
-  emotional: `TYP: Emotionale Offenheit.
-
-ZIEL: Der Moment der eigentlich zu persönlich ist — genau deshalb bleibt er hängen. Kein aufgesetztes Gefühl, kein Selbstmitleid. Der rohe Moment, mit Würde erzählt.
-
-SCHREIBWEISE:
-- Der erste Satz IST der Hook — kurz, unvermittelt, direkt in den Moment.
-- Keine sofortige Auflösung ("aber dann habe ich gelernt...") — das nimmt dem Moment die Kraft.
-- Konkrete Details machen ihn unverwechselbar: Was war der Kontext? Was wurde gedacht, gefühlt, gesagt?
-- Der Archetyp bestimmt wie offen und verletzlich der Ton sein darf — eine Lover öffnet sich anders als eine Rebellin.
-- Die Wunschkundin muss sich in dem Gefühl (nicht nur der Situation) wiedererkennen.
-
-LÄNGE: 2–3 Sätze. Direkt rein, kein Anlauf.
-
-BEISPIELE FÜR DEN ANSATZ:
-"Letzte Woche habe ich um mich selbst getrauert."
-"Dieser Schmerz war fast nicht auszuhalten."
-"Ich stehe mit nackten Brüsten in der Umkleide. Plötzlich steckt sie ihren Kopf rein."
-"Letzte Woche habe ich ernsthaft überlegt ob das alles noch Sinn macht. Nicht als Drama — sondern ganz ruhig, beim Kaffee. Und das war irgendwie erschreckender als jedes Stressgefühl."
-"Ich hatte Angst dass niemand kauft. Dann hat niemand gekauft. Und ich musste entscheiden was das über mich oder mein Angebot aussagt."
-
-NO-GOs:
-- Kein sofortiges "aber dann habe ich gelernt"
-- Keine Erklärung davor die den Moment abschwächt
-- Kein Selbstmitleid ohne Würde
-- Kein aufgesetztes Gefühl`,
-
-  zahlen: `TYP: Ergebnis und Zahlen.
-
-ZIEL: So spezifisch dass es nicht erfunden wirken kann. Die Zahl allein ist nicht der Hook — der Kontext um die Zahl herum macht ihn relevant für die Wunschkundin.
-
-SCHREIBWEISE:
-- HARTES GESETZ: Niemals runde Zahlen. Nicht 100, nicht 10.000, nicht 3 Monate. Immer die krumme Version: 94, 11.347, 83 Tage. Krumme Zahlen = sofortige Glaubwürdigkeit, runde Zahlen = sofortiger Verdacht auf Erfindung.
-- Die Zahl braucht einen Kontext der überrascht oder neugierig macht — warum ist das relevant für die Wunschkundin?
-- Ableiten aus den echten Angaben der Schreiberin — nie erfinden, nie übertreiben. Wenn keine konkreten Zahlen im Profil stehen, eine realistische krumme Zahl konstruieren die zum Thema passt.
-- Die Wunschkundin muss sich fragen: Was bedeutet das für mich?
-- NEGATIVSTART als Option: Eine Variante darf mit dem Scheitern oder dem schwachen Ergebnis starten — bevor das starke Ergebnis kommt. "6 Monate lang hat mein bester Post 14 Likes bekommen. Dann habe ich eine Sache geändert."  Das macht das Ergebnis danach erst glaubwürdig.
-
-LÄNGE: 2 Sätze. Kurz, präzise.
-
-BEISPIELE FÜR DEN ANSATZ:
-"80.000 Euro netto in 25 Tagen."
-"2.000 Follower in nur 2 Monaten dank Karussells."
-"40 Angebote erstellt. Das habe ich dabei gelernt."
-"11 Anfragen in 3 Wochen. Kein einziger Werbepost, keine Ads, kein Reels-Marathon — nur eine andere Art zu schreiben."
-"47 Minuten. So lange hat mein erster Post gedauert der wirklich verkauft hat. Nicht weil er perfekt war, sondern weil er ehrlich war."
-
-NO-GOs:
-- Keine runden Zahlen
-- Keine Zahlen die nicht zum Profil passen
-- Nicht die Zahl ohne Kontext stehen lassen`,
-
-  frage: `TYP: Die Frage die wehtut.
-
-ZIEL: Eine Frage die die Leserin nicht ignorieren kann — weil sie die Antwort will, fürchtet, oder noch nie so direkt gestellt bekommen hat. Die Frage trifft genau was sie beschäftigt aber nie laut ausspricht.
-
-SCHREIBWEISE:
-- Direkt gestellt, kein Vorgeplänkel.
-- Die Frage zielt auf einen konkreten Schmerz oder eine konkrete Unsicherheit der Wunschkundin — aus dem Profil ableiten.
-- Kein rhetorisches "Kennst du das?" — die Frage muss für sich stehen.
-- Die Frage soll die Leserin innehalten lassen, nicht nicken lassen.
-
-LÄNGE: 1–2 Sätze. Die Frage ist alles.
-
-BEISPIELE FÜR DEN ANSATZ:
-"Warum kaufen manche Frauen aus dem Schlaf und andere nicht — egal wie oft sie posten?"
-"Wann hast du aufgehört so zu schreiben wie du wirklich redest?"
-"Was genau passiert zwischen 'Sie folgt dir' und 'Sie kauft bei dir' — und weißt du das gerade wirklich?"
-
-NO-GOs:
-- Kein "Kennst du das?"
-- Keine rhetorische Frage ohne inhaltlichen Biss
-- Kein Vorgeplänkel vor der Frage`,
-
-  emotional_offenheit: `TYP: Starkes Statement & Meinung.
-
-ZIEL: Ein Satz der alleine steht — keine Erklärung nötig. Oder eine echte Meinung klar ausgesprochen ohne Absicherung. Klingt wie eine Überzeugung, nicht wie Marketing.
-
-SCHREIBWEISE:
-- Keine Einleitung, keine Erklärung danach — der Satz steht für sich.
-- Eine Meinung darf polarisieren — wer zustimmt bleibt, wer widerspricht kommentiert.
-- Kein "Ich finde" oder "Vielleicht" — das entschärft alles.
-- Archetyp bestimmt die Energie: eine Rebellin klingt anders als eine Königin.
-
-LÄNGE: 1–2 Sätze. Nie länger.
-
-BEISPIELE — MASSSTAB:
-"Everyone has a story to sell. Das ist meine."
-"Du bist nicht am Anfang deiner Selbstständigkeit. Also hör auf, dich so zu verhalten."
-"Du bist nicht zu teuer. Du bist nur noch nicht klar."
-"Mehr Content ist nicht die Lösung. Es ist das Problem."
-"Nur Feiglinge schreiben ihre Texte mit ChatGPT."
-
-NO-GOs:
-- Keine Erklärung danach
-- Keine Absicherung ("ich glaube", "vielleicht")
-- Nie generisch`,
-
-  statement: `TYP: Starkes Statement.
-
-ZIEL: Eine echte Überzeugung, ausgesprochen ohne Absicherung. Ein Satz. Klar. Mit Gewicht. Klingt wie eine Überzeugung, nicht wie eine Marketingaussage.
-
-SCHREIBWEISE:
-- Keine Einleitung, keine Erklärung danach — der Satz steht für sich.
-- Das Statement muss die echte Haltung und Positionierung der Schreiberin widerspiegeln — Brand Voice, Archetyp, Expertise.
-- Konkret, nicht generisch. "Du bist nicht zu teuer" ist ein Statement. "Es gibt so viele Möglichkeiten" ist keins.
-- So kurz wie möglich. Manchmal 3 Wörter. Manchmal 2 Sätze. Nie länger als nötig.
-- Eine Königin formuliert ein Statement anders als eine Rebellin — der Archetyp bestimmt die Energie.
-
-LÄNGE: 1–2 Sätze. Nie länger.
-
-BEISPIELE FÜR DEN ANSATZ:
-"Everyone has a story to sell. Das ist meine."
-"Du bist nicht am Anfang deiner Selbstständigkeit. Also hoer auf, dich so zu verhalten."
-"Du bist nicht zu teuer. Du bist nur noch nicht klar."
-"Wer sich online wie alle anderen positioniert, wird auch wie alle anderen übersehen."
-"Deine Wunschkundin kauft nicht weil dein Content zu wenig ist — sondern weil sie nicht versteht was sie bei dir bekommt die sie woanders nicht bekommt."
-
-NO-GOs:
-- Keine Erklärung danach
-- Keine Absicherung ("ich glaube", "vielleicht", "es kann sein dass")
-- Nicht länger als nötig
-- Nie generisch`,
-
-
+  kopf: `TYP: Kopf der Wunschkundin / POV.
+Ihr innerer Monolog — aus ihr heraus, nicht über sie. Oder POV: direkt in ihre konkrete Szene.
+Shame-Mirror: Benenne die Wahrheit die sie denkt aber nie laut sagt — ohne Ankündigung, der Satz macht es selbst.
+Reframe: Zeige dass sie die ganze Zeit die falsche Frage gestellt hat.
+MASSSTAB: "2 Monate. 0 Verkäufe. Sie sucht schon nach einem Job." / "Du postest täglich. Und fragst dich trotzdem warum niemand kauft." / "POV: Du sitzt vor dem leeren Dokument. Wieder."
+NO-GOs: Kein "Du kennst das bestimmt". Kein generisches Gefühl. Nie "Nicht weil... sondern weil". Kein Coaching-Jargon.`,
+
+    ich: `TYP: Ich & Geschichte.
+Echter ungeschönter Moment — nicht der Erfolg, sondern davor/danach/mittendrin. Subtyp Fremde Stimme: Zitat einer Kundin oder eines Kritikers als Opener.
+Negativstart: Im Scheitern oder Schmerz beginnen macht alles danach glaubwürdiger. Krumme Zahlen.
+MASSSTAB: "Ich bin selbstständig & verdiene nur Mindestlohn." / "Ich hab 3 Jahre Content gemacht — und niemand hat gekauft." / "Jemand hat mir mal gesagt: Du bist zu nett um wirklich zu verkaufen."
+NO-GOs: Kein Erfolgseinstieg. Nie "Ich habe gelernt dass...". Nie "Nicht weil... sondern weil".`,
+
+    neugier: `TYP: Neugier & Frage.
+Öffne eine Lücke die geschlossen werden muss — ohne Auflösung. Oder: eine Frage die sie nicht ignorieren kann weil sie die Antwort fürchtet oder will.
+MASSSTAB: "Es gibt einen Grund warum deine Brand nicht zieht. Er liegt nicht im Content." / "Warum kaufen manche Coaches aus dem Schlaf — und andere nicht?"
+NO-GOs: Kein "Du wirst nicht glauben...". Kein "Wusstest du dass...". Kein leerer Cliffhanger.`,
+
+    provokation: `TYP: Provokation, Statement & Meinung.
+Polarisierende Aussage mit Haltung — oder ein Satz der alleine steht ohne Erklärung. Wer zustimmt bleibt, wer widerspricht kommentiert. Kein "Ich finde" oder "Vielleicht" — das entschärft alles.
+MASSSTAB: "Mehr Content ist nicht die Lösung. Es ist das Problem." / "Du bist nicht zu teuer. Du bist nur noch nicht klar." / "Nur Feiglinge schreiben ihre Texte mit ChatGPT."
+NO-GOs: Alles was sich erklärt oder entschuldigt. Alles was niemanden stört. Keine Absicherung.`,
+
+    paradox: `TYP: Paradox.
+Zwei Dinge die sich widersprechen und trotzdem beide wahr sind. Reframe-Variante: "Du hasst nicht X — du hasst Y."
+MASSSTAB: "Du bist reflektiert. Du kennst deine Muster. Und trotzdem bleibst du stehen wenn es um dich geht." / "Ich habe ein Rich Girl Business — aber auch ne Poor Girl Energy."
+NO-GOs: Kein aufgesetzter Kontrast. Beide Teile müssen wahr sein.`,
+
+    emotional: `TYP: Emotionale Offenheit.
+Der Moment der eigentlich zu persönlich ist — genau deshalb bleibt er hängen. Kein Happy End als Einstieg. Roh, konkret, mit Würde.
+MASSSTAB: "Letzte Woche habe ich um mich selbst getrauert." / "Ich hatte Angst dass niemand kauft. Dann hat niemand gekauft."
+NO-GOs: Kein sofortiges "aber dann habe ich gelernt". Kein Selbstmitleid ohne Würde.`,
+
+    zahlen: `TYP: Ergebnis & Zahlen.
+Niemals runde Zahlen — 11 statt 10, 3.168 statt 3.000. Krumme Zahlen = sofortige Glaubwürdigkeit. Negativstart möglich: schwaches Ergebnis zuerst, starkes danach.
+MASSSTAB: "80.000 Euro netto in 25 Tagen." / "11 Anfragen in 3 Wochen. Kein einziger Werbepost." / "40 Angebote erstellt. Das habe ich dabei gelernt."
+NO-GOs: Runde Zahlen. Zahl ohne Kontext.`,
+
+  
 };
 
 function stripMarkdown(text) {
@@ -1089,7 +849,6 @@ async function generateHooks() {
     paradox: '⚡ Paradox',
     emotional: '💙 Emotionale Offenheit',
     zahlen: '📊 Ergebnis & Zahlen',
-    emotional_offenheit: '💎 Starkes Statement / Meinung',
   };
 
   for (let t = 0; t < selectedTypes.length; t++) {
@@ -1118,8 +877,9 @@ async function generateHooks() {
       `${profile.audience}`,
       `Wichtig: Schreibe aus IHRER Perspektive heraus — ihre Wörter, ihre konkreten Situationen. Nie über sie, sondern als ob du sie kennst.`,
       ``,
-      `EXPERTISE UND GLAUBWÜRDIGKEIT:`,
+      `EXPERTISE, GLAUBWÜRDIGKEIT & ANGEBOT:`,
       profile.expertise,
+      `Nutze Expertise und Angebot als konkreten Anker — spezifische Zahlen, echte Erfahrungen, und das Hauptangebot wo relevant direkt benennen.`,
       ``,
       `BRAND VOICE — DER TON IST NICHT VERHANDELBAR:`,
       `${profile.voice}`,
@@ -1203,9 +963,10 @@ async function generateHooks() {
       `Generiere genau ${numPerType} Hook(s). Jeder ist eigenständig und stark.`,
       ``,
       `AUSGABEFORMAT (strikt — kein Markdown, keine Nummerierung wie # HOOK 2):`,
-      `HOOK: [Hook-Text]`,
-      `SUBLINE: [Optional]`,
-      `WARUM: [1–2 Sätze warum dieser Hook funktioniert]`,
+      `HOOK: [Hook-Text — maximal 1-2 Sätze, kein Wort mehr]`,
+      `SUBLINE: [Optional — nur wenn ein kurzer Anschluss-Satz den Hook schärfer macht]`,
+      `LABEL: [${goalInfo.label} | Hebel-Name]`,
+      `WARUM: [Genau 1 Satz — warum dieser Hook funktioniert. Konkret, kein Allgemeinplatz.]`,
       `---`,
       ``,
       `Jetzt die Hooks:`
@@ -1231,11 +992,13 @@ async function generateHooks() {
       placeholder.remove();
 
       blocks.forEach((block, i) => {
-        const hookMatch    = block.match(/HOOK:\s*([\s\S]*?)(?=SUBLINE:|WARUM:|$)/i);
-        const sublineMatch = block.match(/SUBLINE:\s*([\s\S]*?)(?=WARUM:|$)/i);
+        const hookMatch    = block.match(/HOOK:\s*([\s\S]*?)(?=SUBLINE:|LABEL:|WARUM:|$)/i);
+        const sublineMatch = block.match(/SUBLINE:\s*([\s\S]*?)(?=LABEL:|WARUM:|$)/i);
+        const labelMatch   = block.match(/LABEL:\s*([\s\S]*?)(?=WARUM:|$)/i);
         const warumMatch   = block.match(/WARUM:\s*([\s\S]*?)$/i);
         const hookText    = hookMatch    ? stripMarkdown(hookMatch[1].trim()) : '';
         const sublineText = sublineMatch ? stripMarkdown(sublineMatch[1].trim()) : '';
+        const labelText   = labelMatch   ? stripMarkdown(labelMatch[1].trim()) : '';
         const warumText   = warumMatch   ? stripMarkdown(warumMatch[1].trim()) : '';
         if(!hookText) return;
         const cleanHook = hookText.replace(/^\([^)]+\)\s*/, '');
@@ -1249,6 +1012,7 @@ async function generateHooks() {
           <div class="result-type">${typeLabel}</div>
           <div class="hook-main">${renderMarkdown(cleanHook)}</div>
           ${sublineText ? `<div class="hook-sub">↳ ${renderMarkdown(sublineText)}</div>` : ''}
+          ${labelText ? `<div style="font-size:10px;font-weight:700;color:var(--hot);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">${labelText}</div>` : ''}
           ${warumText ? `<div class="hook-why"><div class="hook-why-label">💡 Warum das funktioniert</div><div class="hook-why-text">${renderMarkdown(warumText)}</div></div>` : ''}
           <div class="card-actions">
             <button class="copy-btn" onclick="copyText(this, window._hookStore[${hookIndex}].hook)">Hook kopieren</button>
@@ -1398,7 +1162,7 @@ async function generateCaption() {
     `────────────────────────────────`,
     `Wer sie ist und wem sie hilft: ${profile.identity}`,
     `Wunschkundin (ihre Sprache, ihre Situation, ihr Alltag — das ist der Anker durch die gesamte Caption): ${profile.audience}`,
-    `Expertise und Glaubwürdigkeit (kann als Fundament für Story oder Aussagen dienen): ${profile.expertise}`,
+    `Expertise, Glaubwürdigkeit & Angebot (Fundament für Story, Aussagen und konkreten Angebotsbezug): ${profile.expertise}`,
     `Brand Voice (genau dieser Ton — nicht ähnlich, exakt dieser): ${profile.voice}`,
     profile.words ? `Eigene Wörter und No-Gos (ABSOLUT PFLICHT — verbotene Wörter kommen nie vor): ${profile.words}` : '',
     profile.arch ? `Archetyp: ${profile.arch.name} (${profile.arch.key}) — Emotion dahinter: ${profile.arch.emotion||''}` : '',
@@ -1494,7 +1258,7 @@ async function generateStandaloneCaption() {
     `────────────────────────────────`,
     `Wer sie ist und wem sie hilft: ${profile.identity}`,
     `Wunschkundin (ihre Sprache, ihre Situation, ihr Alltag — das ist der Anker durch die gesamte Caption): ${profile.audience}`,
-    `Expertise und Glaubwürdigkeit (kann als Fundament für Story oder Aussagen dienen): ${profile.expertise}`,
+    `Expertise, Glaubwürdigkeit & Angebot (Fundament für Story, Aussagen und konkreten Angebotsbezug): ${profile.expertise}`,
     `Brand Voice (genau dieser Ton — nicht ähnlich, exakt dieser): ${profile.voice}`,
     profile.words ? `Eigene Wörter und No-Gos (ABSOLUT PFLICHT — verbotene Wörter kommen nie vor): ${profile.words}` : '',
     profile.arch ? `Archetyp: ${profile.arch.name} (${profile.arch.key}) — Emotion dahinter: ${profile.arch.emotion||''}` : '',
