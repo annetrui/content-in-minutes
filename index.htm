@@ -229,14 +229,7 @@ textarea.invalid { border-color: #e05050 !important; }
 .sc-copy-btn.copied { background: var(--green); color: white; }
 
 /* ── ZIEL-CHIPS ── */
-.goal-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 6px; }
-.goal-chip { border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 10px; cursor: pointer; transition: all 0.18s; background: var(--cream); text-align: center; }
-.goal-chip:hover { border-color: var(--pink); background: #f7ecf2; }
-.goal-chip.selected { border-color: var(--hot); background: #f7ecf2; }
-.goal-chip.selected .goal-chip-name { color: var(--hot); }
-.goal-chip-emoji { font-size: 18px; display: block; margin-bottom: 4px; }
-.goal-chip-name { font-size: 12px; font-weight: 700; color: var(--navy); display: block; }
-.goal-chip-desc { font-size: 10px; color: var(--mid); display: block; margin-top: 2px; line-height: 1.3; }
+
 
 /* ── MIKROFON ── */
 .mic-wrap { position: relative; }
@@ -415,26 +408,7 @@ textarea.invalid { border-color: #e05050 !important; }
           <textarea id="topic" placeholder="Schreib so viel du willst — ein Satz, eine Idee, Gedanken, Kontext, eine Geschichte. Je mehr du gibst, desto besser trifft der Hook. Nicht alles muss im Hook landen, aber alles hilft zu verstehen was er treffen soll." style="min-height:80px;"></textarea>
         </div>
         <div class="card">
-          <p class="section-title" style="margin-bottom:8px;">Was ist dein Ziel mit diesem Content?</p>
-          <p style="font-size:11px;color:var(--mid);margin-bottom:12px;line-height:1.5;">Wähle genau eines — das bestimmt wie der Hook geschrieben wird.</p>
-          <div class="goal-chips" id="goalChipGrid">
-            <div class="goal-chip" data-goal="verkaufen" onclick="selectGoal(this)">
-              <span class="goal-chip-emoji">💰</span>
-              <span class="goal-chip-name">Verkaufen</span>
-              <span class="goal-chip-desc">"Ich will das. Wie kann ich kaufen?"</span>
-            </div>
-            <div class="goal-chip" data-goal="vertrauen" onclick="selectGoal(this)">
-              <span class="goal-chip-emoji">🤝</span>
-              <span class="goal-chip-name">Vertrauen aufbauen</span>
-              <span class="goal-chip-desc">"Das will ich auch."</span>
-            </div>
-            <div class="goal-chip" data-goal="kompetenz" onclick="selectGoal(this)">
-              <span class="goal-chip-emoji">🎓</span>
-              <span class="goal-chip-name">Kompetenz zeigen</span>
-              <span class="goal-chip-desc">"Die weiß wovon sie spricht."</span>
-            </div>
-          </div>
-          <div style="height:16px;"></div>
+
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
             <p class="section-title" style="margin-bottom:0;">Welche Hook-Typen?</p>
             <span id="chip-counter" style="font-size:11px;color:var(--mid);font-weight:500;">0 / 5 gewählt</span>
@@ -682,7 +656,7 @@ function resetHooks() {
   document.getElementById('results').innerHTML = '';
   document.getElementById('hooks-hint').style.display = 'none';
   document.querySelectorAll('.hook-chip').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.goal-chip').forEach(c => c.classList.remove('selected'));
+
   updateCounter();
   document.getElementById('topic').focus();
 }
@@ -696,33 +670,7 @@ function getSelectedTypes() {
   return [...document.querySelectorAll('.hook-chip.active')].map(c => c.dataset.type);
 }
 
-function selectGoal(chip) {
-  document.querySelectorAll('.goal-chip').forEach(c => c.classList.remove('selected'));
-  chip.classList.add('selected');
-}
 
-function getSelectedGoal() {
-  const chip = document.querySelector('.goal-chip.selected');
-  return chip ? chip.dataset.goal : null;
-}
-
-const goalDescriptions = {
-  verkaufen: {
-    label: 'VERKAUFEN',
-    ziel: 'Sie denkt: "Ich will das. Wie kann ich kaufen?" — Der Hook erzeugt einen konkreten Kaufimpuls. Direktheit, Dringlichkeit, klare Entscheidung. Kein "vielleicht", kein "irgendwann". Jetzt.',
-    hebel: 'Nutze: Verknappung ("begrenzte Plätze"), Dringlichkeit ("nur noch bis..."), Verlustangst (was sie konkret verliert wenn sie jetzt nicht handelt), Sozialer Beweis mit konkreten Zahlen. Ein Verkaufs-Hook klingt entschieden — nicht einladend.'
-  },
-  vertrauen: {
-    label: 'VERTRAUEN AUFBAUEN / DESIRE WECKEN',
-    ziel: 'Sie denkt: "Das will ich auch." — Der Hook zeigt einen Zustand, eine Transformation oder ein Leben das sie will. Kein Angebot, kein Pitch — nur das Bild. Sie soll sich selbst darin sehen.',
-    hebel: 'Nutze: Zugehörigkeit ("Frauen die X gemacht haben"), Gegenseitigkeit (gib zuerst eine Erkenntnis), Sozialer Beweis (echte Ergebnisse anderer), Konsistenz (knüpf an was sie bereits will). Ein Vertrauens-Hook ist warm, nicht drängend.'
-  },
-  kompetenz: {
-    label: 'KOMPETENZ ZEIGEN',
-    ziel: 'Sie denkt: "Die weiß wovon sie spricht." — Der Hook beweist Expertise, er behauptet sie nicht. Spezifische Zahlen, echte Erfahrungen, konkrete Ergebnisse. Kein "Ich bin Expertin" — sondern der Beweis dafür.',
-    hebel: 'Nutze: Autorität (spezifische Erfahrung, krumme Zahlen), Sozialer Beweis (was Kundinnen erreicht haben — konkret), Details die niemand erfinden würde. Ein Kompetenz-Hook klingt ruhig und präzise — nicht überzeugen wollend.'
-  }
-};
 
 function updateCounter() {
   const n = getSelectedTypes().length;
@@ -1012,10 +960,7 @@ async function generateHooks() {
   const topic = document.getElementById('topic').value.trim();
   if(!topic) { showToast('Gib zuerst ein Thema ein 💖'); return; }
   const selectedTypes = getSelectedTypes();
-  const selectedGoal = getSelectedGoal();
-  if(!selectedGoal) { showToast('Wähle zuerst dein Ziel 💖'); return; }
   if(selectedTypes.length === 0) { showToast('Wähle mindestens einen Hook-Typ 💖'); return; }
-  const goalInfo = goalDescriptions[selectedGoal];
 
   const btn = document.getElementById('generateBtn');
   const results = document.getElementById('results');
@@ -1104,6 +1049,32 @@ async function generateHooks() {
       ``,
       `════════════════════════════════`,
       ``,
+      `════════════════════════════════`,
+      `SCHRITT 0 — BEVOR DU SCHREIBST:`,
+      `════════════════════════════════`,
+      ``,
+      `Lies alle Profildaten und das Thema zusammen. Beantworte intern diese Fragen bevor du eine einzige Zeile schreibst:`,
+      ``,
+      `WER SCHREIBT:`,
+      `- Was macht sie zur Expertin für dieses Thema? Was hat sie selbst erlebt das sie glaubwürdig macht?`,
+      `- Wie klingt sie? Welche Wörter benutzt sie? Was darf nie vorkommen?`,
+      ``,
+      `WER LIEST:`,
+      `- Wer ist die Wunschkundin konkret — aus den Profildaten, nicht generisch?`,
+      `- In welchem konkreten Moment ihres Alltags taucht dieses Thema auf?`,
+      `- Wo ist sie gerade? Was tut sie genau? Was denkt sie — aber sagt es nie laut?`,
+      `- Was fühlt sie in diesem Moment?`,
+      ``,
+      `VERWANDLE DANN:`,
+      `- Abstrakt → Konkret`,
+      `- Aussage → Szene`,
+      `- Thema → Moment`,
+      `- Information → Emotion`,
+      ``,
+      `Erst wenn du die Szene vor dir siehst — in der Sprache der Schreiberin, aus der Welt der Wunschkundin, zum konkreten Thema — dann schreibst du den Hook. Nicht vorher.`,
+      ``,
+      `════════════════════════════════`,
+      ``,
       `────────────────────────────────`,
       `PROFIL DER SCHREIBERIN`,
       `────────────────────────────────`,
@@ -1131,14 +1102,6 @@ async function generateHooks() {
       `"${topic}"`,
       `Das ist nicht dein Hook — das ist dein Ausgangspunkt. Destilliere daraus eine konkrete Szene, einen Moment, ein Bild. Paraphrasiere das Thema NICHT — verwandle es in etwas das man sieht und fühlt. Bleib beim Kern der Aussage, aber zeige ihn als Filmszene.`,
       `────────────────────────────────`,
-      ``,
-      `════════════════════════════════`,
-      `ZIEL DIESES HOOKS: ${goalInfo.label}`,
-      `${goalInfo.ziel}`,
-      `${goalInfo.hebel}`,
-      ``,
-      `WICHTIG: Das Ziel ist nicht optional. Jeder Hook muss dieses eine Ziel erfüllen — nicht ein anderes. Ein Hook der für "Kompetenz zeigen" geschrieben wird klingt anders als einer für "Verkaufen". Der Unterschied muss spürbar sein.`,
-      `════════════════════════════════`,
       ``,
       `LÄNGE: Maximal 1–2 Sätze. Kein längerer Hook. Kürze ist Stärke.`,
       `────────────────────────────────`,
@@ -1217,7 +1180,7 @@ async function generateHooks() {
       `AUSGABEFORMAT (strikt — kein Markdown, keine Nummerierung wie # HOOK 2):`,
       `HOOK: [Hook-Text — maximal 1-2 Sätze, kein Wort mehr]`,
       `SUBLINE: [Optional — nur wenn ein kurzer Anschluss-Satz den Hook schärfer macht]`,
-      `LABEL: [${goalInfo.label} | Hebel-Name]`,
+      `LABEL: [Hebel-Name]`,
       `WARUM: [Genau 1 Satz — warum dieser Hook funktioniert. Konkret, kein Allgemeinplatz.]`,
       `---`,
       ``,
