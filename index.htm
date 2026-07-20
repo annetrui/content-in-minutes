@@ -415,12 +415,13 @@ textarea.invalid { border-color: #e05050 !important; }
           </div>
           <p style="font-size:11px;color:var(--mid);margin-bottom:12px;line-height:1.5;">Wähle bis zu 5 Typen — pro Typ wird ein Hook generiert. Mindestens 1 Pflicht.</p>
           <div class="hook-types" id="hookChipGrid">
-            <div class="hook-chip" data-type="kopf"><div class="chip-name">🧠 Im Kopf der Wunschkundin</div><div class="chip-desc">Sie liest es und denkt: Das bin ich.</div></div>
+            <div class="hook-chip" data-type="kopf"><div class="chip-name">🌍 Die Welt der Wunschkundin</div><div class="chip-desc">Ihre Gedanken, ihr Alltag, Szenen die treffen</div></div>
             <div class="hook-chip" data-type="ich"><div class="chip-name">🪞 Ich & Geschichte</div><div class="chip-desc">Dein echter Moment — ungeschönt oder roh</div></div>
             <div class="hook-chip" data-type="neugier"><div class="chip-name">🔍 Neugier & Frage</div><div class="chip-desc">Lücke öffnen die geschlossen werden muss</div></div>
             <div class="hook-chip" data-type="provokation"><div class="chip-name">🔥 Provokation & Statement</div><div class="chip-desc">Haltung, Meinung, starker Satz — klar ausgesprochen</div></div>
             <div class="hook-chip" data-type="paradox"><div class="chip-name">⚡ Paradox</div><div class="chip-desc">Zwei Wahrheiten die sich widersprechen</div></div>
             <div class="hook-chip" data-type="zahlen"><div class="chip-name">📊 Ergebnis & Zahlen</div><div class="chip-desc">So spezifisch dass es nicht erfunden wirkt</div></div>
+            <div class="hook-chip" data-type="kunde"><div class="chip-name">🏆 Kundenerfolge</div><div class="chip-desc">Sie oder Meine Kundin — echter Beweis</div></div>
             <div class="hook-chip" data-type="howto"><div class="chip-name">🎯 How-to-Formel</div><div class="chip-desc">Ergebnis vorne, Weg als Bonus</div></div>
 
           </div>
@@ -699,227 +700,184 @@ document.querySelectorAll('.hook-chip').forEach(chip => {
 // ─────────────────────────────────────────────
 const hookDefs = {
 
-  kopf: `IM KOPF DER WUNSCHKUNDIN
-
-PERSPEKTIVE: AUS DER WUNSCHKUNDIN heraus. Die Schreiberin kommt NICHT vor — kein "Ich", kein "mir", kein "meine Kundin".
-SELBST-CHECK: Kommt die Schreiberin vor? Wenn ja, falscher Typ — Hook neu schreiben.
-
-FORMEL: Konkrete Alltagssituation + stiller Gedanke den sie nie laut sagt.
-PFLICHT: Zeige die Szene — Ort, Handlung, Moment. Nicht das Problem benennen. Den Moment zeigen in dem das Problem passiert.
-
-SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
-Verschiedene Einstiegspunkte aus IHRER Perspektive — konkret auf Wunschkundin und Thema aus den Profildaten:
-- Konkrete Momente: Wann passiert das? Wo ist sie gerade?
-- Stille Gedanken: Was denkt sie, sagt es aber nie laut?
-- Frustrierende Erkenntnisse: Was merkt sie immer wieder?
-- Szenen beim Tun: Was tut sie gerade genau?
-- Vergleiche: Was sieht sie bei anderen die sie stört?
-
-ABSTRAKT → KONKRET — mach aus dem Thema eine Filmszene:
-Nicht das Problem benennen — die konkrete Alltagssituation zeigen.
-Nicht: "Du hast Angst zu verkaufen."
-Sondern: "Du schreibst die Caption fertig, liest sie durch — und löschst den einen Satz der zu direkt klingt."
-Nicht: "Du vergleichst dich mit anderen."
-Sondern: "Du öffnest Instagram, schaust 20 Minuten zu wie andere verkaufen, und schließt die App wieder, ohne einen einzigen Beitrag gepostet zu haben."
-Formel: Problem → konkrete Alltagsszene + Emotion + Wiedererkennung
-
-Beispiele für diese Denkrichtung — nicht kopieren, diese Vielfalt und Konkretheit für das eigene Thema ableiten:
-"Du liest zum dritten Mal einen Post über Trigger und verstehst kein Wort. Postest trotzdem weiter."
-"Du schreibst deine Caption fertig, liest sie durch — und löschst den einen Satz der zu direkt klingt."
-"Du hast 15 Karteikarten mit Marketing-Begriffen. Angewendet hast du noch keinen einzigen."
-"Du hast Angst, zu verkäuferisch zu klingen. Also klingst du gar nicht."
-"Deine letzten drei Posts waren informativ, hilfreich, gut gemacht. Verkauft hat keiner davon irgendwas."
-
-SCHRITT 2 — SCHREIBEN:
-Jeden Einstiegspunkt als Filmszene schreiben. Verschiedene Satzlängen, verschiedene Rhythmen. Nie zweimal denselben Satzbau.
-
-NO-GOs: Die Schreiberin kommt nicht vor. Kein generisches Gefühl ohne Szene. Nie "Nicht weil... sondern weil". Kein Coaching-Jargon. Nie abstrakt wenn konkret möglich.`,
-
-  ich: `ICH & GESCHICHTE (inkl. Emotionale Offenheit)
-
-PERSPEKTIVE: Die SCHREIBERIN — ihr eigener Moment, ihre eigene Geschichte.
-SELBST-CHECK: Ist "Ich" die Schreiberin selbst? Gehört die Geschichte einer Kundin ohne eigene Reaktion — falscher Typ.
+  kopf: `DIE WELT DER WUNSCHKUNDIN
 
 ZWEI SPIELARTEN — beide gehören zu diesem Typ:
-A) MIT WENDUNG: Ehrlicher Moment + Wendung oder offene Lücke. Der Wendepunkt macht den Hook.
-B) EMOTIONAL ROH: Echter, unangenehmer Moment ohne sofortige Auflösung. Die Lücke lassen. Kein Happy End als Einstieg.
-PFLICHT: Der Moment muss konkret sein — wann genau, was genau, wo genau. Keine abstrakten Beschreibungen von Gefühlen.
+
+A) IHRE GEDANKEN: Was denkt sie — aber sagt es nie laut? Ihr innerer Monolog, stille Vorwürfe, heimliche Zweifel. Sie liest es und denkt: "Woher weiß die das?"
+
+B) IHRE ALLTAGSMOMENTE: Konkrete Szenen aus ihrem Leben. Wiederkehrende Situationen, Gewohnheiten, Momente die wehtun. Kurz, hart, sofort erkennbar.
+
+PERSPEKTIVE: AUS DER WUNSCHKUNDIN heraus. Die Schreiberin kommt NICHT vor.
+SELBST-CHECK: Kommt die Schreiberin vor? Wenn ja — falscher Typ.
 
 SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
-Verschiedene Einstiegspunkte aus der Geschichte der Schreiberin — konkret auf Expertise, Weg und Profildaten:
-- Momente davor: Was dachte sie bevor sie es wusste?
-- Momente danach: Was hat sich verändert?
-- Peinliche oder schmerzhafte Erkenntnisse
-- Wendepunkte: Was hat alles verändert?
-- Schamgefühle und Zweifel: Was hat sie sich nie getraut?
-- Falsches Denken: Welche Überzeugung hat sie lange mit sich getragen?
-- Der härteste Moment: Was war am schwersten?
+Brainstorme 8-10 verschiedene Momente in denen das Thema im Leben der Wunschkundin auftaucht:
+- Nicht nur auf Social Media — sondern überall in ihrem Leben
+- Morgens, abends, beim Einschlafen, beim Einkaufen
+- Im Gespräch mit dem Partner, mit sich selbst, mit Kundinnen
+- Was sie kauft, was sie löscht, was sie verschiebt, was sie vermeidet
+- Was sie anderen erklärt, was sie sich selbst erklärt
+- Konkrete Orte: Küche, Auto, Badezimmer, Schreibtisch, Bett
+- Wiederkehrende Gewohnheiten die sie nicht ändert
+- Momente wo sie vergleicht, zweifelt, abbricht
 
-ABSTRAKT → KONKRET — mach aus dem Moment eine Filmszene:
-Nicht: "Ich hatte Angst zu verkaufen."
-Sondern: "Ich hab einen Post gelöscht weil er mir zu verkäuferisch vorkam. Er war einfach nur ehrlich."
-Nicht: "Ich war unsicher."
-Sondern: "Ich saß nach dem zehnten Post ohne Reaktion da und hab mich gefragt ob ich einfach zu schlecht darin bin."
-Formel: Emotion → konkrete Szene + Konsequenz + Wiedererkennung
+Wähle dann die 2-3 stärksten — die die meisten kennen aber niemand bisher so benannt hat.
 
-Beispiele für diese Denkrichtung — nicht kopieren, auf echte Geschichte der Schreiberin anpassen:
-"Ich hab mein erstes Angebot komplett unterpreist, weil ich dachte Sympathie reicht zum Verkaufen."
-"Ich dachte, Verkaufen ist Talent. Bis mir eine Freundin gesagt hat: nein, das ist Handwerk."
-"Es gab einen Punkt an dem ich fast aufgehört hab — weil ich dachte, mir fehlt das Verkäufer-Gen."
-"Ich hab mich klein gemacht in meinen eigenen Captions, aus Angst zu viel zu wollen."
-"Ich hab meine Preise nie laut ausgesprochen, aus Angst dass jemand lacht."
-"Drei Jahre Content. Null Strategie dahinter. Ich hab einfach gehofft, dass Konstanz reicht."
+ABSTRAKT → KONKRET:
+Nicht das Problem benennen — den Moment zeigen in dem das Problem lebt.
+"Jeden Abend Tränen beim Kämmen im Badezimmer." — nicht "Du hast Probleme mit Haarpflege."
+"Du kaufst Markenklamotten aber schickst dein Kind mit Vogelnest zur Schule." — nicht "Du vernachlässigst Haarpflege."
+"Mit 8 höre ich zum ersten Mal: Über Geld spricht man nicht." — nicht "Du hast eine schwierige Beziehung zu Geld."
 
 SCHRITT 2 — SCHREIBEN:
-Mal mit Zahl, mal mit offenem Ende, mal kurz und direkt, mal mit Wendung, mal roh ohne Auflösung. Nie denselben Satzbau zweimal.
+Spielart A: Innerer Gedanke, kurz, direkt, trifft.
+Spielart B: Szene, Ort, Handlung, Emotion. Kurz und hart.
+Verschiedene Längen. Mal ein Satz, mal zwei. Nie Romane.
 
-NO-GOs: Kein Erfolgseinstieg. Nie "Ich habe gelernt dass...". Nie die Geschichte einer Kundin ohne eigene Perspektive. Kein Selbstmitleid ohne Würde.`,
+NO-GOs: Die Schreiberin kommt nicht vor. Kein generisches Gefühl ohne Szene. Kein Coaching-Jargon.`,
+
+  ich: `ICH & GESCHICHTE
+
+PERSPEKTIVE: Die SCHREIBERIN — ihr eigener Moment, ihre eigene Geschichte.
+SELBST-CHECK: Ist "Ich" die Schreiberin selbst? Wenn die Geschichte einer Kundin — falscher Typ, das ist Kundenerfolge.
+
+FORMEL: Beginnt mit "Ich" oder bezieht sich direkt auf einen Moment mit mir / aus meiner Geschichte.
+
+SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
+Brainstorme verschiedene Einstiegspunkte aus der Geschichte der Schreiberin:
+- Momente davor: Was dachte sie bevor sie es wusste?
+- Peinliche oder schmerzhafte Erkenntnisse
+- Wendepunkte die alles verändert haben
+- Schamgefühle, Zweifel, falsche Überzeugungen
+- Konkrete Zahlen, Daten, Orte aus ihrer Geschichte
+
+ABSTRAKT → KONKRET:
+"Mit 8 höre ich zum ersten Mal: Über Geld spricht man nicht — und bin deshalb mit 16 bereits verschuldet."
+"Wie es ist, immer die Fette zu sein. Und was sich verändert hat, seit ich es nicht mehr bin."
+"Ich hab mein erstes Angebot komplett unterpreist, weil ich dachte Sympathie reicht."
+
+SCHRITT 2 — SCHREIBEN:
+Mal mit Zahl, mal mit offenem Ende, mal kurz und direkt, mal mit Wendung, mal roh ohne Auflösung.
+
+NO-GOs: Kein Erfolgseinstieg. Nie "Ich habe gelernt dass...". Nicht die Geschichte einer Kundin.`,
 
   neugier: `NEUGIER & FRAGE
 
-PERSPEKTIVE: Neutral — steht für sich. Weder Wunschkundin noch Schreiberin als Stimme.
-
-FORMEL: Frage oder Andeutung die eine Lücke öffnet — Auflösung bewusst weglassen.
+PERSPEKTIVE: Neutral — steht für sich.
 
 SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
-Verschiedene Lücken und Fragen im Thema — konkret auf Wunschkundin und Thema aus den Profildaten:
 - Was weiß die Wunschkundin nicht, will es aber wissen?
 - Welche Fragen stellen sich die meisten aber nie laut?
 - Welche Geheimnisse stecken im Thema?
 - Was überrascht auch Fortgeschrittene noch?
-- Was passiert im Verborgenen das relevant ist?
 
 ABSTRAKT → KONKRET:
-Nicht: "Es gibt Unterschiede zwischen erfolgreichen und weniger erfolgreichen Coaches."
-Sondern: "Warum kauft die eine Frau aus dem Bauch heraus nach nur einem Post — und die andere erklärt sich seit Wochen zu Tode?"
-
-Beispiele für diese Denkrichtung — nicht kopieren, Vielfalt für das eigene Thema ableiten:
 "Warum kauft die eine Frau aus dem Bauch heraus nach nur einem Post — und die andere erklärt sich seit Wochen zu Tode?"
-"Es gibt einen Trigger den die meisten in ihrem Content komplett übersehen."
-"Warum verkaufen manche Captions, obwohl sie kein einziges Verkaufswort enthalten?"
-"Du hast nur die ersten zwei Sätze. Weißt du was in denen passieren muss?"
-"Was passiert eigentlich in ihrem Kopf, bevor sie auf Kaufen klickt?"
+"Sie postet eine Story. 2 Minuten später macht sie einen Sale. Wie geht das?"
 
 SCHRITT 2 — SCHREIBEN:
 Mal direkte Frage, mal Geheimnis-Formel, mal Beobachtung. Auflösung immer weglassen.
 
-NO-GOs: Kein "Du wirst nicht glauben...". Kein "Wusstest du dass...". Kein leerer Cliffhanger ohne Anker.`,
+NO-GOs: Kein "Wusstest du dass...". Kein leerer Cliffhanger.`,
 
   provokation: `PROVOKATION & STATEMENT
 
-PERSPEKTIVE: Die Haltung der Schreiberin — klar, direkt, ohne Absicherung. Oder ein Satz der einfach dasteht.
+PERSPEKTIVE: Die Haltung der Schreiberin — klar, ohne Absicherung.
 
 SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
-Verschiedene Haltungen und Überzeugungen zum Thema — konkret auf Brand Voice und Positionierung:
 - Welche verbreiteten Überzeugungen sind falsch?
-- Welche unbequemen Wahrheiten stecken im Thema?
 - Was würden die meisten nie so direkt sagen?
-- Welche ruhigen Überzeugungen stehen einfach so?
 - Was reibt, weil es wahr ist?
+- Welche ruhige Überzeugung steht einfach so?
 
 ABSTRAKT → KONKRET:
-Nicht: "Fachwissen allein reicht nicht."
-Sondern: "Fachwissen verkauft nicht. Klarheit verkauft."
-Nicht: "Viele machen zu viel."
-Sondern: "Die meisten überladen ihren Content mit Wissen, statt mit einem Satz der wehtut. Genau das ist der Fehler."
-
-Beispiele für diese Denkrichtung — nicht kopieren, auf echte Haltung der Schreiberin anpassen:
 "Fachwissen verkauft nicht. Klarheit verkauft."
-"Niemand kauft weil du authentisch bist. Sie kaufen weil du den richtigen Nerv triffst."
-"Wer Angst hat verkäuferisch zu klingen, verkauft am Ende gar nichts."
-"Du musst nicht mehr wissen. Du musst aufhören, dich hinter Fachbegriffen zu verstecken."
-"Du brauchst keine 10 Trigger. Du brauchst einen, den du wirklich verstehst."
+"Du schaufelst den ganzen Tag drei Kaffee, zwei Proteinriegel und McDonald's rein und erwartest dass zwei Kapseln Magnesium deinen Körper retten."
 
 SCHRITT 2 — SCHREIBEN:
-Mal scharf und provokant, mal ruhig und klar. Nie "Ich finde" oder "Vielleicht". Kein Erklären danach.
+Mal scharf, mal ruhig und klar. Nie "Ich finde" oder "Vielleicht".
 
-NO-GOs: Alles was sich erklärt. Alles was sich entschuldigt. Nichts das niemanden stört.`,
+NO-GOs: Alles was sich erklärt oder entschuldigt.`,
 
   paradox: `PARADOX
 
-PERSPEKTIVE: Über die Wunschkundin ODER die Schreiberin — je was stärker trifft.
-
-FORMEL: Starke Aussage + "Und trotzdem..." / "Aber dann..." — zwei Wahrheiten die beide stimmen.
+PERSPEKTIVE: Über die Wunschkundin ODER die Schreiberin.
 
 SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
-Verschiedene Widersprüche im Thema — konkret auf Wunschkundin und Situation:
 - Wo widerspricht sie sich selbst?
 - Was stimmt gleichzeitig und schließt sich scheinbar aus?
-- Wo tut sie das Gegenteil von dem was sie will?
 - Welche Ironie steckt im Thema?
 
 ABSTRAKT → KONKRET:
-Nicht: "Du weißt viel aber setzt es nicht um."
-Sondern: "Du liest ständig über Psychologie im Marketing. Und schreibst trotzdem noch aus dem Bauch."
-
-Beispiele für diese Denkrichtung — nicht kopieren, Widersprüche aus dem Thema ableiten:
+"Sie hat verkaufen gehasst. Jetzt kann sie sich vor Anfragen kaum retten."
 "Du hast Angst zu viel zu verkaufen. Dabei verkaufst du gerade gar nichts."
-"Je mehr du über Verkaufspsychologie liest, desto unsicherer wirst du beim Schreiben."
-"Du willst nicht pushy wirken. Also wirkst du gar nicht — und das ist auch nicht besser."
-"Du denkst du brauchst mehr Wissen. Dabei brauchst du nur den Mut das wenige anzuwenden das du schon hast."
 
 SCHRITT 2 — SCHREIBEN:
-Beide Teile müssen wahr sein. Mal kurz, mal aufbauend. "Und trotzdem..." als Gelenk.
+Beide Teile müssen wahr sein. "Und trotzdem..." als Gelenk.
 
-NO-GOs: Kein aufgesetzter Kontrast. Beide Teile müssen wahr sein.`,
+NO-GOs: Kein aufgesetzter Kontrast.`,
 
   zahlen: `ERGEBNIS & ZAHLEN
 
 PERSPEKTIVE: Eigene Ergebnisse ODER Kundinnen-Ergebnisse — klar erkennbar wessen.
 SELBST-CHECK: Ist klar wessen Ergebnis das ist?
 
-FORMEL: Spezifische, unrunde Zahl + Kontext der überrascht.
-
 SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
-Verschiedene Zahlen und Ergebnisse im Thema — konkret aus Expertise der Schreiberin:
-- Welche konkreten Zahlen stecken im Thema?
+- Welche konkreten, unrunden Zahlen stecken im Thema?
 - Welche kleinen Änderungen hatten große Wirkung?
 - Welche Zeitangaben überraschen?
-- Was lässt sich in einer unrunden Zahl ausdrücken?
 
 ABSTRAKT → KONKRET:
-Nicht: "Kleine Änderungen können große Wirkung haben."
-Sondern: "7 Wörter gestrichen, 3 Buchungen mehr."
-Nicht: "Regelmäßigkeit zahlt sich aus."
-Sondern: "40 Posts ohne Strategie. 1 mit — und der hat mehr gebracht als alle anderen zusammen."
-
-Beispiele für diese Denkrichtung — nicht kopieren, Zahlen aus echten Ergebnissen ableiten:
-"7 Wörter gestrichen, 3 Buchungen mehr."
-"1 Frage am Ende der Caption — 6 Antworten in der ersten Stunde."
-"40 Posts ohne Strategie. 1 mit — und der hat mehr gebracht als alle anderen zusammen."
-"5 Minuten Nachdenken über den ersten Satz — 3x mehr Reichweite als sonst."
-"0 Fachbegriffe, 1 klare Aussage — und trotzdem die beste Anfrage-Woche seit Monaten."
+"Ich schlage mir in Rom den Bauch voll — und verdiene dabei 9.408€."
+"Im Februar wollte sie ihre Selbstständigkeit hinschmeißen. Im April hat sie 12.355€ umgesetzt."
+"Sie postet eine Story. 2 Minuten später macht sie einen Sale."
 
 SCHRITT 2 — SCHREIBEN:
-Niemals runde Zahlen. Zahl braucht Kontext. Mal sehr kurz, mal mit mehr Geschichte.
+Niemals runde Zahlen. Zahl braucht Kontext. Mal sehr kurz, mal mit Geschichte.
 
-NO-GOs: Runde Zahlen. Zahl ohne Kontext. Übertreibung die niemand glaubt.`,
+NO-GOs: Runde Zahlen. Zahl ohne Kontext.`,
+
+  kunde: `KUNDENERFOLGE
+
+PERSPEKTIVE: Eine Kundin der Schreiberin — ihre Geschichte, ihr Ergebnis.
+FORMEL: Beginnt mit "Sie" oder "Meine Kundin" — nie mit "Ich".
+
+SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
+- Was hat die Kundin vorher gedacht oder gefühlt?
+- Was hat sich verändert — konkret und spezifisch?
+- Gibt es eine Zahl, einen Zeitraum, einen Wendepunkt?
+- Was ist der Kontrast zwischen vorher und nachher?
+
+SPIELARTEN:
+A) MIT ZAHL: "Im Februar wollte sie ihre Selbstständigkeit hinschmeißen. Im April hat sie 12.355€ umgesetzt."
+B) OHNE ZAHL: "Sie hat verkaufen gehasst. Jetzt kann sie sich vor Anfragen kaum retten."
+C) KURZE SZENE: "Sie postet eine Story. 2 Minuten später macht sie einen Sale."
+
+ABSTRAKT → KONKRET:
+Nicht: "Meine Kundin hatte Erfolg."
+Sondern: "Ich habe endlich die 10.000 Follower bei Instagram geknackt — und zwar ohne Reels. (Und es ging schneller als gedacht!)"
+
+SCHRITT 2 — SCHREIBEN:
+Vorher/Nachher Kontrast. Konkrete Details. Kein generisches Lob.
+
+NO-GOs: Kein "Meine Kundin war so glücklich". Kein vages Ergebnis. Nie mit "Ich" beginnen — das ist Ich & Geschichte.`,
 
   howto: `HOW-TO-FORMEL
 
 PERSPEKTIVE: Die Schreiberin zeigt einen Weg — das Ergebnis steht vorne.
 
-FORMEL: Wie du [Ergebnis erreichst] ohne [Schmerz/Aufwand]. Ergebnis vorne, Weg als Bonus.
-
 SCHRITT 1 — BRAINSTORMING (intern, nicht ausgeben):
-Verschiedene Ergebnisse und Wege im Thema — konkret auf Angebot und Wunschkundin:
-- Welche Ergebnisse verspricht das Thema?
+- Welche verschiedenen Ergebnisse verspricht das Thema?
 - Welche Schmerzen oder Aufwände können wegfallen?
 - Was will die Wunschkundin ohne X tun zu müssen?
 
 ABSTRAKT → KONKRET:
-Nicht: "Wie du besser verkaufst."
-Sondern: "Wie du einen Post schreibst der verkauft, obwohl er sich nicht wie Werbung anfühlt."
-
-Beispiele für diese Denkrichtung — nicht kopieren, auf Angebot und Wunschkundin anpassen:
 "Wie du Verkaufspsychologie nutzt, ohne einen einzigen Fachbegriff zu kennen."
-"Wie du aufhörst dich zu erklären — und trotzdem verstanden wirst."
-"Wie du in drei Sätzen zeigst dass du die Richtige bist — ohne Lebenslauf."
-"Wie du einen Post schreibst der verkauft, obwohl er sich nicht wie Werbung anfühlt."
-"Wie du dein Bauchgefühl mit einer echten Struktur kombinierst — ohne steif zu klingen."
+"Wie du aufhörst dich zu erbiegen — und trotzdem mehr verkaufst."
 
 SCHRITT 2 — SCHREIBEN:
-Ergebnis vorne. Kein "5 Schritte zu...". Nicht länger als 2 Sätze.
+Ergebnis vorne. Kein "5 Schritte zu...". Darf etwas länger sein wenn nötig.
 
 NO-GOs: Kein Coaching-Jargon. Kein generisches Versprechen.`,
 
@@ -973,12 +931,13 @@ async function generateHooks() {
 
   const numPerType = hooksPerType(selectedTypes.length);
   const typeLabels = {
-    kopf: '🧠 Im Kopf der Wunschkundin',
+    kopf: '🌍 Die Welt der Wunschkundin',
     ich: '🪞 Ich & Geschichte',
     neugier: '🔍 Neugier & Frage',
     provokation: '🔥 Provokation & Statement',
     paradox: '⚡ Paradox',
     zahlen: '📊 Ergebnis & Zahlen',
+    kunde: '🏆 Kundenerfolge',
     howto: '🎯 How-to-Formel',
   };
 
@@ -1061,12 +1020,13 @@ async function generateHooks() {
       `Was hat sie selbst zu diesem Thema erlebt? Was macht sie glaubwürdig? Wie klingt sie — welche Wörter, welcher Rhythmus, welche No-Gos?`,
       ``,
       `2. WER LIEST — und wann genau:`,
-      `Nimm das Thema WÖRTLICH. Stell dir vor: In welchem exakten Moment erlebt die Wunschkundin genau das?`,
-      `Nicht was sie darüber denkt — sondern:`,
-      `- Wo ist sie gerade? (Zuhause, im Auto, am Handy, am Schreibtisch?)`,
-      `- Was tut sie in diesem Moment genau? (scrollt, tippt, löscht, liest, starrt?)`,
-      `- Was fühlt sie — aber sagt es nie laut?`,
-      `- Was ist das Bild das entsteht wenn man diese Szene sieht?`,
+      `Nimm das Thema WÖRTLICH. Brainstorme intern 8-10 verschiedene Momente in denen das Thema im Leben der Wunschkundin auftaucht:`,
+      `- Nicht nur auf Social Media — überall: Küche, Auto, Bett, Badezimmer, Schreibtisch`,
+      `- Morgens, abends, beim Einschlafen, beim Einkaufen, im Gespräch mit dem Partner`,
+      `- Was sie kauft, löscht, verschiebt, vermeidet`,
+      `- Wiederkehrende Gewohnheiten die sie nicht ändert`,
+      `- Momente wo sie vergleicht, zweifelt, abbricht, neu anfängt`,
+      `Wähle dann die 2-3 stärksten Momente — die die meisten kennen aber niemand bisher so direkt benannt hat.`,
       ``,
       `3. VERWANDLE:`,
       `Abstrakt → Konkret. Aussage → Szene. Thema → Moment. Information → Emotion.`,
